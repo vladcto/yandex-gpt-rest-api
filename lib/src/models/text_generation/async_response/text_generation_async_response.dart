@@ -1,5 +1,6 @@
 import 'package:yandex_gpt_rest_sdk/src/models/text_generation/async_response/generation_async_result.dart';
 
+// TODO: Need API for operations
 class TextGenerationAsyncResponse {
   final String id;
   final String description;

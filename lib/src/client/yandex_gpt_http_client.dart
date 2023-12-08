@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:yandex_gpt_rest_sdk/src/client/api_cancel_token.dart';
-import 'package:yandex_gpt_rest_sdk/src/client/api_error.dart';
+import 'package:yandex_gpt_rest_sdk/src/models/errors/api_error.dart';
 
 class YandexGptHttpClient {
   final Client client;
@@ -42,12 +42,18 @@ class YandexGptHttpClient {
       cancelToken?.detachCancellable(request);
     }
 
-    if (response.statusCode != 400) {
+    final jsonBody = jsonDecode(response.body) as Map<String, dynamic>;
+    if (response.statusCode != 200) {
+      if (jsonBody["error"] != null) {
+        throw ContractApiError.fromJson(
+          jsonBody["error"] as Map<String, dynamic>,
+        );
+      }
       throw NetworkApiError(
         statusCode: response.statusCode,
         body: response.body,
       );
     }
-    return jsonDecode(response.body) as Map<String, dynamic>;
+    return jsonBody;
   }
 }
