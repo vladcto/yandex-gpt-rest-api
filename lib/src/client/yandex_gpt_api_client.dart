@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:yandex_gpt_rest_sdk/src/client/api_cancel_token.dart';
 import 'package:yandex_gpt_rest_sdk/src/client/yandex_gpt_api.dart';
@@ -14,8 +16,8 @@ import 'package:yandex_gpt_rest_sdk/src/utils/constants/url_paths.dart';
 class YandexGptApiClient implements YandexGptApi {
   final YandexGptHttpClient _client;
 
-  YandexGptApiClient({required String token, required String catalog})
-      : _client = YandexGptHttpClient(
+  YandexGptApiClient({required String token, String? catalog})
+      : this.withHttpClient(
           client: http.Client(),
           token: token,
           catalog: catalog,
@@ -24,11 +26,11 @@ class YandexGptApiClient implements YandexGptApi {
   YandexGptApiClient.withHttpClient({
     required http.Client client,
     required String token,
-    required String catalog,
+    String? catalog,
   }) : _client = YandexGptHttpClient(
           client: client,
           token: token,
-          catalog: catalog,
+          catalog: catalog ?? "",
         );
 
   @override
@@ -36,11 +38,13 @@ class YandexGptApiClient implements YandexGptApi {
     TextGenerationRequest request, {
     ApiCancelToken? cancelToken,
   }) async {
+    print(jsonEncode(request.toJson()));
     final res = await _client.post(
       textGenerationUri,
       body: request.toJson(),
       cancelToken: cancelToken,
     );
+    print(res);
     return TextGenerationResponse.fromJson(res);
   }
 

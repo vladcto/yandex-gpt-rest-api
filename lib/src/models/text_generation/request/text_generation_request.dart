@@ -35,8 +35,8 @@ class TextGenerationRequest {
   Map<String, dynamic> toJson() {
     return {
       "modelUri": modelUri,
-      "completionOptions": completionOptions,
-      "messages": jsonEncode(messages),
+      "completionOptions": completionOptions.toJson(),
+      "messages": messages,
     };
   }
 }

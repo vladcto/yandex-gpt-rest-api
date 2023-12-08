@@ -5,7 +5,7 @@ class CompletionOptions {
   // TODO: assert
   final int maxTokens;
 
-  CompletionOptions({
+  const CompletionOptions({
     required this.stream,
     required this.temperature,
     required this.maxTokens,
@@ -25,5 +25,13 @@ class CompletionOptions {
       temperature: double.parse(json["temperature"] as String),
       maxTokens: int.parse(json["maxTokens"] as String),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "stream": stream,
+      "temperature": temperature,
+      "maxTokens": maxTokens,
+    };
   }
 }

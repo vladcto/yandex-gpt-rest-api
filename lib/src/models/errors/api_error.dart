@@ -36,11 +36,11 @@ final class ContractApiError extends ApiError {
 
   factory ContractApiError.fromJson(Map<String, dynamic> json) {
     return ContractApiError(
-      grpcCode: int.parse(json["grpcCode"] as String),
-      httpCode: int.parse(json["httpCode"] as String),
-      code: int.parse(json["code"] as String),
+      grpcCode: json["grpcCode"] as int?,
+      httpCode: json["httpCode"] as int?,
+      code: json["code"] as int?,
       message: json["message"] as String,
-      httpStatus: json["httpStatus"] as String,
+      httpStatus: json["httpStatus"] as String?,
       details: List.of(json["details"] as List<dynamic>)
           .map((i) => i as String)
           .toList(),

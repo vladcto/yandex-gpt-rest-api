@@ -25,6 +25,11 @@ class ResultMessage {
 
   ResultMessage({required this.message, required this.status});
 
+  @override
+  String toString() {
+    return 'ResultMessage{message: $message, status: $status}';
+  }
+
   factory ResultMessage.fromJson(Map<String, dynamic> json) {
     return ResultMessage(
       message: Message.fromJson(json["message"] as Map<String, dynamic>),
