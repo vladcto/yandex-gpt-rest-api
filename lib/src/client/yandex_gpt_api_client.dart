@@ -38,13 +38,11 @@ class YandexGptApiClient implements YandexGptApi {
     TextGenerationRequest request, {
     ApiCancelToken? cancelToken,
   }) async {
-    print(jsonEncode(request.toJson()));
     final res = await _client.post(
       textGenerationUri,
       body: request.toJson(),
       cancelToken: cancelToken,
     );
-    print(res);
     return TextGenerationResponse.fromJson(res);
   }
 

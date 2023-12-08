@@ -49,7 +49,6 @@ class YandexGptHttpClient {
     final jsonBody =
         jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
     if (response.statusCode != 200) {
-      print(jsonBody);
       if (jsonBody["error"] != null) {
         throw ContractApiError.fromJson(
           jsonBody["error"] as Map<String, dynamic>,
@@ -60,6 +59,7 @@ class YandexGptHttpClient {
         body: response.body,
       );
     }
+    print(jsonBody);
     return jsonBody;
   }
 }
