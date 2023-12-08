@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:yandex_gpt_rest_sdk/src/models/text_generation/message.dart';
 import 'package:yandex_gpt_rest_sdk/src/models/text_generation/request/completion_options.dart';
 
@@ -28,5 +30,13 @@ class TextGenerationRequest {
           .map((i) => Message.fromJson(i as Map<String, dynamic>))
           .toList(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "modelUri": modelUri,
+      "completionOptions": completionOptions,
+      "messages": jsonEncode(messages),
+    };
   }
 }

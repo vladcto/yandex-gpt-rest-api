@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:yandex_gpt_rest_sdk/src/client/api_cancel_token.dart';
+import 'package:yandex_gpt_rest_sdk/src/client/api_error.dart';
 
 class YandexGptHttpClient {
   final Client client;
@@ -20,21 +22,32 @@ class YandexGptHttpClient {
         };
 
   Future<Map<String, dynamic>> post(
-    Uri url,
+    Uri url, {
+    Map<String, dynamic>? body,
     ApiCancelToken? cancelToken,
-  ) async {
-    final operation = CancelableOperation.fromFuture(
+  }) async {
+    final request = CancelableOperation.fromFuture(
       client.post(url, headers: authHeader),
     );
-    cancelToken?.attachCancellable(operation);
-    final res = operation.then(
-      (res) {
-        cancelToken?.detachCancellable(operation);
-        return jsonDecode(res.body) as Map<String, dynamic>;
-      },
-      onCancel: () => throw Exception(),
-      onError: (e, st) => throw e,
-    );
-    return await res.value;
+    cancelToken?.attachCancellable(request);
+
+    final Response response;
+    try {
+      response = await request.value;
+    } on ClientException {
+      throw NetworkApiError();
+    } on HttpException {
+      throw NetworkApiError();
+    } finally {
+      cancelToken?.detachCancellable(request);
+    }
+
+    if (response.statusCode != 400) {
+      throw NetworkApiError(
+        statusCode: response.statusCode,
+        body: response.body,
+      );
+    }
+    return jsonDecode(response.body) as Map<String, dynamic>;
   }
 }

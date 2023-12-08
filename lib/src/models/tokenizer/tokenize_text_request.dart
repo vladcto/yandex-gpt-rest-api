@@ -10,4 +10,11 @@ class TokenizeTextRequest {
       text: json["text"] as String,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "modelUrl": modelUrl,
+      "text": text,
+    };
+  }
 }

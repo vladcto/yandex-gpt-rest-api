@@ -30,4 +30,11 @@ class Message {
       text: json["text"] as String,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "role": role,
+      "text": text,
+    };
+  }
 }

@@ -36,7 +36,11 @@ class YandexGptApiClient implements YandexGptApi {
     TextGenerationRequest request, {
     ApiCancelToken? cancelToken,
   }) async {
-    final res = await _client.post(textGenerationUri, cancelToken);
+    final res = await _client.post(
+      textGenerationUri,
+      body: request.toJson(),
+      cancelToken: cancelToken,
+    );
     return TextGenerationResponse.fromJson(res);
   }
 
@@ -45,7 +49,11 @@ class YandexGptApiClient implements YandexGptApi {
     TextGenerationRequest request, {
     ApiCancelToken? cancelToken,
   }) async {
-    final res = await _client.post(textGenerationAsyncUri, cancelToken);
+    final res = await _client.post(
+      textGenerationAsyncUri,
+      body: request.toJson(),
+      cancelToken: cancelToken,
+    );
     return TextGenerationAsyncResponse.fromJson(res);
   }
 
@@ -54,7 +62,11 @@ class YandexGptApiClient implements YandexGptApi {
     EmbeddingRequest request, {
     ApiCancelToken? cancelToken,
   }) async {
-    final res = await _client.post(textEmbeddingUri, cancelToken);
+    final res = await _client.post(
+      textEmbeddingUri,
+      body: request.toJson(),
+      cancelToken: cancelToken,
+    );
     return EmbeddingResponse.fromJson(res);
   }
 
@@ -63,7 +75,11 @@ class YandexGptApiClient implements YandexGptApi {
     TextGenerationRequest request, {
     ApiCancelToken? cancelToken,
   }) async {
-    final res = await _client.post(tokenizeTextUri, cancelToken);
+    final res = await _client.post(
+      tokenizeTextUri,
+      body: request.toJson(),
+      cancelToken: cancelToken,
+    );
     return TokenizeResponse.fromJson(res);
   }
 
@@ -72,7 +88,11 @@ class YandexGptApiClient implements YandexGptApi {
     TokenizeTextRequest request, {
     ApiCancelToken? cancelToken,
   }) async {
-    final res = await _client.post(tokenizeCompletionUri, cancelToken);
+    final res = await _client.post(
+      tokenizeCompletionUri,
+      body: request.toJson(),
+      cancelToken: cancelToken,
+    );
     return TokenizeResponse.fromJson(res);
   }
 }

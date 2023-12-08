@@ -1,1 +1,1 @@
-typedef VoidCallback = void Function();
+typedef Callback<T> = void Function(T val);
