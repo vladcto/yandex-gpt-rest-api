@@ -1,4 +1,4 @@
-import 'package:yandex_gpt_rest_sdk/src/models/text_generation/async_reponse/generation_async_result.dart';
+import 'package:yandex_gpt_rest_sdk/src/models/text_generation/async_response/generation_async_result.dart';
 
 class TextGenerationAsyncResponse {
   final String id;
