@@ -1,5 +1,4 @@
-import 'package:yandex_gpt_rest_sdk/src/models/text_generation/sync_response/model_usage.dart';
-import 'package:yandex_gpt_rest_sdk/src/models/text_generation/sync_response/result_message.dart';
+import 'package:yandex_gpt_rest_sdk/src/models/models.dart';
 
 class TextGenerationResponse {
   final List<ResultMessage> alternatives;

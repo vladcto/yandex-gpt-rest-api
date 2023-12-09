@@ -1,4 +1,4 @@
-import 'package:yandex_gpt_rest_sdk/src/models/text_generation/message.dart';
+import 'package:yandex_gpt_rest_sdk/src/models/models.dart';
 import 'package:yandex_gpt_rest_sdk/src/utils/constants/alternative_status.dart';
 
 enum ResultMessageStatus {

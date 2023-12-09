@@ -6,9 +6,9 @@ class CompletionOptions {
   final int maxTokens;
 
   const CompletionOptions({
-    required this.stream,
-    required this.temperature,
-    required this.maxTokens,
+    this.stream = false,
+    this.temperature = 0.1,
+    this.maxTokens = 1024,
   }) : assert(
           0 <= temperature && temperature <= 1,
           "Temperature must be in 0 <= t <= 1",

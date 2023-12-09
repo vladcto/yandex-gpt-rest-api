@@ -1,7 +1,4 @@
-import 'dart:convert';
-
-import 'package:yandex_gpt_rest_sdk/src/models/text_generation/message.dart';
-import 'package:yandex_gpt_rest_sdk/src/models/text_generation/request/completion_options.dart';
+import 'package:yandex_gpt_rest_sdk/src/models/models.dart';
 
 class TextGenerationRequest {
   final String modelUri;
@@ -10,7 +7,7 @@ class TextGenerationRequest {
 
   const TextGenerationRequest({
     required this.modelUri,
-    required this.completionOptions,
+    this.completionOptions = const CompletionOptions(),
     required this.messages,
   });
 
