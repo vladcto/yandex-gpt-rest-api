@@ -7,7 +7,7 @@ enum ResultMessageStatus {
   truncatedFinal,
   finalDone;
 
-  static ResultMessageStatus fromStatus(String status) {
+  factory ResultMessageStatus.fromStatus(String status) {
     return switch (status) {
       AlternativeStatus.unspecified => ResultMessageStatus.unspecified,
       AlternativeStatus.partial => ResultMessageStatus.partial,
@@ -23,7 +23,7 @@ class ResultMessage {
   final Message message;
   final ResultMessageStatus status;
 
-  ResultMessage({required this.message, required this.status});
+  const ResultMessage({required this.message, required this.status});
 
   @override
   String toString() {

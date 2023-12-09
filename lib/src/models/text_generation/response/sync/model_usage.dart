@@ -3,7 +3,7 @@ class ModelUsage {
   final int completionTokens;
   final int totalTokens;
 
-  ModelUsage({
+  const ModelUsage({
     required this.inputTextTokens,
     required this.completionTokens,
     required this.totalTokens,
