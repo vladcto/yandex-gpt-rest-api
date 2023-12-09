@@ -1,7 +1,8 @@
 name: yandex_gpt_rest_api
-description: A new Flutter project.
+description: yandex_gpt_rest_api
 version: 0.0.1
-homepage: https://github.com/vladcto/yandex-gpt-rest-sdk/tree/main
+homepage: https://github.com/vladcto/yandex-gpt-rest-sdk
+repository: https://github.com/vladcto/yandex-gpt-rest-sdk
 
 environment:
   sdk: '>=3.1.5 <4.0.0'

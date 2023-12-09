@@ -1,3 +1,4 @@
-## 0.0.1
+## 0.1.0
 
-* TODO: Describe initial release.
+- Receiving data from the API.
+- Asynchronous generation and receipt of normal error statuses does not work. The signature of the methods may change.
