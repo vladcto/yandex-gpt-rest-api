@@ -9,10 +9,15 @@ class EmbeddingResponse {
     required this.modelVersion,
   });
 
+  @override
+  String toString() {
+    return 'EmbeddingResponse{embedding: $embedding, numTokens: $numTokens, modelVersion: $modelVersion}';
+  }
+
   factory EmbeddingResponse.fromJson(Map<String, dynamic> json) {
     return EmbeddingResponse(
-      embedding: List.of(json["embedding"] as List<String>)
-          .map((i) => double.parse(i))
+      embedding: List.of(json["embedding"] as List<dynamic>)
+          .map((i) => i as double)
           .toList(),
       numTokens: int.parse(json["numTokens"] as String),
       modelVersion: json["modelVersion"] as String,

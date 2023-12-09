@@ -52,14 +52,14 @@ class YandexGptHttpClient {
     print(jsonEncode(jsonBody));
     if (response.statusCode != 200) {
       print(jsonBody);
-      if (jsonBody["error"] != null) {
+      if (jsonBody["error"] != null && jsonBody["code"] == null) {
         throw ContractApiError.fromJson(
           jsonBody["error"] as Map<String, dynamic>,
         );
       }
       throw NetworkApiError(
         statusCode: response.statusCode,
-        body: response.body,
+        body: utf8.decode(response.bodyBytes),
       );
     }
     print(jsonBody);
