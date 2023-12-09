@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
-import 'package:yandex_gpt_rest_sdk/src/client/api_cancel_token.dart';
-import 'package:yandex_gpt_rest_sdk/src/client/yandex_gpt_api.dart';
-import 'package:yandex_gpt_rest_sdk/src/client/yandex_gpt_http_client.dart';
+import 'package:yandex_gpt_rest_sdk/src/logic/api/yandex_gpt_api.dart';
+import 'package:yandex_gpt_rest_sdk/src/logic/client/yandex_gpt_http_client.dart';
+import 'package:yandex_gpt_rest_sdk/src/logic/helper/api_cancel_token.dart';
 import 'package:yandex_gpt_rest_sdk/src/models/models.dart';
 import 'package:yandex_gpt_rest_sdk/src/utils/constants/url_paths.dart';
 

@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:async/async.dart';
 import 'package:http/http.dart';
-import 'package:yandex_gpt_rest_sdk/src/client/api_cancel_token.dart';
+import 'package:yandex_gpt_rest_sdk/src/logic/helper/api_cancel_token.dart';
 import 'package:yandex_gpt_rest_sdk/src/models/errors/api_error.dart';
 
 class YandexGptHttpClient {
