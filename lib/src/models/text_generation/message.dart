@@ -1,6 +1,25 @@
+import 'package:yandex_gpt_rest_api/src/utils/constants/roles.dart';
+
+enum Role {
+  user,
+  system,
+  assistant;
+
+  factory Role.fromName(String name) {
+    return switch (name) {
+      userRole => Role.user,
+      systemRole => Role.system,
+      _ => Role.assistant,
+    };
+  }
+
+  @override
+  String toString() => name;
+}
+
 class Message {
   // TODO: Maybe enum?
-  final String role;
+  final Role role;
   final String text;
 
   const Message({
@@ -26,14 +45,14 @@ class Message {
 
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
-      role: json["role"] as String,
+      role: Role.fromName(json["role"] as String),
       text: json["text"] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "role": role,
+      "role": role.toString(),
       "text": text,
     };
   }

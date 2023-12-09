@@ -21,9 +21,9 @@ class CompletionOptions {
 
   factory CompletionOptions.fromJson(Map<String, dynamic> json) {
     return CompletionOptions(
-      stream: (json["stream"] as String).toLowerCase() == 'true',
-      temperature: double.parse(json["temperature"] as String),
-      maxTokens: int.parse(json["maxTokens"] as String),
+      stream: json["stream"] as bool,
+      temperature: json["temperature"] as double,
+      maxTokens: json["maxTokens"] as int,
     );
   }
 
