@@ -1,3 +1,7 @@
+## 0.2.0
+
+- Divided `ContractApiError` into `DetailedApiError` and `ShortApiError`.
+
 ## 0.1.0
 
 - Receiving data from the API.

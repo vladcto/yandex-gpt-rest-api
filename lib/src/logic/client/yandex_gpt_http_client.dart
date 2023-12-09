@@ -26,7 +26,6 @@ class YandexGptHttpClient {
     Map<String, dynamic>? body,
     ApiCancelToken? cancelToken,
   }) async {
-    print(jsonEncode(body));
     final request = CancelableOperation.fromFuture(
       client.post(
         url,
@@ -39,30 +38,23 @@ class YandexGptHttpClient {
     final Response response;
     try {
       response = await request.value;
-    } on ClientException {
-      throw NetworkApiError();
-    } on HttpException {
-      throw NetworkApiError();
+    } on ClientException catch (e) {
+      throw NetworkError(body: e.message);
+    } on HttpException catch (e) {
+      throw NetworkError(body: e.message);
     } finally {
       cancelToken?.detachCancellable(request);
     }
 
     final jsonBody =
         jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
-    print(jsonEncode(jsonBody));
     if (response.statusCode != 200) {
-      print(jsonBody);
-      if (jsonBody["error"] != null && jsonBody["code"] == null) {
-        throw ContractApiError.fromJson(
-          jsonBody["error"] as Map<String, dynamic>,
-        );
-      }
-      throw NetworkApiError(
-        statusCode: response.statusCode,
-        body: utf8.decode(response.bodyBytes),
-      );
+      throw ContractApiError.tryParseJson(jsonBody) ??
+          NetworkError(
+            statusCode: response.statusCode,
+            body: utf8.decode(response.bodyBytes),
+          );
     }
-    print(jsonBody);
     return jsonBody;
   }
 }
