@@ -2,7 +2,7 @@ class TokenizeTextRequest {
   final String modelUri;
   final String text;
 
-  TokenizeTextRequest({required this.modelUri, required this.text});
+  const TokenizeTextRequest({required this.modelUri, required this.text});
 
   factory TokenizeTextRequest.fromJson(Map<String, dynamic> json) {
     return TokenizeTextRequest(

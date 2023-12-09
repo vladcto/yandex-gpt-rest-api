@@ -5,7 +5,7 @@ class TextGenerationResponse {
   final ModelUsage usage;
   final String modelVersion;
 
-  TextGenerationResponse({
+  const TextGenerationResponse({
     required this.alternatives,
     required this.usage,
     required this.modelVersion,

@@ -1,3 +1,7 @@
+## 0.2.2
+
+- Add tests for `YandexGptApiClient` - handling successful response and json conversion.
+
 ## 0.2.1
 
 - Add tests for `YandexGptHttpClient` - handling errors and successful response.

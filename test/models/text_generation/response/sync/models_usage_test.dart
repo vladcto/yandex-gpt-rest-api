@@ -5,7 +5,7 @@ import 'package:yandex_gpt_rest_api/src/models/models.dart';
 void main() {
   group("ModelUsage model", () {
     test("fromJson valid", () {
-      final json = {
+      const json = {
         "inputTextTokens": "12",
         "completionTokens": "4",
         "totalTokens": "16",
