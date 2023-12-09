@@ -1,4 +1,4 @@
-import 'package:yandex_gpt_rest_sdk/src/models/tokenizer/token.dart';
+import 'package:yandex_gpt_rest_api/src/models/tokenizer/token.dart';
 
 class TokenizeResponse {
   final List<Token> tokens;

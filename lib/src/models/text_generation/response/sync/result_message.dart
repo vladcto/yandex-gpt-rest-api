@@ -1,5 +1,5 @@
-import 'package:yandex_gpt_rest_sdk/src/models/models.dart';
-import 'package:yandex_gpt_rest_sdk/src/utils/constants/alternative_status.dart';
+import 'package:yandex_gpt_rest_api/src/models/models.dart';
+import 'package:yandex_gpt_rest_api/src/utils/constants/alternative_status.dart';
 
 enum ResultMessageStatus {
   unspecified,

@@ -1,9 +1,9 @@
 import 'package:http/http.dart' as http;
-import 'package:yandex_gpt_rest_sdk/src/logic/api/yandex_gpt_api.dart';
-import 'package:yandex_gpt_rest_sdk/src/logic/client/yandex_gpt_http_client.dart';
-import 'package:yandex_gpt_rest_sdk/src/logic/helper/api_cancel_token.dart';
-import 'package:yandex_gpt_rest_sdk/src/models/models.dart';
-import 'package:yandex_gpt_rest_sdk/src/utils/constants/url_paths.dart';
+import 'package:yandex_gpt_rest_api/src/logic/api/yandex_gpt_api.dart';
+import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_http_client.dart';
+import 'package:yandex_gpt_rest_api/src/logic/helper/api_cancel_token.dart';
+import 'package:yandex_gpt_rest_api/src/models/models.dart';
+import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
 
 class YandexGptApiClient implements YandexGptApi {
   final YandexGptHttpClient _client;

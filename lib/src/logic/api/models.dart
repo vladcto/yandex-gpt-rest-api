@@ -1,4 +1,4 @@
-import 'package:yandex_gpt_rest_sdk/src/utils/constants/models_uri.dart';
+import 'package:yandex_gpt_rest_api/src/utils/constants/models_uri.dart';
 
 abstract final class GModels {
   static String yandexGpt(String folderId) {
