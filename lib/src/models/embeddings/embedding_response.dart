@@ -3,7 +3,7 @@ class EmbeddingResponse {
   final int numTokens;
   final String modelVersion;
 
-  EmbeddingResponse({
+  const EmbeddingResponse({
     required this.embedding,
     required this.numTokens,
     required this.modelVersion,
