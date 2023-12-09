@@ -73,12 +73,12 @@ class YandexGptApiClient implements YandexGptApi {
   }
 
   @override
-  Future<TokenizeResponse> tokenizeSummary(
+  Future<TokenizeResponse> tokenizeCompletion(
     TextGenerationRequest request, {
     ApiCancelToken? cancelToken,
   }) async {
     final res = await _client.post(
-      tokenizeTextUri,
+      tokenizeCompletionUri,
       body: request.toJson(),
       cancelToken: cancelToken,
     );
@@ -91,7 +91,7 @@ class YandexGptApiClient implements YandexGptApi {
     ApiCancelToken? cancelToken,
   }) async {
     final res = await _client.post(
-      tokenizeCompletionUri,
+      tokenizeTextUri,
       body: request.toJson(),
       cancelToken: cancelToken,
     );

@@ -26,6 +26,7 @@ class YandexGptHttpClient {
     Map<String, dynamic>? body,
     ApiCancelToken? cancelToken,
   }) async {
+    print(jsonEncode(body));
     final request = CancelableOperation.fromFuture(
       client.post(
         url,
@@ -48,7 +49,9 @@ class YandexGptHttpClient {
 
     final jsonBody =
         jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+    print(jsonEncode(jsonBody));
     if (response.statusCode != 200) {
+      print(jsonBody);
       if (jsonBody["error"] != null) {
         throw ContractApiError.fromJson(
           jsonBody["error"] as Map<String, dynamic>,

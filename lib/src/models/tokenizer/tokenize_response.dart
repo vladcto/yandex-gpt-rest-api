@@ -6,6 +6,11 @@ class TokenizeResponse {
 
   TokenizeResponse({required this.tokens, required this.modelVersion});
 
+  @override
+  String toString() {
+    return 'TokenizeResponse{tokens: $tokens, modelVersion: $modelVersion}';
+  }
+
   factory TokenizeResponse.fromJson(Map<String, dynamic> json) {
     return TokenizeResponse(
       tokens: List.of(json["tokens"] as List<dynamic>)
@@ -14,5 +19,4 @@ class TokenizeResponse {
       modelVersion: json["modelVersion"] as String,
     );
   }
-//
 }

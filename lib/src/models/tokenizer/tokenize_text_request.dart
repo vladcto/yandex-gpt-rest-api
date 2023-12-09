@@ -1,19 +1,19 @@
 class TokenizeTextRequest {
-  final String modelUrl;
+  final String modelUri;
   final String text;
 
-  TokenizeTextRequest({required this.modelUrl, required this.text});
+  TokenizeTextRequest({required this.modelUri, required this.text});
 
   factory TokenizeTextRequest.fromJson(Map<String, dynamic> json) {
     return TokenizeTextRequest(
-      modelUrl: json["modelUrl"] as String,
+      modelUri: json["modelUri"] as String,
       text: json["text"] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "modelUrl": modelUrl,
+      "modelUri": modelUri,
       "text": text,
     };
   }

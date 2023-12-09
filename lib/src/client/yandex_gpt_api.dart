@@ -23,7 +23,7 @@ abstract interface class YandexGptApi {
     ApiCancelToken? cancelToken,
   });
 
-  Future<TokenizeResponse> tokenizeSummary(
+  Future<TokenizeResponse> tokenizeCompletion(
     TextGenerationRequest request, {
     ApiCancelToken? cancelToken,
   });
