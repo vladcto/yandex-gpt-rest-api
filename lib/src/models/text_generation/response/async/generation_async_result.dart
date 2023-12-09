@@ -11,6 +11,7 @@ final class ErrorAsyncResult extends GenerationAsyncResult {
     required this.details,
   });
 
+  // TODO: Exactly as String? not int?
   factory ErrorAsyncResult.fromJson(Map<String, dynamic> json) {
     return ErrorAsyncResult(
       code: int.parse(json["code"] as String),
