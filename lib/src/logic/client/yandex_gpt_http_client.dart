@@ -26,6 +26,7 @@ class YandexGptHttpClient {
     Map<String, dynamic>? body,
     ApiCancelToken? cancelToken,
   }) async {
+    final Response? response;
     final request = CancelableOperation.fromFuture(
       client.post(
         url,
@@ -33,11 +34,12 @@ class YandexGptHttpClient {
         headers: authHeader,
       ),
     );
-    cancelToken?.attachCancellable(request);
-
-    final Response response;
     try {
-      response = await request.value;
+      cancelToken?.attachCancellable(request);
+      response = await request.valueOrCancellation(null);
+      if (response == null) {
+        throw CanceledError();
+      }
     } on ClientException catch (e) {
       throw NetworkError(body: e.message);
     } on HttpException catch (e) {

@@ -15,6 +15,7 @@ final class ApiCancelToken {
     for (final operation in _cancellables) {
       operation.cancel();
     }
+    _cancellables.clear();
   }
 
   void attachCancellable(CancelableOperation operation) {

@@ -5,6 +5,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_http_client.dart';
+import 'package:yandex_gpt_rest_api/src/logic/helper/api_cancel_token.dart';
 import 'package:yandex_gpt_rest_api/src/models/errors/api_error.dart';
 import 'yandex_gpt_http_client_test.mocks.dart';
 
@@ -88,7 +89,7 @@ void main() {
         ),
       ).thenAnswer((_) async => mockResponse);
 
-      expectLater(
+      await expectLater(
         httpClient.post(uri),
         throwsA(isA<NetworkError>()),
       );
@@ -150,6 +151,50 @@ void main() {
           throwsA(isA<ShortApiError>()),
         );
       });
+    });
+
+    test("Throws error on cancel", () async {
+      final token = ApiCancelToken();
+      final mockResponse = Response("", 200);
+      when(
+        mockClient.post(
+          uri,
+          headers: anyNamed('headers'),
+          body: anyNamed('body'),
+        ),
+      ).thenAnswer(
+        (_) async => await Future.delayed(
+          const Duration(seconds: 2),
+          () => mockResponse,
+        ),
+      );
+
+      Future(() => token.close());
+      await expectLater(
+        httpClient.post(uri, cancelToken: token),
+        throwsA(isA<CanceledError>()),
+      );
+    });
+
+    test("Don`t throws error on post-cancel", () async {
+      final token = ApiCancelToken();
+      final mockResponse = Response("{}", 200);
+      when(
+        mockClient.post(
+          uri,
+          headers: anyNamed('headers'),
+          body: anyNamed('body'),
+        ),
+      ).thenAnswer(
+          (_) async => mockResponse,
+      );
+
+
+      await expectLater(
+        httpClient.post(uri, cancelToken: token),
+        completes,
+      );
+      await expectLater(Future(() => token.close()), completes);
     });
   });
 }

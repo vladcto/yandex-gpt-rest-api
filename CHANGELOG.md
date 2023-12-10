@@ -1,3 +1,8 @@
+## 0.2.3
+
+- Fixed errors by closing requests with `ApiCancelToken`.
+- Add tests for `ApiCancelToken`.
+
 ## 0.2.2
 
 - Add tests for `YandexGptApiClient` - handling successful response and json conversion.
