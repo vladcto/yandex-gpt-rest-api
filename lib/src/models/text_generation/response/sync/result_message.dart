@@ -14,7 +14,7 @@ enum ResultMessageStatus {
       AlternativeStatus.truncatedFinal => ResultMessageStatus.truncatedFinal,
       AlternativeStatus.finalDone => ResultMessageStatus.finalDone,
       // TODO: Normal error message
-      _ => throw UnimplementedError("")
+      _ => ResultMessageStatus.unspecified
     };
   }
 }

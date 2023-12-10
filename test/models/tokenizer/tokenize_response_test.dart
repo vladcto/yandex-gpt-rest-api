@@ -4,6 +4,11 @@ import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 void main() {
   group("TokenizeResponse model", () {
+    test("toString", () {
+      final response = TokenizeResponse(tokens: [], modelVersion: "12.12.12");
+      expect(response.toString(), isA<String>());
+    });
+
     test("fromJson", () {
       final tokens = [
         Token(id: "0", text: "<s>", special: true),

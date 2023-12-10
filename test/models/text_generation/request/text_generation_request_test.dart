@@ -9,13 +9,17 @@ void main() {
       const stream = true;
       const temperature = 0.5;
       const maxTokens = 512;
+      const options = CompletionOptions(
+        stream: stream,
+        temperature: temperature,
+        maxTokens: maxTokens,
+      );
+
+      test("toString", () {
+        expect(options.toString(), isA<String>());
+      });
 
       test("toJson valid", () {
-        const options = CompletionOptions(
-          stream: stream,
-          temperature: temperature,
-          maxTokens: maxTokens,
-        );
         final json = options.toJson();
         expect(json, isA<Map<String, dynamic>>());
         expect(json['stream'], stream);
@@ -43,13 +47,17 @@ void main() {
         Message(role: Role.system, text: "Word"),
         Message(role: Role.user, text: "Hello"),
       ];
+      const request = TextGenerationRequest(
+        modelUri: modelUri,
+        completionOptions: options,
+        messages: messages,
+      );
 
-      test('toJson valid', () {
-        const request = TextGenerationRequest(
-          modelUri: modelUri,
-          completionOptions: options,
-          messages: messages,
-        );
+      test("toString", (){
+        expect(request.toString(), isA<String>());
+      });
+
+      test('toJson', () {
         final json = request.toJson();
 
         expect(json, isA<Map<String, dynamic>>());
@@ -58,25 +66,7 @@ void main() {
         expect(json['messages'], equals(messages));
       });
 
-      test('fromJson valid', () {
-        // final Map<String, dynamic> json = {
-        //   "result": {
-        //     "alternatives": [
-        //       {
-        //         "message": {
-        //           "role": Role.assistant,
-        //           "text": "Hello world!",
-        //         },
-        //         "status": AlternativeStatus.finalDone,
-        //       },
-        //     ],
-        //     "usage": {
-        //       "inputTextTokens": "13",
-        //       "completionTokens": "4",
-        //       "totalTokens": "17",
-        //     },
-        //   },
-        // };
+      test('fromJson', () {
         final json = {
           "modelUri": "gpt://b1gaa3g91m6j51fe49us/yandexgpt-lite",
           "completionOptions": options.toJson(),

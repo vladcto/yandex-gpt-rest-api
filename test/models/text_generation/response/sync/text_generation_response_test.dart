@@ -4,6 +4,20 @@ import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 void main() {
   group("TextGenerationResponse model", () {
+    test("toString valid", () {
+      const response = TextGenerationResponse(
+        alternatives: [],
+        usage: ModelUsage(
+          inputTextTokens: 12,
+          completionTokens: 6,
+          totalTokens: 18,
+        ),
+        modelVersion: "420",
+      );
+
+      expect(response.toString(), isA<String>());
+    });
+
     test("fromJson valid", () {
       const resMessage = ResultMessage(
         message: Message(

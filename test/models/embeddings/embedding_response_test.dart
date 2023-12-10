@@ -4,6 +4,16 @@ import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 void main() {
   group("EmbeddingResponse model", () {
+    test("toString", () {
+      const response = EmbeddingResponse(
+        embedding: [0.2, -0.2],
+        numTokens: 12,
+        modelVersion: "19.12.2002",
+      );
+      expect(response.toString(), isA<String>());
+    });
+
+
     test("fromJson", () {
       final json = {
         "embedding": [
