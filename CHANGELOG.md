@@ -1,3 +1,8 @@
+## 0.2.4
+
+- Added tests for `TextGenerationAsync`.
+- Increased test coverage to 100%.
+
 ## 0.2.3
 
 - Fixed errors by closing requests with `ApiCancelToken`.

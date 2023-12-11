@@ -1,4 +1,6 @@
-sealed class GenerationAsyncResult {}
+sealed class GenerationAsyncResult {
+  const GenerationAsyncResult();
+}
 
 final class ErrorAsyncResult extends GenerationAsyncResult {
   final int code;
@@ -11,13 +13,12 @@ final class ErrorAsyncResult extends GenerationAsyncResult {
     required this.details,
   });
 
-  // TODO: Exactly as String? not int?
   factory ErrorAsyncResult.fromJson(Map<String, dynamic> json) {
     return ErrorAsyncResult(
-      code: int.parse(json["code"] as String),
+      code: (json["code"] as int?) ?? int.parse(json["code"] as String),
       message: json["message"] as String,
       details: List.of(json["details"] as List<dynamic>)
-          .map((i) => json["details"] as String)
+          .map((i) => i as String)
           .toList(),
     );
   }
@@ -26,5 +27,5 @@ final class ErrorAsyncResult extends GenerationAsyncResult {
 final class ResponseAsyncResult extends GenerationAsyncResult {
   final String body;
 
-  ResponseAsyncResult({required this.body});
+  const ResponseAsyncResult({required this.body});
 }

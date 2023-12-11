@@ -7,7 +7,6 @@ import 'package:test/test.dart';
 import 'package:yandex_gpt_rest_api/src/logic/api/yandex_gpt_api.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_api_client.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
-import 'package:yandex_gpt_rest_api/src/utils/constants/alternative_status.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
 import 'yandex_gpt_http_client_test.mocks.dart';
 
@@ -27,7 +26,10 @@ void main() {
     });
 
     group("Successful responses convert", () {
-      // TODO: async generate text
+      test("Created HTTP client", () {
+        final api = YandexGptApiClient(token: "token");
+      });
+
       test("generateText", () async {
         const json = {
           "result": {
@@ -81,6 +83,39 @@ void main() {
             status: ResultMessageStatus.finalDone,
           ).toString(),
         );
+      });
+
+      test("asyncGenerateText", () async {
+        final json = {
+          "id": "sus",
+          "description": "amogus",
+          "createdAt": "at",
+          "createdBy": "by",
+          "modifiedAt": "modified",
+          "metadata": "metadata",
+          "response": "response",
+        };
+
+        _mockClientResponse(
+          client: mockClient,
+          uri: textGenerationAsyncUri,
+          json: json,
+        );
+
+        final result = await apiClient.generateAsyncText(
+          const TextGenerationRequest(
+            modelUri: '',
+            messages: [],
+          ),
+        );
+
+        expect(result.id, "sus");
+        expect(result.description, "amogus");
+        expect(result.createdBy, "by");
+        expect(result.createdAt, "at");
+        expect(result.modifiedAt, "modified");
+        expect(result.metadata, "metadata");
+        expect(result.done, true);
       });
 
       test("getTextEmbedding", () async {
