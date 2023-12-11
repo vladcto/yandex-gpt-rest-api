@@ -53,7 +53,7 @@ void main() {
         messages: messages,
       );
 
-      test("toString", (){
+      test("toString", () {
         expect(request.toString(), isA<String>());
       });
 

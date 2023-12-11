@@ -186,9 +186,8 @@ void main() {
           body: anyNamed('body'),
         ),
       ).thenAnswer(
-          (_) async => mockResponse,
+        (_) async => mockResponse,
       );
-
 
       await expectLater(
         httpClient.post(uri, cancelToken: token),

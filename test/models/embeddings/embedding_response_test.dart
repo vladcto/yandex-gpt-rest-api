@@ -13,7 +13,6 @@ void main() {
       expect(response.toString(), isA<String>());
     });
 
-
     test("fromJson", () {
       final json = {
         "embedding": [

@@ -23,7 +23,7 @@ abstract final class VModels {
     return embPrefix + folderId + textSearchQueryPostfix;
   }
 
-  static String documentation(String folderId){
+  static String documentation(String folderId) {
     return embPrefix + folderId + textSearchDocPostfix;
   }
 }
