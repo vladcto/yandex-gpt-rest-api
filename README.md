@@ -6,7 +6,7 @@ Library for communicating with the Yandex Foundation Models API.
 
 Receiving data from the API is now working.
 
-Asynchronous generation and receipt does not work.
+Asynchronous generation does not work.
 
 The signature of the methods may change.
 
@@ -41,6 +41,7 @@ void main() async {
     ),
   );
   print(response.alternatives.first.message);
+  print(response.usage.totalTokens);
 }
 ```
 

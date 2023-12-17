@@ -1,3 +1,8 @@
+## 0.2.6
+
+- Add role constructors for `Message`.
+- Change README.md docs.
+
 ## 0.2.5
 
 - Change README.md
