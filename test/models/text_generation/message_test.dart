@@ -5,6 +5,29 @@ import 'package:yandex_gpt_rest_api/src/utils/constants/roles.dart';
 
 void main() {
   group("Message model", () {
+    group("Creation", () {
+      test("User creation", () {
+        const message = Message.user("text");
+
+        expect(message.text, "text");
+        expect(message.role, Role.user);
+      });
+
+      test("System creation", () {
+        const message = Message.system("text");
+
+        expect(message.text, "text");
+        expect(message.role, Role.system);
+      });
+
+      test("Assistant creation", () {
+        const message = Message.assistant("text");
+
+        expect(message.text, "text");
+        expect(message.role, Role.assistant);
+      });
+    });
+
     group("Role test", () {
       test("User role", () {
         expect(Role.fromName(userRole), Role.user);

@@ -18,7 +18,6 @@ enum Role {
 }
 
 class Message {
-  // TODO: Maybe enum?
   final Role role;
   final String text;
 
@@ -26,6 +25,12 @@ class Message {
     required this.role,
     required this.text,
   });
+
+  const Message.user(String text) : this(text: text, role: Role.user);
+
+  const Message.system(String text) : this(text: text, role: Role.system);
+
+  const Message.assistant(String text) : this(text: text, role: Role.assistant);
 
   @override
   bool operator ==(Object other) =>
