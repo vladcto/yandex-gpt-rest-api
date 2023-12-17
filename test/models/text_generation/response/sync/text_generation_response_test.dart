@@ -39,7 +39,7 @@ void main() {
                 "role": "assistant",
                 "text": "Hello world!",
               },
-              "status": "ALTERNATIVE_STATUS_FINAL"
+              "status": "ALTERNATIVE_STATUS_FINAL",
             },
           ],
           "usage": {

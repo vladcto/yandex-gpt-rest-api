@@ -5,7 +5,7 @@ import 'package:yandex_gpt_rest_api/src/models/models.dart';
 void main() {
   group("TokenizeTextRequest model", () {
     test("toJson", () {
-      final request = TokenizeTextRequest(
+      const request = TokenizeTextRequest(
         modelUri: "some_uri",
         text: "Some text",
       );
