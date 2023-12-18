@@ -27,10 +27,6 @@ void main() {
     });
 
     group("Successful responses convert", () {
-      test("Created HTTP client", () {
-        final api = YandexGptApiClient(token: "token");
-      });
-
       test("generateText", () async {
         const json = {
           "result": {
