@@ -1,12 +1,14 @@
+import 'package:yandex_gpt_rest_api/src/logic/api/ai_models/g_model.dart';
+
 class TokenizeTextRequest {
-  final String modelUri;
+  final GModel model;
   final String text;
 
-  const TokenizeTextRequest({required this.modelUri, required this.text});
+  const TokenizeTextRequest({required this.model, required this.text});
 
   Map<String, dynamic> toJson() {
     return {
-      "modelUri": modelUri,
+      "modelUri": model.uri,
       "text": text,
     };
   }

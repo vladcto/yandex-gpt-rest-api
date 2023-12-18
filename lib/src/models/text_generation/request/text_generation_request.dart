@@ -1,25 +1,26 @@
+import 'package:yandex_gpt_rest_api/src/logic/api/ai_models/g_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 class TextGenerationRequest {
-  final String modelUri;
+  final GModel model;
   final CompletionOptions completionOptions;
   final List<Message> messages;
 
   const TextGenerationRequest({
-    required this.modelUri,
+    required this.model,
     this.completionOptions = const CompletionOptions(),
     required this.messages,
   });
 
   @override
   String toString() {
-    return 'TextGenerationRequest{modelUri: $modelUri, '
+    return 'TextGenerationRequest{modelUri: $model, '
         'completionOptions: $completionOptions, messages: $messages}';
   }
 
   factory TextGenerationRequest.fromJson(Map<String, dynamic> json) {
     return TextGenerationRequest(
-      modelUri: json["modelUri"] as String,
+      model: GModel.raw(json["modelUri"] as String),
       completionOptions: CompletionOptions.fromJson(
         json["completionOptions"] as Map<String, dynamic>,
       ),
@@ -31,7 +32,7 @@ class TextGenerationRequest {
 
   Map<String, dynamic> toJson() {
     return {
-      "modelUri": modelUri,
+      "modelUri": model.uri,
       "completionOptions": completionOptions.toJson(),
       "messages": messages,
     };

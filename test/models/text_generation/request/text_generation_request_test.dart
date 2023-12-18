@@ -1,5 +1,6 @@
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
+import 'package:yandex_gpt_rest_api/src/logic/api/ai_models/g_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 //ignore_for_file: avoid_redundant_argument_values
@@ -41,14 +42,14 @@ void main() {
     });
 
     group("TextGenerationRequest model", () {
-      const modelUri = "some_uri";
+      const model = GModel.raw('some_uri');
       const options = CompletionOptions();
       const messages = [
         Message(role: Role.system, text: "Word"),
         Message(role: Role.user, text: "Hello"),
       ];
       const request = TextGenerationRequest(
-        modelUri: modelUri,
+        model: model,
         completionOptions: options,
         messages: messages,
       );
@@ -61,7 +62,7 @@ void main() {
         final json = request.toJson();
 
         expect(json, isA<Map<String, dynamic>>());
-        expect(json['modelUri'], modelUri);
+        expect(json['modelUri'], 'some_uri');
         expect(json['completionOptions'], equals(options.toJson()));
         expect(json['messages'], equals(messages));
       });
@@ -74,7 +75,10 @@ void main() {
         };
 
         final converted = TextGenerationRequest.fromJson(json);
-        expect(converted.modelUri, "gpt://b1gaa3g91m6j51fe49us/yandexgpt-lite");
+        expect(
+          converted.model.uri,
+          "gpt://b1gaa3g91m6j51fe49us/yandexgpt-lite",
+        );
         expect(converted.completionOptions.toJson(), equals(options.toJson()));
         expect(converted.messages, equals(messages));
       });

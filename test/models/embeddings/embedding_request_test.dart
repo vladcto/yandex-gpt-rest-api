@@ -1,12 +1,13 @@
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
+import 'package:yandex_gpt_rest_api/src/logic/api/ai_models/v_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 void main() {
   group("EmbeddingRequest model", () {
     test("toJson", () {
       const request = EmbeddingRequest(
-        modelUri: "uri",
+        model: VModel.raw('uri'),
         text: "text",
       );
       final json = request.toJson();

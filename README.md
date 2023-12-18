@@ -53,7 +53,7 @@ void main() async {
 void main() async {
   final response = await api.generateAsyncText(
     TextGenerationRequest(
-      modelUri: GModels.yandexGpt('folder_id'),
+      model: GModels.yandexGpt('folder_id'),
       messages: const [
         Message.system("Some joke"),
         Message.user("Generate joke"),
@@ -72,7 +72,7 @@ void main() async {
 void main() async {
   final response = await api.tokenizeCompletion(
     TextGenerationRequest(
-      modelUri: GModels.yandexGpt('folder_id'),
+      model: GModels.yandexGpt('folder_id'),
       messages: const [
         Message.system("Some joke"),
         Message.user("Generate joke"),
@@ -89,7 +89,7 @@ void main() async {
 void main() async {
   final response = await api.tokenizeText(
     TokenizeTextRequest(
-      modelUri: GModels.yandexGpt('folder_id'),
+      model: GModels.yandexGpt('folder_id'),
       text: 'some_response_text',
     ),
   );
@@ -103,7 +103,7 @@ void main() async {
 void main() async {
   final response = await api.getTextEmbedding(
     EmbeddingRequest(
-      modelUri: VModels.documentation('folder_id'),
+      model: VModels.documentation('folder_id'),
       text: 'Some text',
     ),
   );

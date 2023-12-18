@@ -1,12 +1,13 @@
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
+import 'package:yandex_gpt_rest_api/src/logic/api/ai_models/g_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 void main() {
   group("TokenizeTextRequest model", () {
     test("toJson", () {
       const request = TokenizeTextRequest(
-        modelUri: "some_uri",
+        model: GModel.raw('some_uri'),
         text: "Some text",
       );
 

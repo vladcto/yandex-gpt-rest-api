@@ -3,6 +3,8 @@ import 'package:http/http.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+import 'package:yandex_gpt_rest_api/src/logic/api/ai_models/g_model.dart';
+import 'package:yandex_gpt_rest_api/src/logic/api/ai_models/v_model.dart';
 import 'package:yandex_gpt_rest_api/src/logic/api/yandex_gpt_api.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_api_client.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
@@ -57,7 +59,7 @@ void main() {
 
         final result = await apiClient.generateText(
           const TextGenerationRequest(
-            modelUri: '',
+            model: GModel.raw(''),
             messages: [],
           ),
         );
@@ -103,7 +105,7 @@ void main() {
 
         final result = await apiClient.generateAsyncText(
           const TextGenerationRequest(
-            modelUri: '',
+            model: GModel.raw(''),
             messages: [],
           ),
         );
@@ -133,7 +135,7 @@ void main() {
         );
 
         final res = await apiClient.getTextEmbedding(
-          const EmbeddingRequest(modelUri: '', text: ''),
+          const EmbeddingRequest(model: VModel.raw(''), text: ''),
         );
         expect(res.modelVersion, "06.12.2023");
         expect(res.numTokens, 5);
@@ -164,7 +166,7 @@ void main() {
 
         final res = await apiClient.tokenizeCompletion(
           const TextGenerationRequest(
-            modelUri: '',
+            model: GModel.raw(''),
             messages: [
               Message(role: Role.system, text: ''),
             ],
@@ -205,7 +207,7 @@ void main() {
         );
 
         final res = await apiClient.tokenizeText(
-          const TokenizeTextRequest(modelUri: '', text: ''),
+          const TokenizeTextRequest(model: GModel.raw(''), text: ''),
         );
         expect(res.modelVersion, "08.12.2023");
         expect(res.tokens.length, 2);
