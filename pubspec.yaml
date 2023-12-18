@@ -1,6 +1,6 @@
 name: yandex_gpt_rest_api
 description: Communicating with the Yandex Foundation Models API.
-version: 0.3.2+2
+version: 0.3.3
 homepage: https://github.com/vladcto/yandex-gpt-rest-sdk
 repository: https://github.com/vladcto/yandex-gpt-rest-sdk
 
