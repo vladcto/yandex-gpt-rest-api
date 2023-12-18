@@ -13,6 +13,8 @@ jobs:
 
       - uses: dart-lang/setup-dart@v1
 
+      - name: Check version
+        run: dart --version
       - name: Install dependencies
         run: dart pub get
 
