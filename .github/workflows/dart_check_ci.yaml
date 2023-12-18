@@ -1,0 +1,32 @@
+name: Dart check
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Install dependencies
+        run: dart pub get
+
+  test:
+    needs: [ setup ]
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: Verify formatting
+        run: dart format -o none --set-exit-if-changed .
+
+      - name: Analyze project source
+        run: dart analyze --fatal-infos
+
+      - name: Run tests
+        run: dart test
