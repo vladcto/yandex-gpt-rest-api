@@ -23,4 +23,4 @@ jobs:
         run: dart analyze --fatal-infos
 
       - name: Run tests
-        run: dart test -r compact
+        run: dart test -r github
