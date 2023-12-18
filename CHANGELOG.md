@@ -1,3 +1,8 @@
+## 0.3.1
+
+- Fix GPT models URI.
+- Added tests for `GptModel`.
+
 ## 0.3.0
 
 - Added GPT models classes.

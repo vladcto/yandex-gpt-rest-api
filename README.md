@@ -33,7 +33,7 @@ Now you can use the Foundation Models API.
 void main() async {
   final response = await api.generateText(
     TextGenerationRequest(
-      modelUri: GModels.yandexGpt('folder_id'),
+      modelUri: GModel.yandexGpt('folder_id'),
       messages: const [
         Message.system("Some joke"),
         Message.user("Generate joke"),
@@ -53,7 +53,7 @@ void main() async {
 void main() async {
   final response = await api.generateAsyncText(
     TextGenerationRequest(
-      model: GModels.yandexGpt('folder_id'),
+      model: GModel.yandexGpt('folder_id'),
       messages: const [
         Message.system("Some joke"),
         Message.user("Generate joke"),
@@ -72,7 +72,7 @@ void main() async {
 void main() async {
   final response = await api.tokenizeCompletion(
     TextGenerationRequest(
-      model: GModels.yandexGpt('folder_id'),
+      model: GModel.yandexGpt('folder_id'),
       messages: const [
         Message.system("Some joke"),
         Message.user("Generate joke"),
@@ -89,7 +89,7 @@ void main() async {
 void main() async {
   final response = await api.tokenizeText(
     TokenizeTextRequest(
-      model: GModels.yandexGpt('folder_id'),
+      model: GModel.yandexGpt('folder_id'),
       text: 'some_response_text',
     ),
   );
@@ -103,7 +103,7 @@ void main() async {
 void main() async {
   final response = await api.getTextEmbedding(
     EmbeddingRequest(
-      model: VModels.documentation('folder_id'),
+      model: VModel.documentation('folder_id'),
       text: 'Some text',
     ),
   );
