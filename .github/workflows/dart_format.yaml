@@ -1,9 +1,7 @@
-name: Dart test
+name: Format check
 
 on:
   pull_request:
-    branches: [ main ]
-  push:
     branches: [ main ]
 
 jobs:
@@ -23,6 +21,3 @@ jobs:
 
       - name: Analyze project source
         run: dart analyze --fatal-infos
-
-      - name: Run tests
-        run: dart test -r github
