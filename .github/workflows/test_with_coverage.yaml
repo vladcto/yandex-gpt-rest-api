@@ -1,6 +1,7 @@
-name: Tests with coverage
+name: Test with coverage
 
 on:
+  # TODO: delete
   pull_request:
     branches: [ main ]
   push:
@@ -20,11 +21,9 @@ jobs:
       - name: Run test coverage
         run: flutter test --coverage
 
-      - run: ls
-        if: '!cancelled()'
-
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        if: '!cancelled()'
         with:
           directory: coverage
         env:
