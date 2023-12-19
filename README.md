@@ -1,6 +1,6 @@
 # yandex_gpt_rest_api
 
-[![Dart test](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_ci.yaml/badge.svg)](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_ci.yaml)
+[![Test CI 1](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_ci.yaml/badge.svg?branch=main&event=push)](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_ci.yaml)
 [![codecov](https://codecov.io/gh/vladcto/yandex-gpt-rest-api/graph/badge.svg?token=747T4E5KE6)](https://codecov.io/gh/vladcto/yandex-gpt-rest-api)
 
 ## **UNDER WORK**
