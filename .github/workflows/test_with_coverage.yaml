@@ -1,4 +1,4 @@
-name: Test with coverage
+name: Test CI
 
 on:
   pull_request:
@@ -27,4 +27,3 @@ jobs:
           directory: coverage
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
