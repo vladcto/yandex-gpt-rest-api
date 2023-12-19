@@ -1,5 +1,12 @@
 # yandex_gpt_rest_api
 
+<p>
+    <a href="https://codecov.io/gh/vladcto/yandex-gpt-rest-api" > 
+        <img src="https://codecov.io/gh/vladcto/yandex-gpt-rest-api/graph/badge.svg?token=747T4E5KE6" alt="coverage"/>
+    </a>
+    <img src="https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/dart_test.yaml/badge.svg?branch=code-coverage-ci">
+</p>
+
 Library for communicating with the Yandex Foundation Models API.
 
 ## **UNDER WORK**
@@ -15,6 +22,7 @@ The signature of the methods may change.
 Create `YandexGptApi` instance.
 
 ```dart
+
 final api = YandexGptApiClient(
   token: "your_token",
   catalog: "your_catalog_id", // Not necessary
