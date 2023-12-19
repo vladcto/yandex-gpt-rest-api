@@ -1,13 +1,7 @@
 # yandex_gpt_rest_api
 
-<p>
-    <a href="https://codecov.io/gh/vladcto/yandex-gpt-rest-api" > 
-        <img src="https://codecov.io/gh/vladcto/yandex-gpt-rest-api/graph/badge.svg?token=747T4E5KE6" alt="coverage"/>
-    </a>
-    <img src="https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_with_coverage.yaml/badge.svg?branch=main" alt="ci-passing">
-</p>
-
-Library for communicating with the Yandex Foundation Models API.
+[![Dart test](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_ci.yaml/badge.svg)](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_ci.yaml)
+[![codecov](https://codecov.io/gh/vladcto/yandex-gpt-rest-api/graph/badge.svg?token=747T4E5KE6)](https://codecov.io/gh/vladcto/yandex-gpt-rest-api)
 
 ## **UNDER WORK**
 
