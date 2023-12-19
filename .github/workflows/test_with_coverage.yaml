@@ -1,7 +1,6 @@
 name: Test with coverage
 
 on:
-  # TODO: delete
   pull_request:
     branches: [ main ]
   push:

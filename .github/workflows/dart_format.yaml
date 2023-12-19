@@ -1,4 +1,4 @@
-name: Test and format
+name: Format check
 
 on:
   pull_request:
@@ -21,6 +21,3 @@ jobs:
 
       - name: Analyze project source
         run: dart analyze --fatal-infos
-
-      - name: Run tests
-        run: dart test -r github
