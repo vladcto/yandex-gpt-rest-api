@@ -28,6 +28,8 @@ void main() {
 
     group("Successful responses convert", () {
       test("generateText", () async {
+        expect(true, false);
+
         const json = {
           "result": {
             "alternatives": [
