@@ -1,4 +1,4 @@
-name: Dart test
+name: Tests and format
 
 on:
   pull_request:

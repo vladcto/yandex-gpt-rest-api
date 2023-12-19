@@ -1,4 +1,4 @@
-name: Flutter Coverage
+name: Tests with coverage
 
 on:
   pull_request:
@@ -21,6 +21,7 @@ jobs:
         run: flutter test --coverage
 
       - run: ls
+        if: '!cancelled()'
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
