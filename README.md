@@ -5,10 +5,6 @@
 
 ## **UNDER WORK**
 
-Receiving data from the API is now working.
-
-Asynchronous generation does not work.
-
 The signature of the methods may change.
 
 ## Getting started
