@@ -4,7 +4,4 @@ final class AuthToken {
   const AuthToken.iam(String iamToken) : value = 'Bearer $iamToken';
 
   const AuthToken.apiKey(String key) : value = 'Api-Key $key';
-
-  @override
-  String toString() => value;
 }
