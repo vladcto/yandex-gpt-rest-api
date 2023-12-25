@@ -16,8 +16,7 @@ class YandexGptHttpClient {
     required this.client,
     required String token,
     required String catalog,
-  })
-  : authHeader = {
+  }) : authHeader = {
           authHeaderName: "Bearer $token",
           catalogIdHeaderName: catalog,
         };
