@@ -1,21 +1,14 @@
+/// Sealed parent class of **ALL** API errors.
 sealed class ApiError {
   ApiError();
 }
 
+/// Error caused by closing request with `ApiCancelToken`.
 final class CanceledError extends ApiError {
   CanceledError();
 }
 
-final class NetworkError extends ApiError {
-  final int? statusCode;
-  final String body;
-
-  NetworkError({
-    this.statusCode,
-    required this.body,
-  });
-}
-
+/// All errors are on the Foundation Models API side.
 sealed class ContractApiError extends ApiError {
   static ContractApiError? tryParseJson(Map<String, dynamic> json) {
     try {
@@ -28,6 +21,7 @@ sealed class ContractApiError extends ApiError {
   }
 }
 
+/// Foundation Models API error.
 final class DetailedApiError extends ContractApiError {
   final int grpcCode;
   final int httpCode;
@@ -56,6 +50,7 @@ final class DetailedApiError extends ContractApiError {
   }
 }
 
+/// Error for the entire Yandex API. For example, the quota has expired.
 final class ShortApiError extends ContractApiError {
   final String error;
   final int code;

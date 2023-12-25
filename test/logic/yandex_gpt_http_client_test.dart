@@ -45,7 +45,7 @@ void main() {
       expect(result, equals({'key': 'value'}));
     });
 
-    test('Handle ClientException', () async {
+    test('Do not handle ClientException', () async {
       when(
         mockClient.post(
           uri,
@@ -56,11 +56,11 @@ void main() {
 
       await expectLater(
         httpClient.post(uri),
-        throwsA(isA<NetworkError>()),
+        throwsA(isA<ClientException>()),
       );
     });
 
-    test('Handle HttpException', () async {
+    test('Do not handle HttpException', () async {
       when(
         mockClient.post(
           uri,
@@ -71,7 +71,7 @@ void main() {
 
       await expectLater(
         httpClient.post(uri),
-        throwsA(isA<NetworkError>()),
+        throwsA(isA<HttpException>()),
       );
     });
 
@@ -91,7 +91,7 @@ void main() {
 
       await expectLater(
         httpClient.post(uri),
-        throwsA(isA<NetworkError>()),
+        throwsA(isA<ShortApiError>()),
       );
     });
 
