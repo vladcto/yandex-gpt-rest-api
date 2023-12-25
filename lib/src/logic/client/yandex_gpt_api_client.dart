@@ -6,7 +6,7 @@ import 'package:yandex_gpt_rest_api/src/models/models.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
 
 class YandexGptApiClient implements YandexGptApi {
-  final YandexGptHttpClient _client;
+  YandexGptHttpClient _client;
 
   YandexGptApiClient({required String token, String? catalog})
       : this.withHttpClient(
@@ -24,6 +24,10 @@ class YandexGptApiClient implements YandexGptApi {
           token: token,
           catalog: catalog ?? "",
         );
+
+  void changeToken(String token) {
+    _client = _client.copyWith(token: token);
+  }
 
   @override
   Future<TextGenerationResponse> generateText(

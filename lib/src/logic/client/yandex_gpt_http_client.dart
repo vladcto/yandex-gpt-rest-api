@@ -13,13 +13,28 @@ class YandexGptHttpClient {
   final Map<String, String> authHeader;
 
   YandexGptHttpClient({
-    required this.client,
+    required Client client,
     required String token,
     required String catalog,
-  }) : authHeader = {
-          authHeaderName: "Bearer $token",
-          catalogIdHeaderName: catalog,
-        };
+  }) : this._(
+          client: client,
+          authHeader: {
+            authHeaderName: "Bearer $token",
+            catalogIdHeaderName: catalog,
+          },
+        );
+
+  YandexGptHttpClient._({
+    required this.client,
+    required this.authHeader,
+  });
+
+  YandexGptHttpClient copyWith({required String token}) {
+    return YandexGptHttpClient._(
+      client: client,
+      authHeader: Map.from(authHeader)..[authHeaderName] = "Bearer $token",
+    );
+  }
 
   Future<Map<String, dynamic>> post(
     Uri url, {
