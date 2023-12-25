@@ -25,6 +25,7 @@ class YandexGptApiClient implements YandexGptApi {
           catalog: catalog ?? "",
         );
 
+  @override
   void changeToken(String token) {
     _client = _client.copyWith(token: token);
   }

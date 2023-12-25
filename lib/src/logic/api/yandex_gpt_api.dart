@@ -2,6 +2,8 @@ import 'package:yandex_gpt_rest_api/src/logic/helper/api_cancel_token.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 abstract interface class YandexGptApi {
+  void changeToken(String token);
+
   Future<TextGenerationAsyncResponse> generateAsyncText(
     TextGenerationRequest request, {
     ApiCancelToken? cancelToken,
