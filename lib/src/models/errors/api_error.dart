@@ -6,16 +6,6 @@ final class CanceledError extends ApiError {
   CanceledError();
 }
 
-final class NetworkError extends ApiError {
-  final int? statusCode;
-  final String body;
-
-  NetworkError({
-    this.statusCode,
-    required this.body,
-  });
-}
-
 sealed class ContractApiError extends ApiError {
   static ContractApiError? tryParseJson(Map<String, dynamic> json) {
     try {
