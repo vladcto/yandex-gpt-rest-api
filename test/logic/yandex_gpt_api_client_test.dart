@@ -3,25 +3,26 @@ import 'package:http/http.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
-import 'package:yandex_gpt_rest_api/src/logic/api/yandex_gpt_api.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_api_client.dart';
 import 'package:yandex_gpt_rest_api/src/models/gpt_models/g_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/gpt_models/v_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
+import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
 import 'yandex_gpt_http_client_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<Client>()])
 void main() {
   group('YandexGptApiClient', () {
-    late YandexGptApi apiClient;
+    late YandexGptApiClient apiClient;
     late MockClient mockClient;
+    const token = "token";
 
     setUp(() {
       mockClient = MockClient();
       apiClient = YandexGptApiClient.withHttpClient(
         client: mockClient,
-        token: 'your_token',
+        token: token,
         catalog: 'your_catalog',
       );
     });
@@ -214,6 +215,62 @@ void main() {
         expect(
           res.tokens[1].toString(),
           Token(id: "2", text: "gus", special: false).toString(),
+        );
+      });
+    });
+
+    group("Client interface", () {
+      setUp(() {
+        clearInteractions(mockClient);
+
+        const json = {
+          "embedding": [
+            -0.2,
+            0.1,
+          ],
+          "numTokens": "5",
+          "modelVersion": "06.12.2023",
+        };
+        _mockClientResponse(
+          client: mockClient,
+          uri: textEmbeddingUri,
+          json: json,
+        );
+      });
+
+      test("Use token", () {
+        apiClient.getTextEmbedding(
+          const EmbeddingRequest(model: VModel.searchQueries(''), text: ''),
+        );
+
+        verify(
+          mockClient.post(
+            any,
+            headers: argThat(
+              containsPair(authHeaderName, "Bearer $token"),
+              named: 'headers',
+            ),
+            body: anyNamed('body'),
+          ),
+        );
+      });
+
+      test("Change token", () {
+        const newToken = 'new_token';
+        apiClient.changeToken(newToken);
+        apiClient.getTextEmbedding(
+          const EmbeddingRequest(model: VModel.searchQueries(''), text: ''),
+        );
+
+        verify(
+          mockClient.post(
+            any,
+            headers: argThat(
+              containsPair(authHeaderName, 'Bearer $newToken'),
+              named: 'headers',
+            ),
+            body: anyNamed('body'),
+          ),
         );
       });
     });
