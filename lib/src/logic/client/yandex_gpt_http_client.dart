@@ -5,6 +5,7 @@ import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:yandex_gpt_rest_api/src/logic/helper/api_cancel_token.dart';
 import 'package:yandex_gpt_rest_api/src/models/errors/api_error.dart';
+import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
 
 class YandexGptHttpClient {
   final Client client;
@@ -14,10 +15,10 @@ class YandexGptHttpClient {
     required this.client,
     required String token,
     required String catalog,
-  }) // TODO: make it a constant
+  })
   : authHeader = {
-          "Authorization": "Bearer $token",
-          "x-folder-id": catalog,
+          authHeaderName: "Bearer $token",
+          catalogIdHeaderName: catalog,
         };
 
   Future<Map<String, dynamic>> post(
