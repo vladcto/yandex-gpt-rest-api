@@ -7,6 +7,7 @@ import 'package:yandex_gpt_rest_api/src/logic/helper/api_cancel_token.dart';
 import 'package:yandex_gpt_rest_api/src/models/errors/api_error.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
 
+/// Facade for working with `http.Client`
 class YandexGptHttpClient {
   final Client client;
   final Map<String, String> authHeader;

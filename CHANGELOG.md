@@ -1,3 +1,8 @@
+## 0.4.0
+
+- Removed HTTP errors handling.
+- Removed HTTP errors models.
+
 ## 0.3.5
 
 - Change README.md.
