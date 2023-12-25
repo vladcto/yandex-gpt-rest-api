@@ -21,7 +21,7 @@ void main() {
       mockClient = MockClient();
       httpClient = YandexGptHttpClient(
         client: mockClient,
-        token: 'your_token',
+        authToken: 'your_token',
         catalog: 'your_catalog',
       );
     });

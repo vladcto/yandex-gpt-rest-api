@@ -16,7 +16,7 @@ void main() {
   group('YandexGptApiClient', () {
     late YandexGptApiClient apiClient;
     late MockClient mockClient;
-    const token = "token";
+    const token = AuthToken.iam("token");
 
     setUp(() {
       mockClient = MockClient();
@@ -247,7 +247,7 @@ void main() {
           mockClient.post(
             any,
             headers: argThat(
-              containsPair(authHeaderName, "Bearer $token"),
+              containsPair(authHeaderName, token.value),
               named: 'headers',
             ),
             body: anyNamed('body'),
@@ -256,7 +256,7 @@ void main() {
       });
 
       test("Change token", () {
-        const newToken = 'new_token';
+        const newToken = AuthToken.iam('new_token');
         apiClient.changeToken(newToken);
         apiClient.getTextEmbedding(
           const EmbeddingRequest(model: VModel.searchQueries(''), text: ''),
@@ -266,7 +266,7 @@ void main() {
           mockClient.post(
             any,
             headers: argThat(
-              containsPair(authHeaderName, 'Bearer $newToken'),
+              containsPair(authHeaderName, newToken.value),
               named: 'headers',
             ),
             body: anyNamed('body'),
