@@ -8,7 +8,7 @@ import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
 class YandexGptApiClient implements YandexGptApi {
   final YandexGptHttpClient _client;
 
-  YandexGptApiClient({required String token, String? catalog})
+  YandexGptApiClient({required AuthToken token, String? catalog})
       : this.withHttpClient(
           client: http.Client(),
           token: token,
@@ -17,17 +17,17 @@ class YandexGptApiClient implements YandexGptApi {
 
   YandexGptApiClient.withHttpClient({
     required http.Client client,
-    required String token,
+    required AuthToken token,
     String? catalog,
   }) : _client = YandexGptHttpClient(
           client: client,
-          token: token,
+          authToken: token.value,
           catalog: catalog ?? "",
         );
 
   /// Set new IAM token.
-  void changeToken(String token) {
-    _client.changeToken(token);
+  void changeToken(AuthToken token) {
+    _client.changeToken(token.value);
   }
 
   @override

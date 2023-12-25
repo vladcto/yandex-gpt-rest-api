@@ -14,24 +14,24 @@ class YandexGptHttpClient {
 
   YandexGptHttpClient({
     required Client client,
-    required String token,
+    required String authToken,
     required String catalog,
   }) : this._(
           client: client,
           authHeader: {
-            authHeaderName: "Bearer $token",
+            authHeaderName: authToken,
             catalogIdHeaderName: catalog,
           },
         );
 
-  YandexGptHttpClient._({
+  const YandexGptHttpClient._({
     required Client client,
     required Map<String, String> authHeader,
   })  : _authHeader = authHeader,
         _client = client;
 
-  void changeToken(String token) {
-    _authHeader[authHeaderName] = "Bearer $token";
+  void changeToken(String authToken) {
+    _authHeader[authHeaderName] = authToken;
   }
 
   Future<Map<String, dynamic>> post(

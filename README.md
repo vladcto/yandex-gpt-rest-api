@@ -14,7 +14,7 @@ Create `YandexGptApi` instance.
 ```dart
 
 final api = YandexGptApiClient(
-  token: "your_token",
+  token: AuthToken.iam("your_token"),
   catalog: "your_catalog_id", // Not necessary
 );
 ```

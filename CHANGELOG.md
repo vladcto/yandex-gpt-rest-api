@@ -3,6 +3,7 @@
 - Removed HTTP errors handling.
 - Removed HTTP errors models.
 - Added ability to change `YandexGptApi` token.
+- Added support of IAM token and API key.
 
 ## 0.3.5
 

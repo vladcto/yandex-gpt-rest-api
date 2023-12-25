@@ -1,3 +1,4 @@
+export 'auth/auth_token.dart';
 export 'embeddings/embedding_request.dart';
 export 'embeddings/embedding_response.dart';
 export 'errors/api_error.dart';
