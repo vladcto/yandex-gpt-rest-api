@@ -27,7 +27,8 @@ class YandexGptHttpClient {
   YandexGptHttpClient._({
     required Client client,
     required Map<String, String> authHeader,
-  }) : _authHeader = authHeader, _client = client;
+  })  : _authHeader = authHeader,
+        _client = client;
 
   void changeToken(String token) {
     _authHeader[authHeaderName] = "Bearer $token";

@@ -25,6 +25,7 @@ class YandexGptApiClient implements YandexGptApi {
           catalog: catalog ?? "",
         );
 
+  /// Set new IAM token.
   void changeToken(String token) {
     _client.changeToken(token);
   }
