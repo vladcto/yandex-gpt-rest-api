@@ -29,11 +29,8 @@ class YandexGptHttpClient {
     required this.authHeader,
   });
 
-  YandexGptHttpClient copyWith({required String token}) {
-    return YandexGptHttpClient._(
-      client: client,
-      authHeader: Map.from(authHeader)..[authHeaderName] = "Bearer $token",
-    );
+  void changeToken(String token) {
+    authHeader[authHeaderName] = "Bearer $token";
   }
 
   Future<Map<String, dynamic>> post(
