@@ -9,8 +9,8 @@ import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
 
 /// Facade for working with `http.Client`
 class YandexGptHttpClient {
-  final Client client;
-  final Map<String, String> authHeader;
+  final Client _client;
+  final Map<String, String> _authHeader;
 
   YandexGptHttpClient({
     required Client client,
@@ -25,12 +25,12 @@ class YandexGptHttpClient {
         );
 
   YandexGptHttpClient._({
-    required this.client,
-    required this.authHeader,
-  });
+    required Client client,
+    required Map<String, String> authHeader,
+  }) : _authHeader = authHeader, _client = client;
 
   void changeToken(String token) {
-    authHeader[authHeaderName] = "Bearer $token";
+    _authHeader[authHeaderName] = "Bearer $token";
   }
 
   Future<Map<String, dynamic>> post(
@@ -40,10 +40,10 @@ class YandexGptHttpClient {
   }) async {
     final Response? response;
     final request = CancelableOperation.fromFuture(
-      client.post(
+      _client.post(
         url,
         body: jsonEncode(body),
-        headers: authHeader,
+        headers: _authHeader,
       ),
     );
 
