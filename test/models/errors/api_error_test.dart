@@ -84,7 +84,7 @@ void main() {
         },
       };
 
-      final result = ContractApiError.tryParseJson(json) as DetailedApiError?;
+      final result = ApiError.tryParseJson(json) as DetailedApiError?;
 
       expect(result, isA<DetailedApiError>());
       expect(result?.grpcCode, 1);
@@ -102,7 +102,7 @@ void main() {
         'details': ['detail1', 'detail2'],
       };
 
-      final result = ContractApiError.tryParseJson(json) as ShortApiError?;
+      final result = ApiError.tryParseJson(json) as ShortApiError?;
 
       expect(result, isA<ShortApiError>());
       expect(result?.error, 'Test short error');
@@ -113,7 +113,7 @@ void main() {
 
     test('tryParseJson with unknown format', () {
       final json = {'amogus': 'sus'};
-      final result = ContractApiError.tryParseJson(json);
+      final result = ApiError.tryParseJson(json);
       expect(result, isNull);
     });
   });
