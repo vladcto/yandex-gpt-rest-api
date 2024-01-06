@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:http/http.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
-import 'package:mockito/annotations.dart';
 import 'package:test/test.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_api_client.dart';
 import 'package:yandex_gpt_rest_api/src/models/gpt_models/g_model.dart';
@@ -9,7 +7,6 @@ import 'package:yandex_gpt_rest_api/src/models/gpt_models/v_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
 
-@GenerateNiceMocks([MockSpec<Client>()])
 void main() {
   group('YandexGptApiClient', () {
     late YandexGptApiClient apiClient;
@@ -217,62 +214,6 @@ void main() {
         );
       });
     });
-
-    // group("Client interface", () {
-    //   setUp(() {
-    //     clearInteractions(mockClient);
-    //
-    //     const json = {
-    //       "embedding": [
-    //         -0.2,
-    //         0.1,
-    //       ],
-    //       "numTokens": "5",
-    //       "modelVersion": "06.12.2023",
-    //     };
-    //     _mockClientResponse(
-    //       adapter: adapter,
-    //       uri: textEmbeddingUri,
-    //       json: json,
-    //     );
-    //   });
-    //
-    //   test("Use token", () {
-    //     apiClient.getTextEmbedding(
-    //       const EmbeddingRequest(model: VModel.searchQueries(''), text: ''),
-    //     );
-    //
-    //     verify(
-    //       mockClient.post(
-    //         any,
-    //         headers: argThat(
-    //           containsPair(authHeaderName, token.value),
-    //           named: 'headers',
-    //         ),
-    //         body: anyNamed('body'),
-    //       ),
-    //     );
-    //   });
-    //
-    //   test("Change token", () {
-    //     const newToken = AuthToken.iam('new_token');
-    //     apiClient.changeToken(newToken);
-    //     apiClient.getTextEmbedding(
-    //       const EmbeddingRequest(model: VModel.searchQueries(''), text: ''),
-    //     );
-    //
-    //     verify(
-    //       mockClient.post(
-    //         any,
-    //         headers: argThat(
-    //           containsPair(authHeaderName, newToken.value),
-    //           named: 'headers',
-    //         ),
-    //         body: anyNamed('body'),
-    //       ),
-    //     );
-    //   });
-    // });
   });
 }
 
