@@ -1,23 +1,21 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:async/async.dart';
-import 'package:http/http.dart';
-import 'package:yandex_gpt_rest_api/src/logic/helper/api_cancel_token.dart';
+import 'package:dio/dio.dart';
 import 'package:yandex_gpt_rest_api/src/models/errors/api_error.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
 
 /// Facade for working with `http.Client`
 class YandexGptHttpClient {
-  final Client _client;
+  final Dio _dio;
   final Map<String, String> _authHeader;
 
   YandexGptHttpClient({
-    required Client client,
+    required BaseOptions options,
     required String authToken,
     required String catalog,
   }) : this._(
-          client: client,
+          dio: Dio(options),
           authHeader: {
             authHeaderName: authToken,
             catalogIdHeaderName: catalog,
@@ -25,47 +23,37 @@ class YandexGptHttpClient {
         );
 
   const YandexGptHttpClient._({
-    required Client client,
+    required Dio dio,
     required Map<String, String> authHeader,
   })  : _authHeader = authHeader,
-        _client = client;
+        _dio = dio;
 
   void changeToken(String authToken) {
     _authHeader[authHeaderName] = authToken;
   }
 
   Future<Map<String, dynamic>> post(
-    Uri url, {
+    String url, {
     Map<String, dynamic>? body,
-    ApiCancelToken? cancelToken,
+    CancelToken? cancelToken,
   }) async {
-    final Response? response;
-    final request = CancelableOperation.fromFuture(
-      _client.post(
+    late final Response<Map<String, Object>> response;
+
+    try {
+      response = await _dio.post<Map<String, Object>>(
         url,
-        body: jsonEncode(body),
-        headers: _authHeader,
-      ),
-    );
-
-    cancelToken?.attachCancellable(request);
-    response = await request.valueOrCancellation(null);
-    cancelToken?.detachCancellable(request);
-    if (response == null) {
-      throw CanceledError();
+        data: jsonEncode(body),
+        cancelToken: cancelToken,
+      );
+    } on DioException catch (e) {
+      final apiError = ApiError.tryParseJson(
+        (e.response?.data ?? {}) as Map<String, Object>,
+      );
+      if(apiError == null) rethrow;
+      throw apiError;
     }
 
-    final jsonBody =
-        jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
-    if (response.statusCode != 200) {
-      throw ContractApiError.tryParseJson(jsonBody) ??
-          ShortApiError(
-            code: -1,
-            error: "Unknown error",
-            message: "Unknown error format $jsonBody",
-            details: [],
-          );
-    }
+    final jsonBody = response.data ?? {};
     return jsonBody;
   }
 }
