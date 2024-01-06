@@ -24,14 +24,14 @@ class YandexGptHttpClient {
         cancelToken: cancelToken,
       );
     } on DioException catch (e) {
-      final body = jsonDecode(e.response?.data as String? ?? "");
+      final body = jsonDecode(e.response?.data as String? ?? "{}");
       final apiError =
           ApiError.tryParseJson(body is Map<String, dynamic> ? body : {});
       if (apiError == null) rethrow;
       throw apiError;
     }
 
-    final jsonBody = jsonDecode(response.data ?? "") as Map<String, dynamic>;
+    final jsonBody = jsonDecode(response.data ?? "{}") as Map<String, dynamic>;
     return jsonBody;
   }
 }

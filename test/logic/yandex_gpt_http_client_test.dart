@@ -1,31 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_http_client.dart';
 import 'package:yandex_gpt_rest_api/src/models/errors/api_error.dart';
 
-import 'yandex_gpt_http_client_test.mocks.dart';
-
 const url = "";
 
-@GenerateNiceMocks([MockSpec<Dio>()])
 void main() {
   group('YandexGptHttpClient', () {
-    late MockDio mockDio;
-    late YandexGptHttpClient httpClientWithMock;
     late YandexGptHttpClient httpClient;
     late Dio dio;
     late DioAdapter adapter;
 
     setUp(() {
-      mockDio = MockDio();
       dio = Dio();
       adapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
-
       httpClient = YandexGptHttpClient(dio);
-      httpClientWithMock = YandexGptHttpClient(mockDio);
     });
 
     test('Handle successful response', () async {
@@ -112,47 +102,19 @@ void main() {
       });
     });
 
-    // test("Throws error on cancel", () async {
-    //   final token = ApiCancelToken();
-    //   final mockResponse = Response("", 200);
-    //   when(
-    //     mockClient.post(
-    //       uri,
-    //       headers: anyNamed('headers'),
-    //       body: anyNamed('body'),
-    //     ),
-    //   ).thenAnswer(
-    //     (_) async => await Future.delayed(
-    //       const Duration(seconds: 2),
-    //       () => mockResponse,
-    //     ),
-    //   );
-    //
-    //   Future(() => token.close());
-    //   await expectLater(
-    //     httpClient.post(uri, cancelToken: token),
-    //     throwsA(isA<CanceledError>()),
-    //   );
-    // });
-    //
-    // test("Don`t throws error on post-cancel", () async {
-    //   final token = ApiCancelToken();
-    //   final mockResponse = Response("{}", 200);
-    //   when(
-    //     mockClient.post(
-    //       uri,
-    //       headers: anyNamed('headers'),
-    //       body: anyNamed('body'),
-    //     ),
-    //   ).thenAnswer(
-    //     (_) async => mockResponse,
-    //   );
-    //
-    //   await expectLater(
-    //     httpClient.post(uri, cancelToken: token),
-    //     completes,
-    //   );
-    //   await expectLater(Future(() => token.close()), completes);
-    // });
+    test("Throws error on cancel", () async {
+      final token = CancelToken();
+      adapter.onPost(url, (server) {
+        server.reply(200, "good", delay: const Duration(milliseconds: 1));
+      });
+
+      Future(() => token.cancel());
+      await expectLater(
+        httpClient.post(url, cancelToken: token),
+        throwsA(isA<DioException>()),
+      );
+      expect(token.isCancelled, true);
+      token.cancel('Check is token not allocated anywhere');
+    });
   });
 }
