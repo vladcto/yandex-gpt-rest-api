@@ -1,3 +1,7 @@
+## 0.5.0
+
+- Replaced the HTTP.Client with Dio
+
 ## 0.4.0
 
 - Removed HTTP errors handling.
