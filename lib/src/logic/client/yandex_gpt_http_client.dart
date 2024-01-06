@@ -15,23 +15,23 @@ class YandexGptHttpClient {
     Map<String, dynamic>? body,
     CancelToken? cancelToken,
   }) async {
-    late final Response<Map<String, Object>> response;
+    late final Response<String> response;
 
     try {
-      response = await _dio.post<Map<String, Object>>(
+      response = await _dio.post<String>(
         url,
         data: jsonEncode(body),
         cancelToken: cancelToken,
       );
     } on DioException catch (e) {
-      final apiError = ApiError.tryParseJson(
-        (e.response?.data ?? {}) as Map<String, Object>,
-      );
+      final body =
+          jsonDecode(e.response?.data as String? ?? "") as Map<String, dynamic>;
+      final apiError = ApiError.tryParseJson(body);
       if (apiError == null) rethrow;
       throw apiError;
     }
 
-    final jsonBody = response.data ?? {};
+    final jsonBody = jsonDecode(response.data ?? "") as Map<String, dynamic>;
     return jsonBody;
   }
 }
