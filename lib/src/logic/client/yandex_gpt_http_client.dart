@@ -24,9 +24,9 @@ class YandexGptHttpClient {
         cancelToken: cancelToken,
       );
     } on DioException catch (e) {
-      final body =
-          jsonDecode(e.response?.data as String? ?? "") as Map<String, dynamic>;
-      final apiError = ApiError.tryParseJson(body);
+      final body = jsonDecode(e.response?.data as String? ?? "");
+      final apiError =
+          ApiError.tryParseJson(body is Map<String, dynamic> ? body : {});
       if (apiError == null) rethrow;
       throw apiError;
     }
