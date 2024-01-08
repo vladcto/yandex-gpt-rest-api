@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 abstract interface class YandexGptApi {
+  void changeToken(AuthToken token);
+
   Future<TextGenerationAsyncResponse> generateAsyncText(
     TextGenerationRequest request, {
     CancelToken? cancelToken,

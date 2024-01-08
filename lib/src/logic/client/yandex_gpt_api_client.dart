@@ -9,6 +9,21 @@ class YandexGptApiClient implements YandexGptApi {
   final YandexGptHttpClient _client;
   final YandexGptHeaderInterceptor _headerInterceptor;
 
+  YandexGptApiClient({
+    required AuthToken token,
+    String? catalog,
+  }) : this.withDio(dio: Dio(), token: token, catalog: catalog);
+
+  YandexGptApiClient.withOptions({
+    required BaseOptions options,
+    required AuthToken token,
+    String? catalog,
+  }) : this.withDio(
+          dio: Dio()..options = options,
+          token: token,
+          catalog: catalog,
+        );
+
   YandexGptApiClient.withDio({
     required Dio dio,
     required AuthToken token,
@@ -22,6 +37,7 @@ class YandexGptApiClient implements YandexGptApi {
     dio.interceptors.add(_headerInterceptor);
   }
 
+  @override
   void changeToken(AuthToken token) {
     _headerInterceptor.changeToken(token);
   }

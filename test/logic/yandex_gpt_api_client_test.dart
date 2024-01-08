@@ -259,7 +259,6 @@ void main() {
             authHeaderName: const AuthToken.apiKey('api-key').value,
           },
         );
-        await apiClient.tokenizeText(request);
 
         await expectLater(
           apiClient.tokenizeText(request),
