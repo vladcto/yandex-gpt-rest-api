@@ -5,16 +5,18 @@ import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_api_client.dart'
 import 'package:yandex_gpt_rest_api/src/models/gpt_models/g_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/gpt_models/v_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
+import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
 
 void main() {
   group('YandexGptApiClient', () {
+    late Dio dio;
     late YandexGptApiClient apiClient;
     late DioAdapter adapter;
     const token = AuthToken.iam("token");
 
     setUp(() {
-      final dio = Dio();
+      dio = Dio();
       apiClient = YandexGptApiClient.withDio(
         dio: dio,
         token: token,
@@ -214,6 +216,59 @@ void main() {
         );
       });
     });
+
+    group("Client interface", () {
+      late final DioAdapter headerMatcherAdapter;
+
+      setUp(() {
+        headerMatcherAdapter =
+            DioAdapter(dio: dio, matcher: _HeaderMatcherAdapter());
+      });
+
+      tearDown(() {
+        dio.httpClientAdapter = adapter;
+      });
+
+      test("Success change token", () async {
+        apiClient.changeToken(const AuthToken.iam('iam'));
+        apiClient.changeToken(const AuthToken.apiKey('api-key'));
+        const request = TokenizeTextRequest(
+          model: GModel.yandexGpt(''),
+          text: '',
+        );
+        const response = {
+          "tokens": [
+            {
+              "id": "0",
+              "text": "amo",
+              "special": true,
+            },
+            {
+              "id": "2",
+              "text": "gus",
+              "special": false,
+            },
+          ],
+          "modelVersion": "08.12.2023",
+        };
+
+        headerMatcherAdapter.onPost(
+          tokenizeTextUri,
+          (server) {
+            server.reply(200, response);
+          },
+          headers: {
+            authHeaderName: const AuthToken.apiKey('api-key').value,
+          },
+        );
+        await apiClient.tokenizeText(request);
+
+        await expectLater(
+          apiClient.tokenizeText(request),
+          completes,
+        );
+      });
+    });
   });
 }
 
@@ -225,4 +280,16 @@ void _mockClientResponse({
   adapter.onGet(url, (server) {
     server.reply(200, json);
   });
+}
+
+class _HeaderMatcherAdapter extends HttpRequestMatcher {
+  @override
+  bool matches(RequestOptions ongoingRequest, Request matcher) {
+    return matcher.headers?.entries.every(
+          (element) {
+            return ongoingRequest.headers[element.key] == element.value;
+          },
+        ) ??
+        true;
+  }
 }

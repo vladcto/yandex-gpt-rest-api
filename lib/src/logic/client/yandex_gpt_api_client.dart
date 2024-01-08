@@ -22,7 +22,6 @@ class YandexGptApiClient implements YandexGptApi {
     dio.interceptors.add(_headerInterceptor);
   }
 
-  /// Set new IAM token.
   void changeToken(AuthToken token) {
     _headerInterceptor.changeToken(token);
   }
