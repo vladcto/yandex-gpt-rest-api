@@ -1,5 +1,6 @@
-include: package:lint/strict.yaml
+include: package:lint/package.yaml
 
 linter:
   rules:
     avoid_classes_with_only_static_members: false
+    use_setters_to_change_properties: false

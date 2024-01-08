@@ -1,97 +1,64 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:http/http.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:dio/dio.dart';
+import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:test/test.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_http_client.dart';
-import 'package:yandex_gpt_rest_api/src/logic/helper/api_cancel_token.dart';
 import 'package:yandex_gpt_rest_api/src/models/errors/api_error.dart';
-import 'yandex_gpt_http_client_test.mocks.dart';
 
-final uri = Uri();
+const url = "";
 
-@GenerateNiceMocks([MockSpec<Client>()])
 void main() {
   group('YandexGptHttpClient', () {
     late YandexGptHttpClient httpClient;
-    late MockClient mockClient;
+    late Dio dio;
+    late DioAdapter adapter;
 
     setUp(() {
-      mockClient = MockClient();
-      httpClient = YandexGptHttpClient(
-        client: mockClient,
-        authToken: 'your_token',
-        catalog: 'your_catalog',
-      );
+      dio = Dio();
+      adapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
+      httpClient = YandexGptHttpClient(dio);
     });
 
     test('Handle successful response', () async {
-      final mockResponse = Response(
-        jsonEncode({'key': 'value'}),
-        200,
-        headers: {'content-type': 'application/json'},
+      adapter.onPost(
+        url,
+        (server) => server.reply(200, {'key': 'value'}),
       );
-      when(
-        mockClient.post(
-          uri,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer((_) async => mockResponse);
 
-      final result = await httpClient.post(uri);
+      final result = await httpClient.post(url);
 
       expect(result, equals({'key': 'value'}));
     });
 
-    test('Do not handle ClientException', () async {
-      when(
-        mockClient.post(
-          uri,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer((_) async => throw ClientException('Client Exception'));
+    test('Do not handle DioException', () async {
+      adapter.onPost(url, (server) {
+        server.reply(400, {});
+      });
 
       await expectLater(
-        httpClient.post(uri),
-        throwsA(isA<ClientException>()),
+        httpClient.post(url),
+        throwsA(isA<DioException>()),
       );
     });
 
-    test('Do not handle HttpException', () async {
-      when(
-        mockClient.post(
-          uri,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer((_) async => throw const HttpException('HTTP Exception'));
+    test('Handle plain text error format', () async {
+      adapter.onPost(url, (server) {
+        server.reply(400, "some error that i didnt expect");
+      });
 
       await expectLater(
-        httpClient.post(uri),
-        throwsA(isA<HttpException>()),
+        httpClient.post(url),
+        throwsA(isA<DioException>()),
       );
     });
 
     test('Handle unknown non-200 response format', () async {
-      final mockResponse = Response(
-        jsonEncode({'error': 'Some error message'}),
-        404,
-        headers: {'content-type': 'application/json'},
-      );
-      when(
-        mockClient.post(
-          uri,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer((_) async => mockResponse);
+      adapter.onPost(url, (server) {
+        server.reply(400, {});
+      });
 
       await expectLater(
-        httpClient.post(uri),
-        throwsA(isA<ShortApiError>()),
+        httpClient.post(url),
+        throwsA(isA<DioException>()),
       );
     });
 
@@ -107,21 +74,12 @@ void main() {
             "details": [],
           },
         };
-        final mockResponse = Response(
-          jsonEncode(json),
-          400,
-          headers: {'content-type': 'application/json'},
-        );
-        when(
-          mockClient.post(
-            uri,
-            headers: anyNamed('headers'),
-            body: anyNamed('body'),
-          ),
-        ).thenAnswer((_) async => mockResponse);
+        adapter.onPost(url, (server) {
+          server.reply(400, json);
+        });
 
         expectLater(
-          httpClient.post(uri),
+          httpClient.post(url),
           throwsA(isA<DetailedApiError>()),
         );
       });
@@ -133,67 +91,30 @@ void main() {
           "message": "invalid character '}' looking for beginning of value",
           "details": [],
         };
-        final mockResponse = Response(
-          jsonEncode(json),
-          400,
-          headers: {'content-type': 'application/json'},
-        );
-        when(
-          mockClient.post(
-            uri,
-            headers: anyNamed('headers'),
-            body: anyNamed('body'),
-          ),
-        ).thenAnswer((_) async => mockResponse);
+        adapter.onPost(url, (server) {
+          server.reply(400, json);
+        });
 
         expectLater(
-          httpClient.post(uri),
+          httpClient.post(url),
           throwsA(isA<ShortApiError>()),
         );
       });
     });
 
     test("Throws error on cancel", () async {
-      final token = ApiCancelToken();
-      final mockResponse = Response("", 200);
-      when(
-        mockClient.post(
-          uri,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => await Future.delayed(
-          const Duration(seconds: 2),
-          () => mockResponse,
-        ),
-      );
+      final token = CancelToken();
+      adapter.onPost(url, (server) {
+        server.reply(200, "good", delay: const Duration(milliseconds: 1));
+      });
 
-      Future(() => token.close());
+      Future(() => token.cancel());
       await expectLater(
-        httpClient.post(uri, cancelToken: token),
-        throwsA(isA<CanceledError>()),
+        httpClient.post(url, cancelToken: token),
+        throwsA(isA<DioException>()),
       );
-    });
-
-    test("Don`t throws error on post-cancel", () async {
-      final token = ApiCancelToken();
-      final mockResponse = Response("{}", 200);
-      when(
-        mockClient.post(
-          uri,
-          headers: anyNamed('headers'),
-          body: anyNamed('body'),
-        ),
-      ).thenAnswer(
-        (_) async => mockResponse,
-      );
-
-      await expectLater(
-        httpClient.post(uri, cancelToken: token),
-        completes,
-      );
-      await expectLater(Future(() => token.close()), completes);
+      expect(token.isCancelled, true);
+      token.cancel('Check is token not allocated anywhere');
     });
   });
 }

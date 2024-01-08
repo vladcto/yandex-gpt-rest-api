@@ -1,39 +1,51 @@
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:yandex_gpt_rest_api/src/logic/api/yandex_gpt_api.dart';
+import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_header_interceptor.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_http_client.dart';
-import 'package:yandex_gpt_rest_api/src/logic/helper/api_cancel_token.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
 
 class YandexGptApiClient implements YandexGptApi {
   final YandexGptHttpClient _client;
+  final YandexGptHeaderInterceptor _headerInterceptor;
 
-  YandexGptApiClient({required AuthToken token, String? catalog})
-      : this.withHttpClient(
-          client: http.Client(),
+  YandexGptApiClient({
+    required AuthToken token,
+    String? catalog,
+  }) : this.withDio(dio: Dio(), token: token, catalog: catalog);
+
+  YandexGptApiClient.withOptions({
+    required BaseOptions options,
+    required AuthToken token,
+    String? catalog,
+  }) : this.withDio(
+          dio: Dio()..options = options,
           token: token,
           catalog: catalog,
         );
 
-  YandexGptApiClient.withHttpClient({
-    required http.Client client,
+  YandexGptApiClient.withDio({
+    required Dio dio,
     required AuthToken token,
     String? catalog,
-  }) : _client = YandexGptHttpClient(
-          client: client,
-          authToken: token.value,
+  })  : _client = YandexGptHttpClient(dio),
+        _headerInterceptor = YandexGptHeaderInterceptor(
           catalog: catalog ?? "",
-        );
+          token: token,
+        ) {
+    dio.options.baseUrl = host;
+    dio.interceptors.add(_headerInterceptor);
+  }
 
-  /// Set new IAM token.
+  @override
   void changeToken(AuthToken token) {
-    _client.changeToken(token.value);
+    _headerInterceptor.changeToken(token);
   }
 
   @override
   Future<TextGenerationResponse> generateText(
     TextGenerationRequest request, {
-    ApiCancelToken? cancelToken,
+    CancelToken? cancelToken,
   }) async {
     final res = await _client.post(
       textGenerationUri,
@@ -46,7 +58,7 @@ class YandexGptApiClient implements YandexGptApi {
   @override
   Future<TextGenerationAsyncResponse> generateAsyncText(
     TextGenerationRequest request, {
-    ApiCancelToken? cancelToken,
+    CancelToken? cancelToken,
   }) async {
     final res = await _client.post(
       textGenerationAsyncUri,
@@ -59,7 +71,7 @@ class YandexGptApiClient implements YandexGptApi {
   @override
   Future<EmbeddingResponse> getTextEmbedding(
     EmbeddingRequest request, {
-    ApiCancelToken? cancelToken,
+    CancelToken? cancelToken,
   }) async {
     final res = await _client.post(
       textEmbeddingUri,
@@ -72,7 +84,7 @@ class YandexGptApiClient implements YandexGptApi {
   @override
   Future<TokenizeResponse> tokenizeCompletion(
     TextGenerationRequest request, {
-    ApiCancelToken? cancelToken,
+    CancelToken? cancelToken,
   }) async {
     final res = await _client.post(
       tokenizeCompletionUri,
@@ -85,7 +97,7 @@ class YandexGptApiClient implements YandexGptApi {
   @override
   Future<TokenizeResponse> tokenizeText(
     TokenizeTextRequest request, {
-    ApiCancelToken? cancelToken,
+    CancelToken? cancelToken,
   }) async {
     final res = await _client.post(
       tokenizeTextUri,

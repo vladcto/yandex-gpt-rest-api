@@ -1,3 +1,8 @@
+## 0.5.0
+
+- Replaced the `HTTP.Client` with `Dio`.
+- Removed `ApiCancelToken`.
+
 ## 0.4.0
 
 - Removed HTTP errors handling.

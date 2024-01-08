@@ -1,29 +1,31 @@
-import 'package:yandex_gpt_rest_api/src/logic/helper/api_cancel_token.dart';
+import 'package:dio/dio.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 abstract interface class YandexGptApi {
+  void changeToken(AuthToken token);
+
   Future<TextGenerationAsyncResponse> generateAsyncText(
     TextGenerationRequest request, {
-    ApiCancelToken? cancelToken,
+    CancelToken? cancelToken,
   });
 
   Future<TextGenerationResponse> generateText(
     TextGenerationRequest request, {
-    ApiCancelToken? cancelToken,
+    CancelToken? cancelToken,
   });
 
   Future<TokenizeResponse> tokenizeText(
     TokenizeTextRequest request, {
-    ApiCancelToken? cancelToken,
+    CancelToken? cancelToken,
   });
 
   Future<TokenizeResponse> tokenizeCompletion(
     TextGenerationRequest request, {
-    ApiCancelToken? cancelToken,
+    CancelToken? cancelToken,
   });
 
   Future<EmbeddingResponse> getTextEmbedding(
     EmbeddingRequest request, {
-    ApiCancelToken? cancelToken,
+    CancelToken? cancelToken,
   });
 }

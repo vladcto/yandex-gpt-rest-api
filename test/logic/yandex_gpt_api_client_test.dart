@@ -1,7 +1,5 @@
-import 'dart:convert';
-import 'package:http/http.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:dio/dio.dart';
+import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:test/test.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_api_client.dart';
 import 'package:yandex_gpt_rest_api/src/models/gpt_models/g_model.dart';
@@ -9,22 +7,35 @@ import 'package:yandex_gpt_rest_api/src/models/gpt_models/v_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
-import 'yandex_gpt_http_client_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<Client>()])
 void main() {
   group('YandexGptApiClient', () {
+    late Dio dio;
     late YandexGptApiClient apiClient;
-    late MockClient mockClient;
+    late DioAdapter adapter;
     const token = AuthToken.iam("token");
 
     setUp(() {
-      mockClient = MockClient();
-      apiClient = YandexGptApiClient.withHttpClient(
-        client: mockClient,
+      dio = Dio();
+      apiClient = YandexGptApiClient.withDio(
+        dio: dio,
         token: token,
         catalog: 'your_catalog',
       );
+      adapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
+    });
+
+    group("Creation", () {
+      test("Creation default", () {
+        YandexGptApiClient(token: const AuthToken.apiKey('key'));
+      });
+
+      test("Creation with base options", () {
+        YandexGptApiClient.withOptions(
+          options: BaseOptions(),
+          token: const AuthToken.apiKey('key'),
+        );
+      });
     });
 
     group("Successful responses convert", () {
@@ -49,8 +60,8 @@ void main() {
           },
         };
         _mockClientResponse(
-          client: mockClient,
-          uri: textGenerationUri,
+          adapter: adapter,
+          url: textGenerationUri,
           json: json,
         );
 
@@ -95,8 +106,8 @@ void main() {
         };
 
         _mockClientResponse(
-          client: mockClient,
-          uri: textGenerationAsyncUri,
+          adapter: adapter,
+          url: textGenerationAsyncUri,
           json: json,
         );
 
@@ -126,8 +137,8 @@ void main() {
           "modelVersion": "06.12.2023",
         };
         _mockClientResponse(
-          client: mockClient,
-          uri: textEmbeddingUri,
+          adapter: adapter,
+          url: textEmbeddingUri,
           json: json,
         );
 
@@ -156,8 +167,8 @@ void main() {
           "modelVersion": "08.12.2023",
         };
         _mockClientResponse(
-          client: mockClient,
-          uri: tokenizeCompletionUri,
+          adapter: adapter,
+          url: tokenizeCompletionUri,
           json: json,
         );
 
@@ -198,8 +209,8 @@ void main() {
           "modelVersion": "08.12.2023",
         };
         _mockClientResponse(
-          client: mockClient,
-          uri: tokenizeTextUri,
+          adapter: adapter,
+          url: tokenizeTextUri,
           json: json,
         );
 
@@ -220,57 +231,51 @@ void main() {
     });
 
     group("Client interface", () {
+      late final DioAdapter headerMatcherAdapter;
+
       setUp(() {
-        clearInteractions(mockClient);
+        headerMatcherAdapter = DioAdapter(
+          dio: dio,
+          matcher: _HeaderMatcherAdapter(),
+        );
+      });
 
-        const json = {
-          "embedding": [
-            -0.2,
-            0.1,
+      test("Success change token", () async {
+        apiClient.changeToken(const AuthToken.iam('iam'));
+        apiClient.changeToken(const AuthToken.apiKey('api-key'));
+        const request = TokenizeTextRequest(
+          model: GModel.yandexGpt(''),
+          text: '',
+        );
+        const response = {
+          "tokens": [
+            {
+              "id": "0",
+              "text": "amo",
+              "special": true,
+            },
+            {
+              "id": "2",
+              "text": "gus",
+              "special": false,
+            },
           ],
-          "numTokens": "5",
-          "modelVersion": "06.12.2023",
+          "modelVersion": "08.12.2023",
         };
-        _mockClientResponse(
-          client: mockClient,
-          uri: textEmbeddingUri,
-          json: json,
-        );
-      });
 
-      test("Use token", () {
-        apiClient.getTextEmbedding(
-          const EmbeddingRequest(model: VModel.searchQueries(''), text: ''),
-        );
-
-        verify(
-          mockClient.post(
-            any,
-            headers: argThat(
-              containsPair(authHeaderName, token.value),
-              named: 'headers',
-            ),
-            body: anyNamed('body'),
-          ),
-        );
-      });
-
-      test("Change token", () {
-        const newToken = AuthToken.iam('new_token');
-        apiClient.changeToken(newToken);
-        apiClient.getTextEmbedding(
-          const EmbeddingRequest(model: VModel.searchQueries(''), text: ''),
+        headerMatcherAdapter.onPost(
+          tokenizeTextUri,
+          (server) {
+            server.reply(200, response);
+          },
+          headers: {
+            authHeaderName: const AuthToken.apiKey('api-key').value,
+          },
         );
 
-        verify(
-          mockClient.post(
-            any,
-            headers: argThat(
-              containsPair(authHeaderName, newToken.value),
-              named: 'headers',
-            ),
-            body: anyNamed('body'),
-          ),
+        await expectLater(
+          apiClient.tokenizeText(request),
+          completes,
         );
       });
     });
@@ -278,20 +283,23 @@ void main() {
 }
 
 void _mockClientResponse({
-  required MockClient client,
-  required Uri uri,
+  required DioAdapter adapter,
+  required String url,
   required Map<String, dynamic> json,
 }) {
-  final mockResponse = Response(
-    jsonEncode(json),
-    200,
-    headers: {'content-type': 'application/json'},
-  );
-  when(
-    client.post(
-      uri,
-      headers: anyNamed('headers'),
-      body: anyNamed('body'),
-    ),
-  ).thenAnswer((_) async => mockResponse);
+  adapter.onGet(url, (server) {
+    server.reply(200, json);
+  });
+}
+
+class _HeaderMatcherAdapter extends HttpRequestMatcher {
+  @override
+  bool matches(RequestOptions ongoingRequest, Request matcher) {
+    return matcher.headers?.entries.every(
+          (element) {
+            return ongoingRequest.headers[element.key] == element.value;
+          },
+        ) ??
+        true;
+  }
 }
