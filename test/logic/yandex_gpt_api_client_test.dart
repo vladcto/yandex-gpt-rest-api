@@ -221,12 +221,10 @@ void main() {
       late final DioAdapter headerMatcherAdapter;
 
       setUp(() {
-        headerMatcherAdapter =
-            DioAdapter(dio: dio, matcher: _HeaderMatcherAdapter());
-      });
-
-      tearDown(() {
-        dio.httpClientAdapter = adapter;
+        headerMatcherAdapter = DioAdapter(
+          dio: dio,
+          matcher: _HeaderMatcherAdapter(),
+        );
       });
 
       test("Success change token", () async {
