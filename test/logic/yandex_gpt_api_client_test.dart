@@ -25,6 +25,19 @@ void main() {
       adapter = DioAdapter(dio: dio, matcher: const UrlRequestMatcher());
     });
 
+    group("Creation", () {
+      test("Creation default", () {
+        YandexGptApiClient(token: const AuthToken.apiKey('key'));
+      });
+
+      test("Creation with base options", () {
+        YandexGptApiClient.withOptions(
+          options: BaseOptions(),
+          token: const AuthToken.apiKey('key'),
+        );
+      });
+    });
+
     group("Successful responses convert", () {
       test("generateText", () async {
         const json = {
