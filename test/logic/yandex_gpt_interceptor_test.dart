@@ -41,7 +41,7 @@ void main() {
       expect(sent.headers, containsPair(catalogIdHeaderName, 'catalog'));
       expect(
         sent.headers,
-        containsPair(authHeaderName, const AuthToken.iam('iam').value),
+        containsPair(authHeaderName, const AuthToken.iam('iam').toString()),
       );
     });
 
@@ -59,7 +59,7 @@ void main() {
 
       expect(
         afterChange.headers,
-        containsPair(authHeaderName, const AuthToken.apiKey('key').value),
+        containsPair(authHeaderName, const AuthToken.apiKey('key').toString()),
       );
     });
   });

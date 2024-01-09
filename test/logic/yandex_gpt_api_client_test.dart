@@ -267,7 +267,7 @@ void main() {
             server.reply(200, response);
           },
           headers: {
-            authHeaderName: const AuthToken.apiKey('api-key').value,
+            authHeaderName: const AuthToken.apiKey('api-key').toString(),
           },
         );
 
