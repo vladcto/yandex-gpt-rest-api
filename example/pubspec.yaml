@@ -1,0 +1,16 @@
+name: example
+description: exmple
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  dio: ^5.4.0
+  yandex_gpt_rest_api:
+    path: ../.
+
+dev_dependencies:
+  lint: ^2.0.0
