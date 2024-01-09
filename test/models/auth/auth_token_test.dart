@@ -6,16 +6,12 @@ void main() {
   group("AuthToken model", () {
     test("Iam token creation", () {
       const token = AuthToken.iam("iam-token");
-
-      expect(token.value, 'Bearer iam-token');
-      expect(token.toString() != 'Bearer iam-token', true);
+      expect(token.toString(), 'Bearer iam-token');
     });
 
     test("Api key creation", () {
       const token = AuthToken.apiKey('api-key');
-
-      expect(token.value, 'Api-Key api-key');
-      expect(token.toString() != 'Api-Key api-key', true);
+      expect(token.toString(), 'Api-Key api-key');
     });
   });
 }

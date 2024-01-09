@@ -2,6 +2,7 @@
 
 - Replaced the `HTTP.Client` with `Dio`.
 - Removed `ApiCancelToken`.
+- Replaced `AuthToken.value` with `AuthToken.toString()`. 
 
 ## 0.4.0
 

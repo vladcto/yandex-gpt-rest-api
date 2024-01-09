@@ -1,7 +1,10 @@
 final class AuthToken {
-  final String value;
+  final String _value;
 
-  const AuthToken.iam(String iamToken) : value = 'Bearer $iamToken';
+  const AuthToken.iam(String iamToken) : _value = 'Bearer $iamToken';
 
-  const AuthToken.apiKey(String key) : value = 'Api-Key $key';
+  const AuthToken.apiKey(String key) : _value = 'Api-Key $key';
+
+  @override
+  String toString() => _value;
 }

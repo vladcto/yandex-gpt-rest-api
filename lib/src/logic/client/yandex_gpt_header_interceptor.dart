@@ -15,7 +15,7 @@ class YandexGptHeaderInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     options.headers.addAll({
-      authHeaderName: _token.value,
+      authHeaderName: _token.toString(),
       catalogIdHeaderName: _catalog,
     });
     handler.next(options);
