@@ -2,8 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:test/test.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_api_client.dart';
-import 'package:yandex_gpt_rest_api/src/models/gpt_models/g_model.dart';
-import 'package:yandex_gpt_rest_api/src/models/gpt_models/v_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';

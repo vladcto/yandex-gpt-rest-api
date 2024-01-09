@@ -1,4 +1,3 @@
-import 'package:yandex_gpt_rest_api/src/models/gpt_models/g_model.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 class TextGenerationRequest {
