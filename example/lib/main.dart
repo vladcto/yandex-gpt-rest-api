@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:yandex_gpt_rest_api/yandex_gpt_rest_api.dart';
 
@@ -12,6 +14,7 @@ void main() async {
   await tokenizeTextResponse();
   await embedding();
   await handleErrors();
+  await closeRequest();
 }
 
 Future<void> generateText() async {
@@ -25,6 +28,7 @@ Future<void> generateText() async {
   print("Used tokens: ${response.usage.totalTokens}");
   print("Joke status: ${response.alternatives.first.status}");
   print("     message: ${response.alternatives.first.message.text}");
+  print('');
 }
 
 Future<void> tokenizeText() async {
@@ -37,18 +41,20 @@ Future<void> tokenizeText() async {
 
   print("Tokens count: ${response.tokens.length}");
   print("Tokens: ${response.tokens}");
+  print('');
 }
 
 Future<void> tokenizeTextResponse() async {
   final response = await api.tokenizeCompletion(
     TextGenerationRequest(
       model: GModel.yandexGpt(catalog),
-      messages: [Message.user('Say some funny joke')],
+      messages: [Message.assistant('Some funny joke')],
     ),
   );
 
   print("Tokens count: ${response.tokens.length}");
   print("Tokens: ${response.tokens}");
+  print('');
 }
 
 Future<void> embedding() async {
@@ -60,6 +66,7 @@ Future<void> embedding() async {
   );
 
   print("Embedding: ${response.embedding}");
+  print('');
 }
 
 Future<void> handleErrors() async {
@@ -77,4 +84,16 @@ Future<void> handleErrors() async {
   } on DioException catch (e) {
     print("Network errors: $e");
   }
+  print('');
+}
+
+Future<void> closeRequest() async {
+  final client = YandexGptApiClient(token: AuthToken.apiKey('sus'));
+  final cancelToken = CancelToken();
+  runZonedGuarded(() async {
+    await client.generateText(
+      TextGenerationRequest(model: GModel.yandexGpt(''), messages: []),
+    );
+  }, (_, __) => print("Canceled\n"));
+  cancelToken.cancel();
 }
