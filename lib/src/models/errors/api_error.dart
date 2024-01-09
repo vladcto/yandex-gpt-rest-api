@@ -1,5 +1,10 @@
 /// All errors are on the Foundation Models API side.
 sealed class ApiError {
+  final String message;
+  final List<String> details;
+
+  ApiError({required this.message, required this.details});
+
   static ApiError? tryParseJson(Map<String, dynamic> json) {
     try {
       return DetailedApiError.fromJson(json);
@@ -15,16 +20,14 @@ sealed class ApiError {
 final class DetailedApiError extends ApiError {
   final int grpcCode;
   final int httpCode;
-  final String message;
   final String httpStatus;
-  final List<String> details;
 
   DetailedApiError({
     required this.grpcCode,
     required this.httpCode,
-    required this.message,
     required this.httpStatus,
-    required this.details,
+    required super.message,
+    required super.details,
   });
 
   factory DetailedApiError.fromJson(Map<String, dynamic> json) {
@@ -44,14 +47,12 @@ final class DetailedApiError extends ApiError {
 final class ShortApiError extends ApiError {
   final String error;
   final int code;
-  final String message;
-  final List<String> details;
 
   ShortApiError({
     required this.error,
     required this.code,
-    required this.message,
-    required this.details,
+    required super.message,
+    required super.details,
   });
 
   factory ShortApiError.fromJson(Map<String, dynamic> json) {
