@@ -93,7 +93,8 @@ Future<void> closeRequest() async {
   runZonedGuarded(() async {
     await client.generateText(
       TextGenerationRequest(model: GModel.yandexGpt(''), messages: []),
+      cancelToken: cancelToken,
     );
-  }, (_, __) => print("Canceled\n"));
+  }, (e, __) => print("Canceled with ${e.runtimeType}\n"));
   cancelToken.cancel();
 }
