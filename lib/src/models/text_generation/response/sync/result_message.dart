@@ -9,11 +9,9 @@ enum ResultMessageStatus {
 
   factory ResultMessageStatus.fromStatus(String status) {
     return switch (status) {
-      AlternativeStatus.unspecified => ResultMessageStatus.unspecified,
-      AlternativeStatus.partial => ResultMessageStatus.partial,
-      AlternativeStatus.truncatedFinal => ResultMessageStatus.truncatedFinal,
       AlternativeStatus.finalDone => ResultMessageStatus.finalDone,
-      // TODO: Normal error message
+      AlternativeStatus.truncatedFinal => ResultMessageStatus.truncatedFinal,
+      AlternativeStatus.partial => ResultMessageStatus.partial,
       _ => ResultMessageStatus.unspecified
     };
   }
