@@ -25,10 +25,10 @@ class YandexGptHttpClient {
   }
 
   Future<Map<String, dynamic>> get(
-      String url, {
-        Map<String, dynamic>? body,
-        CancelToken? cancelToken,
-      }) async {
+    String url, {
+    Map<String, dynamic>? body,
+    CancelToken? cancelToken,
+  }) async {
     return await _fetch(
       _dio.get<String>(
         url,
