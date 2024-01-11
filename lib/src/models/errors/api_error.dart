@@ -45,11 +45,9 @@ final class DetailedApiError extends ApiError {
 
 /// Error for the entire Yandex API. For example, the quota has expired.
 final class ShortApiError extends ApiError {
-  final String error;
   final int code;
 
   ShortApiError({
-    required this.error,
     required this.code,
     required super.message,
     required super.details,
@@ -57,7 +55,6 @@ final class ShortApiError extends ApiError {
 
   factory ShortApiError.fromJson(Map<String, dynamic> json) {
     return ShortApiError(
-      error: json["error"] as String,
       code: json["code"] as int,
       message: json["message"] as String,
       details: List.of(json["details"] as List<dynamic>).cast<String>(),

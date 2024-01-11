@@ -43,13 +43,11 @@ void main() {
   group('ShortApiError model', () {
     test('creation', () {
       final shortError = ShortApiError(
-        error: 'Test short error',
         code: 400,
         message: 'Bad Request',
         details: ['detail1', 'detail2'],
       );
 
-      expect(shortError.error, 'Test short error');
       expect(shortError.code, 400);
       expect(shortError.message, 'Bad Request');
       expect(shortError.details, ['detail1', 'detail2']);
@@ -57,7 +55,6 @@ void main() {
 
     test('fromJson', () {
       final json = {
-        'error': 'Test short error',
         'code': 400,
         'message': 'Bad Request',
         'details': ['detail1', 'detail2'],
@@ -65,7 +62,6 @@ void main() {
 
       final shortError = ShortApiError.fromJson(json);
 
-      expect(shortError.error, 'Test short error');
       expect(shortError.code, 400);
       expect(shortError.message, 'Bad Request');
       expect(shortError.details, ['detail1', 'detail2']);
@@ -96,7 +92,6 @@ void main() {
 
     test('tryParseJson with ShortApiError', () {
       final json = {
-        'error': 'Test short error',
         'code': 400,
         'message': 'Bad Request',
         'details': ['detail1', 'detail2'],
@@ -105,7 +100,6 @@ void main() {
       final result = ApiError.tryParseJson(json) as ShortApiError?;
 
       expect(result, isA<ShortApiError>());
-      expect(result?.error, 'Test short error');
       expect(result?.code, 400);
       expect(result?.message, 'Bad Request');
       expect(result?.details, ['detail1', 'detail2']);

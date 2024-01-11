@@ -10,7 +10,7 @@ class TextGenerationAsyncResponse {
   final String createdBy;
   final String modifiedAt;
   final String? metadata;
-  final ErrorAsyncResult? error;
+  final ShortApiError? error;
   final TextGenerationResponse? response;
 
   bool get done => response != null || error != null;
@@ -35,7 +35,7 @@ class TextGenerationAsyncResponse {
       modifiedAt: json["modifiedAt"] as String,
       metadata: json["metadata"] as String?,
       error: json["error"] != null
-          ? ErrorAsyncResult.fromJson(json["error"] as Map<String, dynamic>)
+          ? ShortApiError.fromJson(json["error"] as Map<String, dynamic>)
           : null,
       response: json["response"] != null
           ? TextGenerationResponse.fromJson(

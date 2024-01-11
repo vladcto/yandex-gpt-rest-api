@@ -68,6 +68,18 @@ final class YandexGptApiClient implements YandexGptApi {
   }
 
   @override
+  Future<TextGenerationAsyncResponse> getOperationTextGenerate(
+      String operationId, {
+        CancelToken? cancelToken,
+      }) async {
+    final res = await _client.post(
+      ApiUrl.operation(operationId),
+      cancelToken: cancelToken,
+    );
+    return TextGenerationAsyncResponse.fromJson(res);
+  }
+
+  @override
   Future<EmbeddingResponse> getTextEmbedding(
     EmbeddingRequest request, {
     CancelToken? cancelToken,
@@ -104,17 +116,5 @@ final class YandexGptApiClient implements YandexGptApi {
       cancelToken: cancelToken,
     );
     return TokenizeResponse.fromJson(res);
-  }
-
-  @override
-  Future<TextGenerationAsyncResponse> getOperationTextGenerate(
-    String operationId, {
-    CancelToken? cancelToken,
-  }) async {
-    final res = await _client.post(
-      ApiUrl.operation(operationId),
-      cancelToken: cancelToken,
-    );
-    return TextGenerationAsyncResponse.fromJson(res);
   }
 }
