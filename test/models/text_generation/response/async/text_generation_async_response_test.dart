@@ -12,7 +12,6 @@ void main() {
         "createdBy": "by",
         "modifiedAt": "modified",
         "metadata": "metadata",
-        "response": "response",
       };
 
       final response = TextGenerationAsyncResponse.fromJson(json);
@@ -23,7 +22,7 @@ void main() {
       expect(response.createdBy, "by");
       expect(response.modifiedAt, "modified");
       expect(response.metadata, "metadata");
-      expect(response.done, true);
+      expect(response.done, false);
     });
 
     test("fromJson with error", () {

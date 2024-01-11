@@ -3,8 +3,8 @@ import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:test/test.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_api_client.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
+import 'package:yandex_gpt_rest_api/src/utils/constants/api_url.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
-import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
 
 void main() {
   group('YandexGptApiClient', () {
@@ -59,7 +59,7 @@ void main() {
         };
         _mockClientResponse(
           adapter: adapter,
-          url: textGenerationUri,
+          url: ApiUrl.textGeneration,
           json: json,
         );
 
@@ -105,7 +105,7 @@ void main() {
 
         _mockClientResponse(
           adapter: adapter,
-          url: textGenerationAsyncUri,
+          url: ApiUrl.textGenerationAsync,
           json: json,
         );
 
@@ -136,7 +136,7 @@ void main() {
         };
         _mockClientResponse(
           adapter: adapter,
-          url: textEmbeddingUri,
+          url: ApiUrl.textEmbedding,
           json: json,
         );
 
@@ -166,7 +166,7 @@ void main() {
         };
         _mockClientResponse(
           adapter: adapter,
-          url: tokenizeCompletionUri,
+          url: ApiUrl.tokenizeCompletion,
           json: json,
         );
 
@@ -208,7 +208,7 @@ void main() {
         };
         _mockClientResponse(
           adapter: adapter,
-          url: tokenizeTextUri,
+          url: ApiUrl.tokenizeText,
           json: json,
         );
 
@@ -262,7 +262,7 @@ void main() {
         };
 
         headerMatcherAdapter.onPost(
-          tokenizeTextUri,
+          ApiUrl.tokenizeText,
           (server) {
             server.reply(200, response);
           },
