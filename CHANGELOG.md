@@ -1,9 +1,9 @@
 ## 0.5.0
 
 - Replaced the `HTTP.Client` with `Dio`.
+- Supported get `AsyncTextGeneration` Operation status.
 - Removed `ApiCancelToken`.
 - Replaced `AuthToken.value` with `AuthToken.toString()`. 
-- Supported get `AsyncTextGeneration` Operation status.
 - Converted `YandexGptApi` into its implementation `YandexGptApiClient`.
 - Renamed `TextGenerationResponse` into `TextCompletion`.
 
