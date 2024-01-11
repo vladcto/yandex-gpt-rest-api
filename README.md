@@ -45,8 +45,6 @@ void main() async {
 
 #### Generate async text
 
-**UNDER_WORK**
-
 ```dart
 void main() async {
   final response = await api.generateAsyncText(

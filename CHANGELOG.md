@@ -3,6 +3,7 @@
 - Replaced the `HTTP.Client` with `Dio`.
 - Removed `ApiCancelToken`.
 - Replaced `AuthToken.value` with `AuthToken.toString()`. 
+- Supported get `AsyncTextGeneration` Operation status.
 
 ## 0.4.0
 
