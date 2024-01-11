@@ -5,10 +5,7 @@ import 'package:yandex_gpt_rest_api/src/models/models.dart';
 void main() {
   group("ResultMessage model", () {
     test("fromJson", () {
-      const message = Message(
-        role: Role.assistant,
-        text: "Здравствуйте, мир!",
-      );
+      const message = Message.assistant("Здравствуйте, мир!");
       final json = {
         "message": {
           "role": "assistant",

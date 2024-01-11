@@ -20,10 +20,7 @@ void main() {
 
     test("fromJson valid", () {
       const resMessage = ResultMessage(
-        message: Message(
-          role: Role.assistant,
-          text: "Hello world!",
-        ),
+        message: Message.assistant("Hello world!"),
         status: ResultMessageStatus.finalDone,
       );
       const usage = ModelUsage(

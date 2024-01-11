@@ -83,10 +83,7 @@ void main() {
         expect(
           result.alternatives.first.toString(),
           const ResultMessage(
-            message: Message(
-              role: Role.assistant,
-              text: "sus",
-            ),
+            message: Message.assistant("sus"),
             status: ResultMessageStatus.finalDone,
           ).toString(),
         );
@@ -200,7 +197,7 @@ void main() {
           const TextGenerationRequest(
             model: GModel.raw(''),
             messages: [
-              Message(role: Role.system, text: ''),
+              Message.system(''),
             ],
           ),
         );

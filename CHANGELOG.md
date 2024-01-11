@@ -6,6 +6,7 @@
 - Replaced `AuthToken.value` with `AuthToken.toString()`. 
 - Converted `YandexGptApi` into its implementation `YandexGptApiClient`.
 - Renamed `TextGenerationResponse` into `TextCompletion`.
+- Removed generic constructor for `Message`.
 
 ## 0.4.0
 
