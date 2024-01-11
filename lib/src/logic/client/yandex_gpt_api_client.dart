@@ -51,7 +51,9 @@ final class YandexGptApiClient implements YandexGptApi {
       body: request.toJson(),
       cancelToken: cancelToken,
     );
-    return TextGenerationResponse.fromJson(res);
+    return TextGenerationResponse.fromJson(
+      res['result'] as Map<String, dynamic>,
+    );
   }
 
   @override
@@ -69,10 +71,10 @@ final class YandexGptApiClient implements YandexGptApi {
 
   @override
   Future<TextGenerationAsyncResponse> getOperationTextGenerate(
-      String operationId, {
-        CancelToken? cancelToken,
-      }) async {
-    final res = await _client.post(
+    String operationId, {
+    CancelToken? cancelToken,
+  }) async {
+    final res = await _client.get(
       ApiUrl.operation(operationId),
       cancelToken: cancelToken,
     );
