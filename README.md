@@ -31,7 +31,7 @@ Now you can use the Foundation Models API.
 void main() async {
   final response = await api.generateText(
     TextGenerationRequest(
-      modelUri: GModel.yandexGpt('folder_id'),
+      model: GModel.yandexGpt('folder_id'),
       messages: const [
         Message.system("Some joke"),
         Message.user("Generate joke"),

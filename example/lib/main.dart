@@ -6,11 +6,11 @@ import 'package:yandex_gpt_rest_api/yandex_gpt_rest_api.dart';
 final token = AuthToken.iam("key-here");
 final catalog = 'catalog-here';
 
-final api = YandexGptApiClient(token: token, catalog: catalog);
+final api = YandexGptApi(token: token, catalog: catalog);
 
 Future<void> main() async {
   await generateText();
-  await generateAsyncText();
+  // await generateAsyncText();
   await tokenizeText();
   await tokenizeTextResponse();
   await embedding();
@@ -35,15 +35,14 @@ Future<void> generateText() async {
 Future<void> generateAsyncText() async {
   final request = TextGenerationRequest(
     model: GModel.yandexGptLight(catalog),
-    messages: [
-      Message.user("Generate a short story"),
-    ],
+    messages: [Message.user("Generate a short story")],
   );
+
   final id = (await api.generateAsyncText(request)).id;
   print("ID Operation: $id");
   await Future.delayed(Duration(seconds: 10));
-
   final response = await api.getOperationTextGenerate(id);
+
   if (!response.done) {
     print('Operation not done');
   } else if (response.result != null) {
@@ -95,7 +94,8 @@ Future<void> embedding() async {
 }
 
 Future<void> handleErrors() async {
-  final errorClient = YandexGptApiClient(token: AuthToken.apiKey('sus'));
+  final errorClient = YandexGptApi(token: AuthToken.apiKey('sus'));
+
   try {
     await errorClient.generateText(
       TextGenerationRequest(model: GModel.yandexGpt(''), messages: []),
@@ -113,8 +113,9 @@ Future<void> handleErrors() async {
 }
 
 Future<void> closeRequest() async {
-  final errorClient = YandexGptApiClient(token: AuthToken.apiKey('sus'));
+  final errorClient = YandexGptApi(token: AuthToken.apiKey('sus'));
   final cancelToken = CancelToken();
+
   errorClient
       .generateText(
         TextGenerationRequest(model: GModel.yandexGpt(''), messages: []),

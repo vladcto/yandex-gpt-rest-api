@@ -1,21 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:test/test.dart';
-import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_api_client.dart';
+import 'package:yandex_gpt_rest_api/src/logic/yandex_gpt_api.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/api_url.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
 
 void main() {
-  group('YandexGptApiClient', () {
+  group('YandexGptApi', () {
     late Dio dio;
-    late YandexGptApiClient apiClient;
+    late YandexGptApi apiClient;
     late DioAdapter adapter;
     const token = AuthToken.iam("token");
 
     setUp(() {
       dio = Dio();
-      apiClient = YandexGptApiClient.withDio(
+      apiClient = YandexGptApi.withDio(
         dio: dio,
         token: token,
         catalog: 'your_catalog',
@@ -25,11 +25,11 @@ void main() {
 
     group("Creation", () {
       test("Creation default", () {
-        YandexGptApiClient(token: const AuthToken.apiKey('key'));
+        YandexGptApi(token: const AuthToken.apiKey('key'));
       });
 
       test("Creation with base options", () {
-        YandexGptApiClient.withOptions(
+        YandexGptApi.withOptions(
           options: BaseOptions(),
           token: const AuthToken.apiKey('key'),
         );

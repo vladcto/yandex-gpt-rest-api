@@ -4,6 +4,7 @@
 - Removed `ApiCancelToken`.
 - Replaced `AuthToken.value` with `AuthToken.toString()`. 
 - Supported get `AsyncTextGeneration` Operation status.
+- Converted `YandexGptApi` into its implementation `YandexGptApiClient`.
 
 ## 0.4.0
 
