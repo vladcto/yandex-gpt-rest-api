@@ -32,7 +32,7 @@ void main() {
     test('Handle successful GET response', () async {
       adapter.onGet(
         url,
-            (server) => server.reply(200, {'key': 'value'}),
+        (server) => server.reply(200, {'key': 'value'}),
       );
 
       final result = await httpClient.get(url);

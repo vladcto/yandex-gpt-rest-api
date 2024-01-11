@@ -150,7 +150,7 @@ void main() {
         expect(result.metadata, "metadata");
         expect(result.done, false);
       });
-      
+
       test("getTextEmbedding", () async {
         const json = {
           "embedding": [
