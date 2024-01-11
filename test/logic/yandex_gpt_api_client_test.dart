@@ -82,7 +82,7 @@ void main() {
         expect(result.alternatives.length, 1);
         expect(
           result.alternatives.first.toString(),
-          const ResultMessage(
+          const MessageHolder(
             message: Message.assistant("sus"),
             status: ResultMessageStatus.finalDone,
           ).toString(),

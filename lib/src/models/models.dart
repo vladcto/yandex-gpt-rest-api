@@ -9,7 +9,7 @@ export 'text_generation/request/completion_options.dart';
 export 'text_generation/request/text_generation_request.dart';
 export 'text_generation/response/async/text_generation_async_response.dart';
 export 'text_generation/response/sync/model_usage.dart';
-export 'text_generation/response/sync/result_message.dart';
+export 'text_generation/response/sync/message_holder.dart';
 export 'text_generation/response/sync/text_completion.dart';
 export 'tokenizer/token.dart';
 export 'tokenizer/tokenize_response.dart';

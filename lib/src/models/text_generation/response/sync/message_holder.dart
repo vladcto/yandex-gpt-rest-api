@@ -17,19 +17,19 @@ enum ResultMessageStatus {
   }
 }
 
-class ResultMessage {
+class MessageHolder {
   final Message message;
   final ResultMessageStatus status;
 
-  const ResultMessage({required this.message, required this.status});
+  const MessageHolder({required this.message, required this.status});
 
   @override
   String toString() {
     return 'ResultMessage{message: $message, status: $status}';
   }
 
-  factory ResultMessage.fromJson(Map<String, dynamic> json) {
-    return ResultMessage(
+  factory MessageHolder.fromJson(Map<String, dynamic> json) {
+    return MessageHolder(
       message: Message.fromJson(json["message"] as Map<String, dynamic>),
       status: ResultMessageStatus.fromStatus(json["status"] as String),
     );

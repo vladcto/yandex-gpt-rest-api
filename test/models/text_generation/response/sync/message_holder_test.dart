@@ -3,7 +3,7 @@ import 'package:test/scaffolding.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 void main() {
-  group("ResultMessage model", () {
+  group("MessageHolder model", () {
     test("fromJson", () {
       const message = Message.assistant("Здравствуйте, мир!");
       final json = {
@@ -14,7 +14,7 @@ void main() {
         "status": "ALTERNATIVE_STATUS_FINAL",
       };
 
-      final converted = ResultMessage.fromJson(json);
+      final converted = MessageHolder.fromJson(json);
       expect(converted.status, ResultMessageStatus.finalDone);
       expect(converted.message.toJson(), equals(message.toJson()));
     });
