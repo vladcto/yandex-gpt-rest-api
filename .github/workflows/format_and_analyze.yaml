@@ -5,20 +5,20 @@ on:
     branches: [ main ]
 
 jobs:
-  format:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ./.github/workflows/setup_repo_with_dart.yaml
+      - uses: actions/checkout@v3
+
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Install dependencies
+        run: dart pub get
 
       - name: Verify formatting
         run: dart format -o none --set-exit-if-changed .
 
-  analyze:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: ./.github/workflows/setup_repo_with_dart.yaml
-
       - name: Analyze project source
+        if: '!cancelled()'
         run: dart analyze --fatal-infos
