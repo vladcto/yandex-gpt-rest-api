@@ -15,8 +15,14 @@ void main() {
       };
 
       final converted = MessageHolder.fromJson(json);
-      expect(converted.status, ResultMessageStatus.finalDone);
+      expect(converted.status, MessageHolderStatus.finalDone);
       expect(converted.message.toJson(), equals(message.toJson()));
+    });
+
+    test("MessageHolderStatus unknown", () {
+      final unknown = MessageHolderStatus.fromStatus('');
+
+      expect(unknown, MessageHolderStatus.unspecified);
     });
   });
 }
