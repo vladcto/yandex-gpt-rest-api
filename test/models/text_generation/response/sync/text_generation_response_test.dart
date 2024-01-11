@@ -32,23 +32,21 @@ void main() {
         totalTokens: 16,
       );
       final json = {
-        "result": {
-          "alternatives": [
-            {
-              "message": {
-                "role": "assistant",
-                "text": "Hello world!",
-              },
-              "status": "ALTERNATIVE_STATUS_FINAL",
+        "alternatives": [
+          {
+            "message": {
+              "role": "assistant",
+              "text": "Hello world!",
             },
-          ],
-          "usage": {
-            "inputTextTokens": "12",
-            "completionTokens": "4",
-            "totalTokens": "16",
+            "status": "ALTERNATIVE_STATUS_FINAL",
           },
-          "modelVersion": "08.12.2023",
+        ],
+        "usage": {
+          "inputTextTokens": "12",
+          "completionTokens": "4",
+          "totalTokens": "16",
         },
+        "modelVersion": "08.12.2023",
       };
 
       final converted = TextGenerationResponse.fromJson(json);

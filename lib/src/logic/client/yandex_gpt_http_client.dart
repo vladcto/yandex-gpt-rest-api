@@ -15,14 +15,34 @@ class YandexGptHttpClient {
     Map<String, dynamic>? body,
     CancelToken? cancelToken,
   }) async {
-    late final Response<String> response;
-
-    try {
-      response = await _dio.post<String>(
+    return await _fetch(
+      _dio.post<String>(
         url,
         data: jsonEncode(body),
         cancelToken: cancelToken,
-      );
+      ),
+    );
+  }
+
+  Future<Map<String, dynamic>> get(
+    String url, {
+    Map<String, dynamic>? body,
+    CancelToken? cancelToken,
+  }) async {
+    return await _fetch(
+      _dio.get<String>(
+        url,
+        data: jsonEncode(body),
+        cancelToken: cancelToken,
+      ),
+    );
+  }
+
+  Future<Map<String, dynamic>> _fetch(Future<Response<String>> request) async {
+    late final Response<String> response;
+
+    try {
+      response = await request;
     } on DioException catch (e) {
       final body = jsonDecode(e.response?.data as String? ?? "{}");
       final apiError =

@@ -9,6 +9,11 @@ abstract interface class YandexGptApi {
     CancelToken? cancelToken,
   });
 
+  Future<TextGenerationAsyncResponse> getOperationTextGenerate(
+    String operationId, {
+    CancelToken? cancelToken,
+  });
+
   Future<TextGenerationResponse> generateText(
     TextGenerationRequest request, {
     CancelToken? cancelToken,

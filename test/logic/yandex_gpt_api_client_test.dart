@@ -3,8 +3,8 @@ import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:test/test.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_api_client.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
+import 'package:yandex_gpt_rest_api/src/utils/constants/api_url.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
-import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
 
 void main() {
   group('YandexGptApiClient', () {
@@ -59,7 +59,7 @@ void main() {
         };
         _mockClientResponse(
           adapter: adapter,
-          url: textGenerationUri,
+          url: ApiUrl.textGeneration,
           json: json,
         );
 
@@ -100,12 +100,11 @@ void main() {
           "createdBy": "by",
           "modifiedAt": "modified",
           "metadata": "metadata",
-          "response": "response",
         };
 
         _mockClientResponse(
           adapter: adapter,
-          url: textGenerationAsyncUri,
+          url: ApiUrl.textGenerationAsync,
           json: json,
         );
 
@@ -122,7 +121,34 @@ void main() {
         expect(result.createdAt, "at");
         expect(result.modifiedAt, "modified");
         expect(result.metadata, "metadata");
-        expect(result.done, true);
+        expect(result.done, false);
+      });
+
+      test("getOperationTextGenerate", () async {
+        final json = {
+          "id": "sus",
+          "description": "amogus",
+          "createdAt": "at",
+          "createdBy": "by",
+          "modifiedAt": "modified",
+          "metadata": "metadata",
+        };
+
+        _mockClientResponse(
+          adapter: adapter,
+          url: ApiUrl.operation("id"),
+          json: json,
+        );
+
+        final result = await apiClient.getOperationTextGenerate("id");
+
+        expect(result.id, "sus");
+        expect(result.description, "amogus");
+        expect(result.createdBy, "by");
+        expect(result.createdAt, "at");
+        expect(result.modifiedAt, "modified");
+        expect(result.metadata, "metadata");
+        expect(result.done, false);
       });
 
       test("getTextEmbedding", () async {
@@ -136,7 +162,7 @@ void main() {
         };
         _mockClientResponse(
           adapter: adapter,
-          url: textEmbeddingUri,
+          url: ApiUrl.textEmbedding,
           json: json,
         );
 
@@ -166,7 +192,7 @@ void main() {
         };
         _mockClientResponse(
           adapter: adapter,
-          url: tokenizeCompletionUri,
+          url: ApiUrl.tokenizeCompletion,
           json: json,
         );
 
@@ -208,7 +234,7 @@ void main() {
         };
         _mockClientResponse(
           adapter: adapter,
-          url: tokenizeTextUri,
+          url: ApiUrl.tokenizeText,
           json: json,
         );
 
@@ -262,7 +288,7 @@ void main() {
         };
 
         headerMatcherAdapter.onPost(
-          tokenizeTextUri,
+          ApiUrl.tokenizeText,
           (server) {
             server.reply(200, response);
           },

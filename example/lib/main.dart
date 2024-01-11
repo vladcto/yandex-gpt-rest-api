@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:yandex_gpt_rest_api/yandex_gpt_rest_api.dart';
 
-final token = AuthToken.iam('your-iam-token');
-final catalog = '';
+final token = AuthToken.iam("key-here");
+final catalog = 'catalog-here';
 
 final api = YandexGptApiClient(token: token, catalog: catalog);
 
-void main() async {
+Future<void> main() async {
   await generateText();
+  await generateAsyncText();
   await tokenizeText();
   await tokenizeTextResponse();
   await embedding();
@@ -28,6 +29,30 @@ Future<void> generateText() async {
   print("Used tokens: ${response.usage.totalTokens}");
   print("Joke status: ${response.alternatives.first.status}");
   print("     message: ${response.alternatives.first.message.text}");
+  print('');
+}
+
+Future<void> generateAsyncText() async {
+  final request = TextGenerationRequest(
+    model: GModel.yandexGptLight(catalog),
+    messages: [
+      Message.user("Generate a short story"),
+    ],
+  );
+  final id = (await api.generateAsyncText(request)).id;
+  print("ID Operation: $id");
+  await Future.delayed(Duration(seconds: 10));
+
+  final response = await api.getOperationTextGenerate(id);
+  if (!response.done) {
+    print('Operation not done');
+  } else if (response.result != null) {
+    print('Operation result:');
+    print(response.result);
+  } else {
+    print('Operation error:');
+    print(response.error);
+  }
   print('');
 }
 
@@ -88,13 +113,16 @@ Future<void> handleErrors() async {
 }
 
 Future<void> closeRequest() async {
-  final client = YandexGptApiClient(token: AuthToken.apiKey('sus'));
+  final errorClient = YandexGptApiClient(token: AuthToken.apiKey('sus'));
   final cancelToken = CancelToken();
-  runZonedGuarded(() async {
-    await client.generateText(
-      TextGenerationRequest(model: GModel.yandexGpt(''), messages: []),
-      cancelToken: cancelToken,
-    );
-  }, (e, __) => print("Canceled with ${e.runtimeType}\n"));
+  errorClient
+      .generateText(
+        TextGenerationRequest(model: GModel.yandexGpt(''), messages: []),
+        cancelToken: cancelToken,
+      )
+      .then(
+        (value) => throw Exception("Never gonna get value"),
+        onError: (e) => print("Canceled with ${e.runtimeType}\n"),
+      );
   cancelToken.cancel();
 }

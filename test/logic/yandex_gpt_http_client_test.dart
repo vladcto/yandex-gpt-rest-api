@@ -18,13 +18,24 @@ void main() {
       httpClient = YandexGptHttpClient(dio);
     });
 
-    test('Handle successful response', () async {
+    test('Handle successful POST response', () async {
       adapter.onPost(
         url,
         (server) => server.reply(200, {'key': 'value'}),
       );
 
       final result = await httpClient.post(url);
+
+      expect(result, equals({'key': 'value'}));
+    });
+
+    test('Handle successful GET response', () async {
+      adapter.onGet(
+        url,
+        (server) => server.reply(200, {'key': 'value'}),
+      );
+
+      final result = await httpClient.get(url);
 
       expect(result, equals({'key': 'value'}));
     });

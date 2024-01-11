@@ -10,9 +10,10 @@ class TextGenerationAsyncResponse {
   final String createdBy;
   final String modifiedAt;
   final String? metadata;
-  final GenerationAsyncResult? result;
+  final ShortApiError? error;
+  final TextGenerationResponse? result;
 
-  bool get done => result != null;
+  bool get done => result != null || error != null;
 
   TextGenerationAsyncResponse({
     required this.id,
@@ -21,6 +22,7 @@ class TextGenerationAsyncResponse {
     required this.createdBy,
     required this.modifiedAt,
     required this.metadata,
+    required this.error,
     required this.result,
   });
 
@@ -32,11 +34,14 @@ class TextGenerationAsyncResponse {
       createdBy: json["createdBy"] as String,
       modifiedAt: json["modifiedAt"] as String,
       metadata: json["metadata"] as String?,
-      result: json["error"] != null
-          ? ErrorAsyncResult.fromJson(json["error"] as Map<String, dynamic>)
-          : json["response"] != null
-              ? ResponseAsyncResult(body: json["response"] as String)
-              : null,
+      error: json["error"] != null
+          ? ShortApiError.fromJson(json["error"] as Map<String, dynamic>)
+          : null,
+      result: json["response"] != null
+          ? TextGenerationResponse.fromJson(
+              json["response"] as Map<String, dynamic>,
+            )
+          : null,
     );
   }
 }

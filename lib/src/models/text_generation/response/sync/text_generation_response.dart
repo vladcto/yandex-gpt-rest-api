@@ -17,8 +17,6 @@ class TextGenerationResponse {
   }
 
   factory TextGenerationResponse.fromJson(Map<String, dynamic> json) {
-    json = json["result"] as Map<String, dynamic>;
-
     return TextGenerationResponse(
       alternatives: List.of(json["alternatives"] as List<dynamic>)
           .map((i) => ResultMessage.fromJson(i as Map<String, dynamic>))

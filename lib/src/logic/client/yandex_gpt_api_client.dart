@@ -3,7 +3,7 @@ import 'package:yandex_gpt_rest_api/src/logic/api/yandex_gpt_api.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_header_interceptor.dart';
 import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_http_client.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
-import 'package:yandex_gpt_rest_api/src/utils/constants/url_paths.dart';
+import 'package:yandex_gpt_rest_api/src/utils/constants/api_url.dart';
 
 final class YandexGptApiClient implements YandexGptApi {
   final YandexGptHttpClient _client;
@@ -33,7 +33,6 @@ final class YandexGptApiClient implements YandexGptApi {
           catalog: catalog ?? "",
           token: token,
         ) {
-    dio.options.baseUrl = host;
     dio.interceptors.add(_headerInterceptor);
   }
 
@@ -48,11 +47,13 @@ final class YandexGptApiClient implements YandexGptApi {
     CancelToken? cancelToken,
   }) async {
     final res = await _client.post(
-      textGenerationUri,
+      ApiUrl.textGeneration,
       body: request.toJson(),
       cancelToken: cancelToken,
     );
-    return TextGenerationResponse.fromJson(res);
+    return TextGenerationResponse.fromJson(
+      res['result'] as Map<String, dynamic>,
+    );
   }
 
   @override
@@ -61,8 +62,20 @@ final class YandexGptApiClient implements YandexGptApi {
     CancelToken? cancelToken,
   }) async {
     final res = await _client.post(
-      textGenerationAsyncUri,
+      ApiUrl.textGenerationAsync,
       body: request.toJson(),
+      cancelToken: cancelToken,
+    );
+    return TextGenerationAsyncResponse.fromJson(res);
+  }
+
+  @override
+  Future<TextGenerationAsyncResponse> getOperationTextGenerate(
+    String operationId, {
+    CancelToken? cancelToken,
+  }) async {
+    final res = await _client.get(
+      ApiUrl.operation(operationId),
       cancelToken: cancelToken,
     );
     return TextGenerationAsyncResponse.fromJson(res);
@@ -74,7 +87,7 @@ final class YandexGptApiClient implements YandexGptApi {
     CancelToken? cancelToken,
   }) async {
     final res = await _client.post(
-      textEmbeddingUri,
+      ApiUrl.textEmbedding,
       body: request.toJson(),
       cancelToken: cancelToken,
     );
@@ -87,7 +100,7 @@ final class YandexGptApiClient implements YandexGptApi {
     CancelToken? cancelToken,
   }) async {
     final res = await _client.post(
-      tokenizeCompletionUri,
+      ApiUrl.tokenizeCompletion,
       body: request.toJson(),
       cancelToken: cancelToken,
     );
@@ -100,7 +113,7 @@ final class YandexGptApiClient implements YandexGptApi {
     CancelToken? cancelToken,
   }) async {
     final res = await _client.post(
-      tokenizeTextUri,
+      ApiUrl.tokenizeText,
       body: request.toJson(),
       cancelToken: cancelToken,
     );
