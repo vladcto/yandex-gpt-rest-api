@@ -11,9 +11,9 @@ class TextGenerationAsyncResponse {
   final String modifiedAt;
   final String? metadata;
   final ShortApiError? error;
-  final TextGenerationResponse? response;
+  final TextGenerationResponse? result;
 
-  bool get done => response != null || error != null;
+  bool get done => result != null || error != null;
 
   TextGenerationAsyncResponse({
     required this.id,
@@ -23,7 +23,7 @@ class TextGenerationAsyncResponse {
     required this.modifiedAt,
     required this.metadata,
     required this.error,
-    required this.response,
+    required this.result,
   });
 
   factory TextGenerationAsyncResponse.fromJson(Map<String, dynamic> json) {
@@ -37,7 +37,7 @@ class TextGenerationAsyncResponse {
       error: json["error"] != null
           ? ShortApiError.fromJson(json["error"] as Map<String, dynamic>)
           : null,
-      response: json["response"] != null
+      result: json["response"] != null
           ? TextGenerationResponse.fromJson(
               json["response"] as Map<String, dynamic>,
             )
