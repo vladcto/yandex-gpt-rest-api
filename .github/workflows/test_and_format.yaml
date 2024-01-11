@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  setup:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,8 +16,18 @@ jobs:
       - name: Install dependencies
         run: dart pub get
 
+  format:
+    needs: [setup]
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Verify formatting
         run: dart format -o none --set-exit-if-changed .
 
+  analyze:
+    needs: [setup]
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Analyze project source
         run: dart analyze --fatal-infos
