@@ -5,7 +5,7 @@
 
 ## **UNDER WORK**
 
-The signature of the methods may change.
+Documentation in progress.
 
 ## Getting started
 
