@@ -93,7 +93,6 @@ void main() {
       });
 
       test("asyncGenerateText", () async {
-        // TODO: Normal response and error JSON
         final json = {
           "id": "sus",
           "description": "amogus",
@@ -125,6 +124,33 @@ void main() {
         expect(result.done, false);
       });
 
+      test("getOperationTextGenerate", () async {
+        final json = {
+          "id": "sus",
+          "description": "amogus",
+          "createdAt": "at",
+          "createdBy": "by",
+          "modifiedAt": "modified",
+          "metadata": "metadata",
+        };
+
+        _mockClientResponse(
+          adapter: adapter,
+          url: ApiUrl.operation("id"),
+          json: json,
+        );
+
+        final result = await apiClient.getOperationTextGenerate("id");
+
+        expect(result.id, "sus");
+        expect(result.description, "amogus");
+        expect(result.createdBy, "by");
+        expect(result.createdAt, "at");
+        expect(result.modifiedAt, "modified");
+        expect(result.metadata, "metadata");
+        expect(result.done, false);
+      });
+      
       test("getTextEmbedding", () async {
         const json = {
           "embedding": [
