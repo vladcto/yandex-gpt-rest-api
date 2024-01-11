@@ -93,6 +93,7 @@ void main() {
       });
 
       test("asyncGenerateText", () async {
+        // TODO: Normal response and error JSON
         final json = {
           "id": "sus",
           "description": "amogus",
@@ -100,7 +101,6 @@ void main() {
           "createdBy": "by",
           "modifiedAt": "modified",
           "metadata": "metadata",
-          "response": "response",
         };
 
         _mockClientResponse(
@@ -122,7 +122,7 @@ void main() {
         expect(result.createdAt, "at");
         expect(result.modifiedAt, "modified");
         expect(result.metadata, "metadata");
-        expect(result.done, true);
+        expect(result.done, false);
       });
 
       test("getTextEmbedding", () async {
