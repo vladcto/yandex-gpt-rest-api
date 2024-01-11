@@ -1,33 +1,24 @@
-name: Test and format
+name: Format and Analyze
 
 on:
   pull_request:
     branches: [ main ]
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: dart-lang/setup-dart@v1
-
-      - name: Install dependencies
-        run: dart pub get
-
   format:
-    needs: [setup]
     runs-on: ubuntu-latest
 
     steps:
+      - uses: ./.github/workflows/setup_repo_with_dart.yaml
+
       - name: Verify formatting
         run: dart format -o none --set-exit-if-changed .
 
   analyze:
-    needs: [setup]
     runs-on: ubuntu-latest
 
     steps:
+      - uses: ./.github/workflows/setup_repo_with_dart.yaml
+
       - name: Analyze project source
         run: dart analyze --fatal-infos
