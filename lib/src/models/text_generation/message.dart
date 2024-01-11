@@ -21,16 +21,13 @@ class Message {
   final Role role;
   final String text;
 
-  const Message({
-    required this.role,
-    required this.text,
-  });
+  const Message._({required this.text, required this.role});
 
-  const Message.user(String text) : this(text: text, role: Role.user);
+  const Message.user(this.text) : role = Role.user;
 
-  const Message.system(String text) : this(text: text, role: Role.system);
+  const Message.system(this.text) : role = Role.system;
 
-  const Message.assistant(String text) : this(text: text, role: Role.assistant);
+  const Message.assistant(this.text) : role = Role.assistant;
 
   @override
   bool operator ==(Object other) =>
@@ -49,7 +46,7 @@ class Message {
   }
 
   factory Message.fromJson(Map<String, dynamic> json) {
-    return Message(
+    return Message._(
       role: Role.fromName(json["role"] as String),
       text: json["text"] as String,
     );

@@ -94,7 +94,7 @@ void main() {
       expect(response.done, true);
       expect(result.alternatives.first.message.role, Role.assistant);
       expect(result.alternatives.first.message.text, 'Hello');
-      expect(result.alternatives.first.status, ResultMessageStatus.finalDone);
+      expect(result.alternatives.first.status, MessageHolderStatus.finalDone);
       expect(result.modelVersion, "08.12.2023");
       expect(result.usage.inputTextTokens, 16);
       expect(result.usage.completionTokens, 311);

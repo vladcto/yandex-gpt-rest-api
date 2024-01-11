@@ -2,8 +2,12 @@
 
 - Replaced the `HTTP.Client` with `Dio`.
 - Removed `ApiCancelToken`.
-- Replaced `AuthToken.value` with `AuthToken.toString()`. 
 - Supported get `AsyncTextGeneration` Operation status.
+- Converted `YandexGptApi` into its implementation `YandexGptApiClient`.
+- Replaced `AuthToken.value` with `AuthToken.toString()`. 
+- Removed generic constructor for `Message`.
+- Renamed `ResultMessage` into `MessageHolder`.
+- Renamed `TextGenerationResponse` into `TextCompletion`.
 
 ## 0.4.0
 
@@ -12,18 +16,6 @@
 - Added ability to change `YandexGptApi` token.
 - Added support of IAM token and API key.
 
-## 0.3.5
-
-- Change README.md.
-
-## 0.3.4
-
-- Change README.md.
-
-## 0.3.3
-
-- Minor.
-
 ## 0.3.2
 
 - Minor fixes.
@@ -31,7 +23,6 @@
 ## 0.3.1
 
 - Fix GPT models URI.
-- Added tests for `GptModel`.
 
 ## 0.3.0
 

@@ -44,8 +44,8 @@ void main() {
       const model = GModel.raw('some_uri');
       const options = CompletionOptions();
       const messages = [
-        Message(role: Role.system, text: "Word"),
-        Message(role: Role.user, text: "Hello"),
+        Message.system("Word"),
+        Message.user("Hello"),
       ];
       const request = TextGenerationRequest(
         model: model,

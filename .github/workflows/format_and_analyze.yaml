@@ -1,17 +1,18 @@
-name: Test and format
+name: Format and Analyze
 
 on:
   pull_request:
     branches: [ main ]
 
 jobs:
-  test:
+  check:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - uses: dart-lang/setup-dart@v1
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
 
       - name: Install dependencies
         run: dart pub get
@@ -20,4 +21,5 @@ jobs:
         run: dart format -o none --set-exit-if-changed .
 
       - name: Analyze project source
+        if: '!cancelled()'
         run: dart analyze --fatal-infos

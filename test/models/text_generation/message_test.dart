@@ -54,28 +54,16 @@ void main() {
     });
 
     test("toJson", () {
-      const message = Message(
-        role: Role.user,
-        text: "Write tests for Dart code",
-      );
+      const message = Message.user("Write tests for Dart code");
       final json = message.toJson();
       expect(json['role'], 'user');
       expect(json['text'], "Write tests for Dart code");
     });
 
     test("hashCode", () {
-      const message1 = Message(
-        role: Role.user,
-        text: "Write tests for Dart code",
-      );
-      const message2 = Message(
-        role: Role.user,
-        text: "Write tests for Dart code",
-      );
-      const otherMessage = Message(
-        role: Role.assistant,
-        text: "Write tests for Dart code",
-      );
+      const message1 = Message.user("Write tests for Dart code");
+      const message2 = Message.user("Write tests for Dart code");
+      const otherMessage = Message.assistant("Write tests for Dart code");
       expect(message1.hashCode, message2.hashCode);
       expect(message1.hashCode == otherMessage.hashCode, false);
     });

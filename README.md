@@ -5,7 +5,7 @@
 
 ## **UNDER WORK**
 
-The signature of the methods may change.
+Documentation in progress.
 
 ## Getting started
 
@@ -13,7 +13,7 @@ Create `YandexGptApi` instance.
 
 ```dart
 
-final api = YandexGptApiClient(
+final api = YandexGptApi(
   token: AuthToken.iam("your_token"),
   catalog: "your_catalog_id", // Not necessary
 );
@@ -31,7 +31,7 @@ Now you can use the Foundation Models API.
 void main() async {
   final response = await api.generateText(
     TextGenerationRequest(
-      modelUri: GModel.yandexGpt('folder_id'),
+      model: GModel.yandexGpt('folder_id'),
       messages: const [
         Message.system("Some joke"),
         Message.user("Generate joke"),
