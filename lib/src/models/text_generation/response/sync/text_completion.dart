@@ -1,11 +1,11 @@
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
-class TextGenerationResponse {
+class TextCompletion {
   final List<ResultMessage> alternatives;
   final ModelUsage usage;
   final String modelVersion;
 
-  const TextGenerationResponse({
+  const TextCompletion({
     required this.alternatives,
     required this.usage,
     required this.modelVersion,
@@ -13,11 +13,11 @@ class TextGenerationResponse {
 
   @override
   String toString() {
-    return 'TextGenerationResponse{alternatives: $alternatives, usage: $usage, modelVersion: $modelVersion}';
+    return 'TextCompletion{alternatives: $alternatives, usage: $usage, modelVersion: $modelVersion}';
   }
 
-  factory TextGenerationResponse.fromJson(Map<String, dynamic> json) {
-    return TextGenerationResponse(
+  factory TextCompletion.fromJson(Map<String, dynamic> json) {
+    return TextCompletion(
       alternatives: List.of(json["alternatives"] as List<dynamic>)
           .map((i) => ResultMessage.fromJson(i as Map<String, dynamic>))
           .toList(),

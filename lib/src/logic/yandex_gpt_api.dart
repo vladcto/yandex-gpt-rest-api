@@ -39,7 +39,7 @@ final class YandexGptApi {
     _headerInterceptor.changeToken(token);
   }
 
-  Future<TextGenerationResponse> generateText(
+  Future<TextCompletion> generateText(
     TextGenerationRequest request, {
     CancelToken? cancelToken,
   }) async {
@@ -48,7 +48,7 @@ final class YandexGptApi {
       body: request.toJson(),
       cancelToken: cancelToken,
     );
-    return TextGenerationResponse.fromJson(
+    return TextCompletion.fromJson(
       res['result'] as Map<String, dynamic>,
     );
   }

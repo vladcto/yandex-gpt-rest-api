@@ -3,9 +3,9 @@ import 'package:test/scaffolding.dart';
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 void main() {
-  group("TextGenerationResponse model", () {
+  group("TextCompletion model", () {
     test("toString valid", () {
-      const response = TextGenerationResponse(
+      const response = TextCompletion(
         alternatives: [],
         usage: ModelUsage(
           inputTextTokens: 12,
@@ -49,7 +49,7 @@ void main() {
         "modelVersion": "08.12.2023",
       };
 
-      final converted = TextGenerationResponse.fromJson(json);
+      final converted = TextCompletion.fromJson(json);
       expect(converted.alternatives.length, 1);
       expect(converted.alternatives.first.toString(), resMessage.toString());
       expect(converted.usage.toString(), usage.toString());
