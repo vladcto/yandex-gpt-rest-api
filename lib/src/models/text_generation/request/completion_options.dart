@@ -1,8 +1,6 @@
 class CompletionOptions {
   final bool stream;
   final double temperature;
-
-  // TODO: assert
   final int maxTokens;
 
   const CompletionOptions({
