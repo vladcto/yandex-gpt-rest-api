@@ -38,12 +38,14 @@ class YandexGptHttpClient {
     );
   }
 
+  /// A wrapper for handling [ApiError] responses.
   Future<Map<String, dynamic>> _fetch(Future<Response<String>> request) async {
     late final Response<String> response;
 
     try {
       response = await request;
     } on DioException catch (e) {
+      // Check if response contains [ApiError].
       final body = jsonDecode(e.response?.data as String? ?? "{}");
       final apiError =
           ApiError.tryParseJson(body is Map<String, dynamic> ? body : {});
@@ -51,7 +53,7 @@ class YandexGptHttpClient {
       throw apiError;
     }
 
-    final jsonBody = jsonDecode(response.data ?? "{}") as Map<String, dynamic>;
+    final jsonBody = jsonDecode(response.data!) as Map<String, dynamic>;
     return jsonBody;
   }
 }

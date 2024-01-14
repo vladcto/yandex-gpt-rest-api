@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:yandex_gpt_rest_api/src/models/auth/auth_token.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/headers.dart';
 
+/// Interceptor for adding authentication data to the request.
 class YandexGptHeaderInterceptor extends Interceptor {
   final String _catalog;
   AuthToken _token;
