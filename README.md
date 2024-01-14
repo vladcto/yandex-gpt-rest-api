@@ -15,8 +15,8 @@ Create `YandexGptApi` instance.
 ```dart
 
 final api = YandexGptApi(
-  token: AuthToken.api("your_token"),
-  // Not necessary, by default using catalog ID of AuthToken Account.
+  token: AuthToken.api("your_token"), // or AuthToken.iam
+  // Not necessary, by default uses catalog from AuthToken account.
   catalog: "catalog_id?",
 );
 ```
@@ -102,6 +102,8 @@ void main() async {
 <details>
 <summary>Embeddings</summary>
 
+### Text embedding
+
 ```dart
 void main() async {
   final response = await api.getTextEmbedding(
@@ -129,7 +131,7 @@ await api.generateText(/*request*/);
 }
 ```
 
-If you need information about the error (grpcCode for example):
+If you need information about the error:
 
 ```dart
 try {
