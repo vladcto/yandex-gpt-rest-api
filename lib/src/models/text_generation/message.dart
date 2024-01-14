@@ -22,6 +22,11 @@ enum Role {
   String toString() => name;
 }
 
+/// Context of completion model.
+///
+/// See also:
+/// - [TextGenerationRequest] - uses messages to generate text.
+/// - [TextCompletion] - uses messages to present results.
 class Message {
   /// Message sender.
   final Role role;
