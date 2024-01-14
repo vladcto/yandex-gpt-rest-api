@@ -1,10 +1,15 @@
 import 'package:yandex_gpt_rest_api/src/utils/constants/roles.dart';
 
+/// Identifier of the [Message] sender
 enum Role {
+  /// Role used by the user to describe requests to the model.
   user,
+  /// Special role used to define the behaviour of the completion model.
   system,
+  /// Role used by the model to generate responses.
   assistant;
 
+  /// Role from YandexGPT API consts.
   factory Role.fromName(String name) {
     return switch (name) {
       userRole => Role.user,
@@ -18,7 +23,9 @@ enum Role {
 }
 
 class Message {
+  /// Message sender.
   final Role role;
+  /// Content.
   final String text;
 
   const Message._({required this.text, required this.role});

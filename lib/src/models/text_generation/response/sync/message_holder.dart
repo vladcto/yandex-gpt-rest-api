@@ -1,7 +1,7 @@
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/alternative_status.dart';
 
-/// The generation status of the alternative.
+/// The generation status of the [MessageHolder].
 enum GeneratingStatus {
   /// Unspecified generation status.
   unspecified,
