@@ -8,11 +8,17 @@ final class YandexGptApi {
   final YandexGptHttpClient _client;
   final YandexGptHeaderInterceptor _headerInterceptor;
 
+  /// Create default API Client.
+  ///
+  /// If [catalog] is not specified, [catalog] = [AuthToken] directory.
   YandexGptApi({
     required AuthToken token,
     String? catalog,
   }) : this.withDio(dio: Dio(), token: token, catalog: catalog);
 
+  /// Create API Client using Dio with [options].
+  ///
+  /// If [catalog] is not specified, [catalog] = [AuthToken] directory.
   YandexGptApi.withOptions({
     required BaseOptions options,
     required AuthToken token,
@@ -23,6 +29,10 @@ final class YandexGptApi {
           catalog: catalog,
         );
 
+  /// Create API Client using [dio].
+  /// ONE [dio] should only be used by ONE [YandexGptApi].
+  ///
+  /// If [catalog] is not specified, [catalog] = [AuthToken] directory.
   YandexGptApi.withDio({
     required Dio dio,
     required AuthToken token,
@@ -35,6 +45,9 @@ final class YandexGptApi {
     dio.interceptors.add(_headerInterceptor);
   }
 
+  /// Change authentication to [token].
+  ///
+  /// Current requests will not be stopped.
   void changeToken(AuthToken token) {
     _headerInterceptor.changeToken(token);
   }
@@ -65,6 +78,10 @@ final class YandexGptApi {
     return TextGenerationAsyncResponse.fromJson(res);
   }
 
+  /// Get text generation operation status for [operationId].
+  ///
+  /// See also:
+  /// - [generateAsyncText]
   Future<TextGenerationAsyncResponse> getOperationTextGenerate(
     String operationId, {
     CancelToken? cancelToken,
