@@ -25,7 +25,7 @@ void main() {
       expect(unknown, GeneratingStatus.unspecified);
     });
 
-    test("GeneratingStatus isFinal", (){
+    test("GeneratingStatus isFinal", () {
       const done1 = GeneratingStatus.finalDone;
       const done2 = GeneratingStatus.truncatedFinal;
 
