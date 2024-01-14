@@ -29,7 +29,8 @@ final class YandexGptApi {
           catalog: catalog,
         );
 
-  /// Create API Client using [dio].
+  /// Create API Client using [dio]. Adds authentication headers to all [dio] requests.
+  ///
   /// ONE [dio] should only be used by ONE [YandexGptApi].
   ///
   /// If [catalog] is not specified, [catalog] = [AuthToken] directory.

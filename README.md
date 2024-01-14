@@ -14,6 +14,7 @@ Create `YandexGptApi` instance.
 
 ```dart
 
+// For passing BaseOptions or Dio use other constructors.
 final api = YandexGptApi(
   token: AuthToken.api("your_token"), // or AuthToken.iam
   // Not necessary, by default uses catalog from AuthToken account.
@@ -23,7 +24,7 @@ final api = YandexGptApi(
 
 Now you can use the YandexGPT API.
 
-## API capabilities
+## API calls
 
 <details>
 <summary>Text Generation</summary>
