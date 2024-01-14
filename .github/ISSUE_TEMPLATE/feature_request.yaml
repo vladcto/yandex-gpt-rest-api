@@ -23,3 +23,6 @@ body:
       placeholder: What will get better
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to fill out this feature request <3
