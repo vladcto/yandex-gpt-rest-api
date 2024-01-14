@@ -11,10 +11,8 @@ class CompletionOptions {
   /// Create configuration for completion with:
   /// - [temperature] - lower values produce more straightforward responses,
   /// while higher values lead to increased creativity and randomness
-  ///
   /// - [maxTokens] - limit of used tokens.
   /// The maximum allowed parameter value may depend on the model used.
-  ///
   /// - [stream] - enables streaming of partially generated text.
   const CompletionOptions({
     this.stream = false,

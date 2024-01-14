@@ -84,7 +84,7 @@ void main() {
           result.alternatives.first.toString(),
           const MessageHolder(
             message: Message.assistant("sus"),
-            status: MessageHolderStatus.finalDone,
+            status: GeneratingStatus.finalDone,
           ).toString(),
         );
       });
