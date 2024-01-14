@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest an idea for this library
+title: '[ENCH] '
+labels:
+  - "enhancement"
+  - "triage"
+assignees:
+  - vladcto
+body:
+  - type: textarea
+    id: what-add
+    attributes:
+      label: What would you like to add?
+      description: Suggestion of what should be added to the project. What functionality will be available to the user?
+      placeholder: Suggestion for library
+    validations:
+      required: true
+  - type: textarea
+    id: how-help
+    attributes:
+      label: What will this solve?
+      description: What will this solve? Or how would this simplify/improve the library?
+      placeholder: What will get better
+    validations:
+      required: true
