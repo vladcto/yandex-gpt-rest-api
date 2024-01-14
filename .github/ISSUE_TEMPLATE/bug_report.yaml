@@ -1,0 +1,35 @@
+name: Bug Report
+description: If something went wrong
+title: "[BUG] "
+labels: [ "bug", "triage" ]
+assignees:
+  - vladcto
+body:
+  - type: input
+    id: library-version
+    attributes:
+      label: Library version
+      description: Run `dart pub deps -s list --no-dev` and paste the package version.
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what happened and what was supposed to happen. And something extra if it may helps.
+      placeholder: Fill out me
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error logs
+      description: Leave blank if there is no error (unexpected behavior)
+      placeholder: Paste the logs
+      render: Text
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to fill out this bug report <3
