@@ -1,6 +1,7 @@
 import 'package:yandex_gpt_rest_api/src/models/gpt_models/gpt_model.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/models_uri.dart';
 
+/// Generative models.
 class GModel extends GptModel {
   const GModel.raw(String uri) : super.raw(uri: uri);
 

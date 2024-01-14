@@ -23,10 +23,13 @@ class Message {
 
   const Message._({required this.text, required this.role});
 
+  /// Message by the user to describe requests to the model.
   const Message.user(this.text) : role = Role.user;
 
+  /// Message used to define the behaviour of the completion model.
   const Message.system(this.text) : role = Role.system;
 
+  /// Message used by the model to generate responses.
   const Message.assistant(this.text) : role = Role.assistant;
 
   @override
