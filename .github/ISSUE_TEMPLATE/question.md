@@ -7,4 +7,4 @@ assignees: 'vladcto'
 
 ---
 
-Write the essence of the question 🦐
+Write the essence of the question 🐳
