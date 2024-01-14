@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:yandex_gpt_rest_api/src/models/errors/api_error.dart';
 
-/// Facade for working with `Dio`
+/// Facade for working with `Dio`.
 class YandexGptHttpClient {
   final Dio _dio;
 

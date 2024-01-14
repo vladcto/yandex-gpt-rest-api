@@ -103,7 +103,7 @@ Future<void> handleErrors() async {
   } on ApiError catch (e) {
     final error = switch (e) {
       DetailedApiError(httpCode: final httpCode) => httpCode,
-      ShortApiError(code: final gptCode) => gptCode,
+      ShortApiError(grpcCode: final grpcCode) => grpcCode,
     };
     print("Error($error) message: ${e.message}");
   } on DioException catch (e) {
