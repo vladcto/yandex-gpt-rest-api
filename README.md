@@ -9,13 +9,15 @@
 - [Cancel requests](#cancel-requests)
 
 ## Getting started
+
 Create `YandexGptApi` instance.
 
 ```dart
+
 final api = YandexGptApi(
   token: AuthToken.api("your_token"),
   // Not necessary, by default using catalog ID of AuthToken Account.
-  catalog: "catalog_id?",  
+  catalog: "catalog_id?",
 );
 ```
 
@@ -23,9 +25,10 @@ Now you can use the YandexGPT API.
 
 ## API capabilities
 
-### Text Generation
+<details>
+<summary>Text Generation</summary>
 
-#### Generate text
+### Generate sync text
 
 ```dart
 void main() async {
@@ -43,7 +46,7 @@ void main() async {
 }
 ```
 
-#### Generate async text
+### Generate async text
 
 ```dart
 void main() async {
@@ -59,10 +62,12 @@ void main() async {
   print(response.done);
 }
 ```
+</details>
 
-### Tokenize
+<details>
+<summary>Tokenize</summary>
 
-#### Tokenize completion
+### Tokenize completion
 
 ```dart
 void main() async {
@@ -79,7 +84,7 @@ void main() async {
 }
 ```
 
-#### Tokenize text
+### Tokenize text
 
 ```dart
 void main() async {
@@ -92,8 +97,10 @@ void main() async {
   print(response.tokens.length);
 }
 ```
+</details>
 
-### Embeddings
+<details>
+<summary>Embeddings</summary>
 
 ```dart
 void main() async {
@@ -106,6 +113,7 @@ void main() async {
   print(response.embedding);
 }
 ```
+</details>
 
 ## Handling errors
 
@@ -113,11 +121,11 @@ It is enough to catch an error of type `ApiError`.
 
 ```dart
 try {
-  await api.generateText(/*request*/);
+await api.generateText(/*request*/);
 } on ApiError catch (e) {
-  // handle ApiErrors
+// handle ApiErrors
 } on DioException catch (e) {
-  // Handle network errors
+// Handle network errors
 }
 ```
 
@@ -125,18 +133,19 @@ If you need information about the error (grpcCode for example):
 
 ```dart
 try {
-  await api.generateText(/*request*/);
+await api.generateText(/*request*/);
 } on DetailedApiError catch (e) {
-  // Do some
+// Do some
 } on ShortApiError catch (e) {
-  // Do some
+// Do some
 } on DioException catch (e) {
-  // Handle network errors
+// Handle network errors
 }
 ```
 
 ## Cancel requests
 
-To cancel requests use Dio `CancelToken` by passing api requests with `cancelToken` param.
+To cancel requests use Dio `CancelToken` by passing API requests with `cancelToken` param.
 
-The handling cancellation is similar to the [example from the Dio doc](https://github.com/cfug/dio/blob/51d0bbb74298f40ef2f54d6109c2510c978f3771/example/lib/cancel_request.dart).
+The handling cancellation is similar to
+the [example from the Dio doc](https://github.com/cfug/dio/blob/51d0bbb74298f40ef2f54d6109c2510c978f3771/example/lib/cancel_request.dart).
