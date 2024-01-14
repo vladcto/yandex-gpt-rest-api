@@ -1,6 +1,6 @@
 name: yandex_gpt_rest_api
-description: Dart package for calling the Foundation Models RESTfull API.
-version: 0.5.1
+description: A library for using YandexGPT API, such as generating text and obtain embeddings.
+version: 0.5.2
 homepage: https://github.com/vladcto/yandex-gpt-rest-sdk
 repository: https://github.com/vladcto/yandex-gpt-rest-sdk
 
