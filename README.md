@@ -3,7 +3,18 @@
 [![Test CI](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_with_coverage.yaml/badge.svg?branch=main&event=push)](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_with_coverage.yaml)
 [![codecov](https://codecov.io/gh/vladcto/yandex-gpt-rest-api/graph/badge.svg?token=747T4E5KE6)](https://codecov.io/gh/vladcto/yandex-gpt-rest-api)
 
-## Creating YandexGptApi client
+---
+
+- [Getting started](#getting-started)
+- [API capabilities](#api-capabilities)
+- [Handling errors](#handling-errors)
+- [Cancel requests](#cancel-requests)
+
+---
+
+## Getting started
+Create `YandexGptApi` instance.
+
 ```dart
 final api = YandexGptApi(
   token: AuthToken.api("your_token"),
@@ -12,7 +23,7 @@ final api = YandexGptApi(
 );
 ```
 
-Now you can use the Foundation Models API.
+Now you can use the YandexGPT API.
 
 ## API capabilities
 
@@ -102,7 +113,7 @@ void main() async {
 
 ## Handling errors
 
-It is enough to catch an error of type ApiError.
+It is enough to catch an error of type `ApiError`.
 
 ```dart
 try {
@@ -118,7 +129,7 @@ If you need information about the error (grpcCode for example):
 
 ```dart
 try {
-    await api.generateText(/*request*/);
+  await api.generateText(/*request*/);
 } on DetailedApiError catch (e) {
   // Do some
 } on ShortApiError catch (e) {
@@ -128,8 +139,8 @@ try {
 }
 ```
 
-## Closing requests
+## Cancel requests
 
-To cancel requests use **Dio** `CancelToken` by passing `YandexGptApi` requests with `cancelToken` param.
+To cancel requests use Dio `CancelToken` by passing api requests with `cancelToken` param.
 
 The handling cancellation is similar to the [example from the Dio doc](https://github.com/cfug/dio/blob/51d0bbb74298f40ef2f54d6109c2510c978f3771/example/lib/cancel_request.dart).
