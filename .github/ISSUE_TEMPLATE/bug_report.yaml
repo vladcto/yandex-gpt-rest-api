@@ -1,6 +1,6 @@
 name: Bug Report
 description: If something went wrong
-title: "[Bug]: "
+title: "[BUG] "
 labels: [ "bug", "triage" ]
 assignees:
   - vladcto
