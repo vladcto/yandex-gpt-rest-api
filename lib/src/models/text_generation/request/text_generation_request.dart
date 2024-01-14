@@ -4,8 +4,10 @@ import 'package:yandex_gpt_rest_api/src/models/models.dart';
 class TextGenerationRequest {
   /// Model to be used for completion generation.
   final GModel model;
+
   /// Defines the options for completion generation.
   final CompletionOptions completionOptions;
+
   /// A list of messages representing the context for model.
   final List<Message> messages;
 

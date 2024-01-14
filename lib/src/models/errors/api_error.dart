@@ -6,8 +6,10 @@
 sealed class ApiError {
   /// Error code. An enum value of [Google.Rpc.Code](https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto).
   final int grpcCode;
+
   /// An error message.
   final String message;
+
   /// A list of messages that carry the error details.
   final List<String> details;
 

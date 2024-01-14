@@ -2,6 +2,7 @@
 class EmbeddingResponse {
   /// A repeated list of double values representing the embedding.
   final List<double> embedding;
+
   /// The number of tokens in the input text.
   final int numTokens;
   final String modelVersion;

@@ -5,10 +5,13 @@ import 'package:yandex_gpt_rest_api/src/utils/constants/alternative_status.dart'
 enum GeneratingStatus {
   /// Unspecified generation status.
   unspecified,
+
   /// Partially generated alternative.
   partial,
+
   /// Incomplete final alternative resulting from reaching the maximum allowed number of tokens.
   truncatedFinal,
+
   /// Final alternative generated without running into any limits.
   finalDone;
 

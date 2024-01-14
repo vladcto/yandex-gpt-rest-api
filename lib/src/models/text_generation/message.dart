@@ -4,8 +4,10 @@ import 'package:yandex_gpt_rest_api/src/utils/constants/roles.dart';
 enum Role {
   /// Role used by the user to describe requests to the model.
   user,
+
   /// Special role used to define the behaviour of the completion model.
   system,
+
   /// Role used by the model to generate responses.
   assistant;
 
@@ -30,6 +32,7 @@ enum Role {
 class Message {
   /// Message sender.
   final Role role;
+
   /// Content.
   final String text;
 

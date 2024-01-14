@@ -4,8 +4,10 @@ import 'package:yandex_gpt_rest_api/src/models/models.dart';
 class TextCompletion {
   /// A list of generated completion alternatives.
   final List<MessageHolder> alternatives;
+
   /// Describe used tokens by [modelVersion].
   final ModelUsage usage;
+
   /// Model version (changes with model releases).
   final String modelVersion;
 
