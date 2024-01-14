@@ -1,4 +1,8 @@
-/// All errors are on the Foundation Models API side.
+/// All errors are of the YandexGPT API side.
+///
+/// See also:
+/// - [DetailedApiError]
+/// - [ShortApiError]
 sealed class ApiError {
   final String message;
   final List<String> details;
@@ -16,7 +20,12 @@ sealed class ApiError {
   }
 }
 
-/// Foundation Models API error.
+/// YandexGPT API call error.
+/// Almost always requests return [DetailedApiError].
+///
+/// See also:
+/// - [ShortApiError]
+/// - [ApiError]
 final class DetailedApiError extends ApiError {
   final int grpcCode;
   final int httpCode;
@@ -44,6 +53,11 @@ final class DetailedApiError extends ApiError {
 }
 
 /// Error for the entire Yandex API. For example, the quota has expired.
+/// Rarely used.
+///
+/// See also:
+/// - [DetailedApiError]
+/// - [ApiError]
 final class ShortApiError extends ApiError {
   final int code;
 
