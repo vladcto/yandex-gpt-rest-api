@@ -17,16 +17,16 @@ body:
     id: what-happened
     attributes:
       label: What happened?
-      description: What did you do, what happened and what is about to happen. And something extra if it may helps.
+      description: What did you do, what happened and what was supposed to happen. And something extra if it may helps.
       placeholder: Fill out me
     validations:
       required: true
   - type: textarea
-    id: log-report
+    id: logs
     attributes:
       label: Error logs
       description: Leave blank if there is no error (unexpected behavior)
-      placeholder: Just paste the logs
+      placeholder: Paste the logs
       render: Text
     validations:
       required: false
