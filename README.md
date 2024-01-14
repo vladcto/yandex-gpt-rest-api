@@ -128,11 +128,11 @@ It is enough to catch an error of type `ApiError`.
 
 ```dart
 try {
-await api.generateText(/*request*/);
+  await api.generateText(/*request*/);
 } on ApiError catch (e) {
-// handle ApiErrors
+  // handle ApiErrors
 } on DioException catch (e) {
-// Handle network errors
+  // Handle network errors
 }
 ```
 
@@ -140,13 +140,13 @@ If you need information about the error:
 
 ```dart
 try {
-await api.generateText(/*request*/);
+  await api.generateText(/*request*/);
 } on DetailedApiError catch (e) {
-// Do some
+  // Do some
 } on ShortApiError catch (e) {
-// Do some
+  // Do some
 } on DioException catch (e) {
-// Handle network errors
+  // Handle network errors
 }
 ```
 
