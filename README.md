@@ -26,6 +26,10 @@ Now you can use the YandexGPT API.
 
 ## API calls
 
+The names of methods `YandexGptApi` are same to the names of API methods.
+
+Available API calls:
+
 <details>
 <summary>Text Generation</summary>
 
