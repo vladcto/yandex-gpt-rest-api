@@ -1,18 +1,29 @@
-// TODO: Need API for operations
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
+/// Request for generating text completions in asynchronous mode.
+///
+/// Uses Yandex Operations API for check [id] status.
+///
+/// See also:
+/// - [YandexGptApi.generateAsyncText] - check status of operation with [id].
 class TextGenerationAsyncResponse {
+  /// ID of the operation.
   final String id;
+
+  /// Description of the operation. 0-256 characters long.
   final String description;
 
-  // TODO: May i use DateTime?
+  /// Creation timestamp. String in RFC3339 text format.
   final String createdAt;
+
+  /// ID of the user or service account who initiated the operation.
   final String createdBy;
   final String modifiedAt;
   final String? metadata;
   final ShortApiError? error;
   final TextCompletion? result;
 
+  /// Is the operation FINISHED and have [result] or [error].
   bool get done => result != null || error != null;
 
   TextGenerationAsyncResponse({

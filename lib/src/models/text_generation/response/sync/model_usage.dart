@@ -1,6 +1,12 @@
+/// A set of statistics describing the number of content tokens used by the completion model.
 class ModelUsage {
+  /// The number of tokens in the text parts of the model input.
   final int inputTextTokens;
+
+  /// The total number of tokens in the generated completions.
   final int completionTokens;
+
+  /// The total number of tokens, including all input tokens and all generated tokens.
   final int totalTokens;
 
   const ModelUsage({

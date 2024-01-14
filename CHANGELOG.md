@@ -1,3 +1,8 @@
+## 0.5.2
+
+- Docs improvements.
+- Renamed `MessageHolderStatus` to `GeneratingStatus`.
+
 ## 0.5.1
 
 - Docs improvements.

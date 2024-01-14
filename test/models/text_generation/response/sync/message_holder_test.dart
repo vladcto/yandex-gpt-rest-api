@@ -15,14 +15,27 @@ void main() {
       };
 
       final converted = MessageHolder.fromJson(json);
-      expect(converted.status, MessageHolderStatus.finalDone);
+      expect(converted.status, GeneratingStatus.finalDone);
       expect(converted.message.toJson(), equals(message.toJson()));
     });
 
-    test("MessageHolderStatus unknown", () {
-      final unknown = MessageHolderStatus.fromStatus('');
+    test("GeneratingStatus unknown", () {
+      final unknown = GeneratingStatus.fromStatus('');
 
-      expect(unknown, MessageHolderStatus.unspecified);
+      expect(unknown, GeneratingStatus.unspecified);
+    });
+
+    test("GeneratingStatus isFinal", () {
+      const done1 = GeneratingStatus.finalDone;
+      const done2 = GeneratingStatus.truncatedFinal;
+
+      const uncompleted1 = GeneratingStatus.unspecified;
+      const uncompleted2 = GeneratingStatus.partial;
+
+      expect(done1.isFinal, true);
+      expect(done2.isFinal, true);
+      expect(uncompleted1.isFinal, false);
+      expect(uncompleted2.isFinal, false);
     });
   });
 }

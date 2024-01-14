@@ -49,7 +49,7 @@ void main() {
       expect(response.modifiedAt, "modified");
       expect(response.metadata, "metadata");
       expect(response.done, true);
-      expect(response.error?.code, 1);
+      expect(response.error?.grpcCode, 1);
       expect(response.error?.message, 'message');
       expect(response.error?.details, containsAll(["detail"]));
     });
@@ -94,7 +94,7 @@ void main() {
       expect(response.done, true);
       expect(result.alternatives.first.message.role, Role.assistant);
       expect(result.alternatives.first.message.text, 'Hello');
-      expect(result.alternatives.first.status, MessageHolderStatus.finalDone);
+      expect(result.alternatives.first.status, GeneratingStatus.finalDone);
       expect(result.modelVersion, "08.12.2023");
       expect(result.usage.inputTextTokens, 16);
       expect(result.usage.completionTokens, 311);

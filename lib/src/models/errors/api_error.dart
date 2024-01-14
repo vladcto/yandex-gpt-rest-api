@@ -4,10 +4,20 @@
 /// - [DetailedApiError]
 /// - [ShortApiError]
 sealed class ApiError {
+  /// Error code. An enum value of [Google.Rpc.Code](https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto).
+  final int grpcCode;
+
+  /// An error message.
   final String message;
+
+  /// A list of messages that carry the error details.
   final List<String> details;
 
-  ApiError({required this.message, required this.details});
+  ApiError({
+    required this.grpcCode,
+    required this.message,
+    required this.details,
+  });
 
   static ApiError? tryParseJson(Map<String, dynamic> json) {
     try {
@@ -21,21 +31,20 @@ sealed class ApiError {
 }
 
 /// YandexGPT API call error.
-/// Almost always requests return [DetailedApiError].
+/// Almost always requests return this error.
 ///
 /// See also:
 /// - [ShortApiError]
 /// - [ApiError]
 final class DetailedApiError extends ApiError {
-  final int grpcCode;
   final int httpCode;
   final String httpStatus;
 
   DetailedApiError({
-    required this.grpcCode,
     required this.httpCode,
     required this.httpStatus,
     required super.message,
+    required super.grpcCode,
     required super.details,
   });
 
@@ -59,17 +68,15 @@ final class DetailedApiError extends ApiError {
 /// - [DetailedApiError]
 /// - [ApiError]
 final class ShortApiError extends ApiError {
-  final int code;
-
   ShortApiError({
-    required this.code,
+    required super.grpcCode,
     required super.message,
     required super.details,
   });
 
   factory ShortApiError.fromJson(Map<String, dynamic> json) {
     return ShortApiError(
-      code: json["code"] as int,
+      grpcCode: json["code"] as int,
       message: json["message"] as String,
       details: List.of(json["details"] as List<dynamic>).cast<String>(),
     );

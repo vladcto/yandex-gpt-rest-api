@@ -21,7 +21,7 @@ void main() {
     test("fromJson valid", () {
       const resMessage = MessageHolder(
         message: Message.assistant("Hello world!"),
-        status: MessageHolderStatus.finalDone,
+        status: GeneratingStatus.finalDone,
       );
       const usage = ModelUsage(
         inputTextTokens: 12,
