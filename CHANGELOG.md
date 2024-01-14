@@ -1,3 +1,7 @@
+## 0.5.1
+
+- Docs improvements.
+
 ## 0.5.0
 
 - Replaced the `HTTP.Client` with `Dio`.
