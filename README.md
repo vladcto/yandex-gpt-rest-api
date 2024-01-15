@@ -65,6 +65,14 @@ final response = await api.generateAsyncText(
 );
 print(response.done);
 ```
+
+### Fetch async generation status
+```dart
+final async = await api.generateAsyncText(\*request*\);
+final response = await api.getOperationTextGenerate(async.id);
+print(response.done);
+```
+
 </details>
 
 <details>
