@@ -63,8 +63,7 @@ final class DetailedApiError extends ApiError {
   }
 }
 
-/// Error for the entire Yandex API. For example, the quota has expired.
-/// Rarely used.
+/// Error for the entire Yandex API. Rarely used.
 ///
 /// See also:
 /// - [DetailedApiError]

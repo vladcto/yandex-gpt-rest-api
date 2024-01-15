@@ -11,6 +11,7 @@ enum Role {
   /// Role used by the model to generate responses.
   assistant;
 
+  /// @nodoc
   /// Role from YandexGPT API consts.
   factory Role.fromName(String name) {
     return switch (name) {

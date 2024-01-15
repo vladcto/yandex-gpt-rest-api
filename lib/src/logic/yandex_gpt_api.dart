@@ -4,6 +4,7 @@ import 'package:yandex_gpt_rest_api/src/logic/client/yandex_gpt_http_client.dart
 import 'package:yandex_gpt_rest_api/src/models/models.dart';
 import 'package:yandex_gpt_rest_api/src/utils/constants/api_url.dart';
 
+/// Client for YandexGPT RESTful API.
 final class YandexGptApi {
   final YandexGptHttpClient _client;
   final YandexGptHeaderInterceptor _headerInterceptor;
