@@ -55,6 +55,8 @@ print(response.usage.totalTokens);
 
 ### Generate async text
 
+The `generateAsyncText` returns the [Operation object](https://cloud.yandex.com/en/docs/api-design-guide/concepts/operation).
+
 ```dart
 final response = await api.generateAsyncText(
   TextGenerationRequest(
