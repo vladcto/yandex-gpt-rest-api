@@ -1,3 +1,4 @@
+/// Configuration options for completion generation.
 class CompletionOptions {
   /// Enables streaming of partially generated text.
   final bool stream;
@@ -8,9 +9,9 @@ class CompletionOptions {
   /// The limit on the number of tokens used for single completion generation.
   final int maxTokens;
 
-  /// Create configuration for completion with:
+  /// Create configuration for completion.
   /// - [temperature] - lower values produce more straightforward responses,
-  /// while higher values lead to increased creativity and randomness
+  /// while higher values lead to increased creativity and randomness.
   /// - [maxTokens] - limit of used tokens.
   /// The maximum allowed parameter value may depend on the model used.
   /// - [stream] - enables streaming of partially generated text.

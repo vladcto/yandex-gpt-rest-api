@@ -37,6 +37,7 @@ class TextGenerationAsyncResponse {
     required this.result,
   });
 
+  /// @nodoc
   factory TextGenerationAsyncResponse.fromJson(Map<String, dynamic> json) {
     return TextGenerationAsyncResponse(
       id: json["id"] as String,

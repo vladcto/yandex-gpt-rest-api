@@ -63,6 +63,7 @@ class Message {
     return 'Message{role: $role, text: $text}';
   }
 
+  /// @nodoc
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message._(
       role: Role.fromName(json["role"] as String),

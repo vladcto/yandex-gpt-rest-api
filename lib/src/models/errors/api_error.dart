@@ -19,6 +19,7 @@ sealed class ApiError {
     required this.details,
   });
 
+  /// @nodoc
   static ApiError? tryParseJson(Map<String, dynamic> json) {
     try {
       return DetailedApiError.fromJson(json);
@@ -48,6 +49,7 @@ final class DetailedApiError extends ApiError {
     required super.details,
   });
 
+  /// @nodoc
   factory DetailedApiError.fromJson(Map<String, dynamic> json) {
     json = json['error'] as Map<String, dynamic>;
 
@@ -74,6 +76,7 @@ final class ShortApiError extends ApiError {
     required super.details,
   });
 
+  /// @nodoc
   factory ShortApiError.fromJson(Map<String, dynamic> json) {
     return ShortApiError(
       grpcCode: json["code"] as int,

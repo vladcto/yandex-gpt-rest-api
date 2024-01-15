@@ -25,6 +25,7 @@ class TextGenerationRequest {
         'completionOptions: $completionOptions, messages: $messages}';
   }
 
+  /// @nodoc
   factory TextGenerationRequest.fromJson(Map<String, dynamic> json) {
     return TextGenerationRequest(
       model: GModel.raw(json["modelUri"] as String),

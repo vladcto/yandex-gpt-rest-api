@@ -1,3 +1,4 @@
+/// YandexGPT Token.
 class Token {
   /// An internal token identifier.
   final String id;
@@ -15,6 +16,7 @@ class Token {
     return 'Token{id: $id, text: $text, special: $special}';
   }
 
+  /// @nodoc
   factory Token.fromJson(Map<String, dynamic> json) {
     return Token(
       id: json["id"] as String,

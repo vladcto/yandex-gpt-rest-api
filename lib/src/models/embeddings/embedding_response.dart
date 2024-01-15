@@ -18,6 +18,7 @@ class EmbeddingResponse {
     return 'EmbeddingResponse{embedding: $embedding, numTokens: $numTokens, modelVersion: $modelVersion}';
   }
 
+  /// @nodoc
   factory EmbeddingResponse.fromJson(Map<String, dynamic> json) {
     return EmbeddingResponse(
       embedding: List.of(json["embedding"] as List<dynamic>)

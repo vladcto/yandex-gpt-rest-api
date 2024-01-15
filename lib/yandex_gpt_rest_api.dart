@@ -1,4 +1,4 @@
-/// A library for communicating with YandexGPT RESTFull API.
+/// A library for communicating with YandexGPT RESTful API.
 ///
 /// Check [YandexGPT API Docs](https://cloud.yandex.ru/en/docs/yandexgpt/).
 library yandex_gpt_rest_api;
