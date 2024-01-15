@@ -1,7 +1,9 @@
-# yandex_gpt_rest_api
+# YandexGPT API Client
 
 [![Test CI](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_with_coverage.yaml/badge.svg?branch=main&event=push)](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_with_coverage.yaml)
 [![codecov](https://codecov.io/gh/vladcto/yandex-gpt-rest-api/graph/badge.svg?token=747T4E5KE6)](https://codecov.io/gh/vladcto/yandex-gpt-rest-api)
+
+Dart library for working with [YandexGPT API](https://cloud.yandex.ru/en/docs/yandexgpt/).
 
 - [Getting started](#getting-started)
 - [API capabilities](#api-capabilities)
@@ -33,40 +35,50 @@ Available API calls:
 <details>
 <summary>Text Generation</summary>
 
+When generating large text with configured small `dio.options.receiveTimeout` a timeout error may occur.
+
 ### Generate sync text
 
 ```dart
-void main() async {
-  final response = await api.generateText(
-    TextGenerationRequest(
-      model: GModel.yandexGpt('folder_id'),
-      messages: const [
-        Message.system("Some joke"),
-        Message.user("Generate joke"),
-      ],
-    ),
-  );
-  print(response.alternatives.first.message);
-  print(response.usage.totalTokens);
-}
+final response = await api.generateText(
+  TextGenerationRequest(
+    model: GModel.yandexGpt('folder_id'),
+    messages: const [
+      Message.system("Some joke"),
+      Message.user("Generate joke"),
+    ],
+  ),
+);
+print(response.alternatives.first.message);
+print(response.usage.totalTokens);
 ```
 
 ### Generate async text
 
+The `generateAsyncText` returns the [Operation object](https://cloud.yandex.com/en/docs/api-design-guide/concepts/operation).
+
+For handling `Operation` you can use [getOperationTextGenerate](#fetch-async-generation-status).
+
 ```dart
-void main() async {
-  final response = await api.generateAsyncText(
-    TextGenerationRequest(
-      model: GModel.yandexGpt('folder_id'),
-      messages: const [
-        Message.system("Some joke"),
-        Message.user("Generate joke"),
-      ],
-    ),
-  );
-  print(response.done);
-}
+final response = await api.generateAsyncText(
+  TextGenerationRequest(
+    model: GModel.yandexGpt('folder_id'),
+    messages: const [
+      Message.system("Some joke"),
+      Message.user("Generate joke"),
+    ],
+  ),
+);
+print(response.done);
 ```
+
+### Fetch async generation status
+```dart
+final async = await api.generateAsyncText(/*request*/);
+final response = await api.getOperationTextGenerate(async.id);
+print(response.done);
+```
+
 </details>
 
 <details>
@@ -75,32 +87,28 @@ void main() async {
 ### Tokenize completion
 
 ```dart
-void main() async {
-  final response = await api.tokenizeCompletion(
-    TextGenerationRequest(
-      model: GModel.yandexGpt('folder_id'),
-      messages: const [
-        Message.system("Some joke"),
-        Message.user("Generate joke"),
-      ],
-    ),
-  );
-  print(response.tokens.length);
-}
+final response = await api.tokenizeCompletion(
+  TextGenerationRequest(
+    model: GModel.yandexGpt('folder_id'),
+    messages: const [
+      Message.system("Some joke"),
+      Message.user("Generate joke"),
+    ],
+  ),
+);
+print(response.tokens.length);
 ```
 
 ### Tokenize text
 
 ```dart
-void main() async {
-  final response = await api.tokenizeText(
-    TokenizeTextRequest(
-      model: GModel.yandexGpt('folder_id'),
-      text: 'some_response_text',
-    ),
-  );
-  print(response.tokens.length);
-}
+final response = await api.tokenizeText(
+  TokenizeTextRequest(
+    model: GModel.yandexGpt('folder_id'),
+    text: 'some_response_text',
+  ),
+);
+print(response.tokens.length);
 ```
 </details>
 
@@ -110,15 +118,13 @@ void main() async {
 ### Text embedding
 
 ```dart
-void main() async {
-  final response = await api.getTextEmbedding(
-    EmbeddingRequest(
-      model: VModel.documentation('folder_id'),
-      text: 'Some text',
-    ),
-  );
-  print(response.embedding);
-}
+final response = await api.getTextEmbedding(
+  EmbeddingRequest(
+    model: VModel.documentation('folder_id'),
+    text: 'Some text',
+  ),
+);
+print(response.embedding);
 ```
 </details>
 
@@ -130,7 +136,7 @@ It is enough to catch an error of type `ApiError`.
 try {
   await api.generateText(/*request*/);
 } on ApiError catch (e) {
-  // handle ApiErrors
+  // Handle YandexGPT API errors
 } on DioException catch (e) {
   // Handle network errors
 }
@@ -142,9 +148,9 @@ If you need information about the error:
 try {
   await api.generateText(/*request*/);
 } on DetailedApiError catch (e) {
-  // Do some
+  // Handle DetailedApiError
 } on ShortApiError catch (e) {
-  // Do some
+  // Handle ShortApiError
 } on DioException catch (e) {
   // Handle network errors
 }

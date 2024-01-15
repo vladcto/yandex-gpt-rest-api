@@ -122,7 +122,7 @@ Future<void> closeRequest() async {
         cancelToken: cancelToken,
       )
       .then(
-        (value) => throw Exception("Never gonna get value"),
+        (value) => null,
         onError: (e) => print("Canceled with ${e.runtimeType}\n"),
       );
   cancelToken.cancel();

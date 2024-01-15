@@ -2,12 +2,10 @@ import 'package:yandex_gpt_rest_api/src/models/models.dart';
 
 /// Request for generating text completions in asynchronous mode.
 ///
-/// Uses Yandex Operations API for check [id] status.
-///
 /// See also:
 /// - [YandexGptApi.generateAsyncText] - check status of operation with [id].
 class TextGenerationAsyncResponse {
-  /// ID of the operation.
+  /// ID of the operation in Yandex Operations API.
   final String id;
 
   /// Description of the operation. 0-256 characters long.
@@ -37,6 +35,7 @@ class TextGenerationAsyncResponse {
     required this.result,
   });
 
+  /// @nodoc
   factory TextGenerationAsyncResponse.fromJson(Map<String, dynamic> json) {
     return TextGenerationAsyncResponse(
       id: json["id"] as String,

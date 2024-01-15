@@ -1,7 +1,7 @@
 ---
 name: Question
 about: Want to clarify something
-title: '[QST] <title>'
+title: '[QST] ...'
 labels: 'triage, question'
 assignees: 'vladcto'
 

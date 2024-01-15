@@ -1,6 +1,8 @@
 import 'package:yandex_gpt_rest_api/src/models/tokenizer/token.dart';
 
+/// Response containing tokenized content from request.
 class TokenizeResponse {
+  /// A list of tokens obtained from tokenization.
   final List<Token> tokens;
   final String modelVersion;
 
@@ -11,6 +13,7 @@ class TokenizeResponse {
     return 'TokenizeResponse{tokens: $tokens, modelVersion: $modelVersion}';
   }
 
+  /// @nodoc
   factory TokenizeResponse.fromJson(Map<String, dynamic> json) {
     return TokenizeResponse(
       tokens: List.of(json["tokens"] as List<dynamic>)

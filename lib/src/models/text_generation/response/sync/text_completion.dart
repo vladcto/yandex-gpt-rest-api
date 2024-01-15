@@ -22,6 +22,7 @@ class TextCompletion {
     return 'TextCompletion{alternatives: $alternatives, usage: $usage, modelVersion: $modelVersion}';
   }
 
+  /// @nodoc
   factory TextCompletion.fromJson(Map<String, dynamic> json) {
     return TextCompletion(
       alternatives: List.of(json["alternatives"] as List<dynamic>)

@@ -15,6 +15,8 @@ enum GeneratingStatus {
   /// Final alternative generated without running into any limits.
   finalDone;
 
+  /// @nodoc
+  /// Status from API constants.
   factory GeneratingStatus.fromStatus(String status) {
     return switch (status) {
       AlternativeStatus.finalDone => GeneratingStatus.finalDone,
@@ -40,6 +42,7 @@ class MessageHolder {
     return 'MessageHolder{message: $message, status: $status}';
   }
 
+  /// @nodoc
   factory MessageHolder.fromJson(Map<String, dynamic> json) {
     return MessageHolder(
       message: Message.fromJson(json["message"] as Map<String, dynamic>),

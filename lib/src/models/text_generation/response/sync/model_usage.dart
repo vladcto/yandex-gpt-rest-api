@@ -20,6 +20,7 @@ class ModelUsage {
     return 'ModelUsage{inputTextTokens: $inputTextTokens, completionTokens: $completionTokens, totalTokens: $totalTokens}';
   }
 
+  /// @nodoc
   factory ModelUsage.fromJson(Map<String, dynamic> json) {
     return ModelUsage(
       inputTextTokens: int.parse(json["inputTextTokens"] as String),

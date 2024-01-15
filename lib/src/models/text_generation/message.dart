@@ -11,6 +11,7 @@ enum Role {
   /// Role used by the model to generate responses.
   assistant;
 
+  /// @nodoc
   /// Role from YandexGPT API consts.
   factory Role.fromName(String name) {
     return switch (name) {
@@ -63,6 +64,7 @@ class Message {
     return 'Message{role: $role, text: $text}';
   }
 
+  /// @nodoc
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message._(
       role: Role.fromName(json["role"] as String),
