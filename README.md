@@ -35,7 +35,7 @@ Available API calls:
 <details>
 <summary>Text Generation</summary>
 
-When generating larger text with configured small `dio.options.receiveTimeout` a timeout error may occur.
+When generating large text with configured small `dio.options.receiveTimeout` a timeout error may occur.
 
 ### Generate sync text
 
@@ -56,6 +56,8 @@ print(response.usage.totalTokens);
 ### Generate async text
 
 The `generateAsyncText` returns the [Operation object](https://cloud.yandex.com/en/docs/api-design-guide/concepts/operation).
+
+For handling `Operation` you can use [getOperationTextGenerate](#fetch-async-generation-status)
 
 ```dart
 final response = await api.generateAsyncText(
