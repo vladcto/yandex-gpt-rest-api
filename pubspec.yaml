@@ -1,6 +1,6 @@
 name: yandex_gpt_rest_api
 description: A library for using YandexGPT API, such as generating text and obtain embeddings.
-version: 0.5.2
+version: 1.0.0
 homepage: https://github.com/vladcto/yandex-gpt-rest-sdk
 repository: https://github.com/vladcto/yandex-gpt-rest-sdk
 
