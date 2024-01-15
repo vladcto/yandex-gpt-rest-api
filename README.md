@@ -3,6 +3,8 @@
 [![Test CI](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_with_coverage.yaml/badge.svg?branch=main&event=push)](https://github.com/vladcto/yandex-gpt-rest-api/actions/workflows/test_with_coverage.yaml)
 [![codecov](https://codecov.io/gh/vladcto/yandex-gpt-rest-api/graph/badge.svg?token=747T4E5KE6)](https://codecov.io/gh/vladcto/yandex-gpt-rest-api)
 
+Dart library for working with [YandexGPT API](https://cloud.yandex.ru/en/docs/yandexgpt/).
+
 - [Getting started](#getting-started)
 - [API capabilities](#api-capabilities)
 - [Handling errors](#handling-errors)
@@ -36,36 +38,32 @@ Available API calls:
 ### Generate sync text
 
 ```dart
-void main() async {
-  final response = await api.generateText(
-    TextGenerationRequest(
-      model: GModel.yandexGpt('folder_id'),
-      messages: const [
-        Message.system("Some joke"),
-        Message.user("Generate joke"),
-      ],
-    ),
-  );
-  print(response.alternatives.first.message);
-  print(response.usage.totalTokens);
-}
+final response = await api.generateText(
+  TextGenerationRequest(
+    model: GModel.yandexGpt('folder_id'),
+    messages: const [
+      Message.system("Some joke"),
+      Message.user("Generate joke"),
+    ],
+  ),
+);
+print(response.alternatives.first.message);
+print(response.usage.totalTokens);
 ```
 
 ### Generate async text
 
 ```dart
-void main() async {
-  final response = await api.generateAsyncText(
-    TextGenerationRequest(
-      model: GModel.yandexGpt('folder_id'),
-      messages: const [
-        Message.system("Some joke"),
-        Message.user("Generate joke"),
-      ],
-    ),
-  );
-  print(response.done);
-}
+final response = await api.generateAsyncText(
+  TextGenerationRequest(
+    model: GModel.yandexGpt('folder_id'),
+    messages: const [
+      Message.system("Some joke"),
+      Message.user("Generate joke"),
+    ],
+  ),
+);
+print(response.done);
 ```
 </details>
 
@@ -75,32 +73,28 @@ void main() async {
 ### Tokenize completion
 
 ```dart
-void main() async {
-  final response = await api.tokenizeCompletion(
-    TextGenerationRequest(
-      model: GModel.yandexGpt('folder_id'),
-      messages: const [
-        Message.system("Some joke"),
-        Message.user("Generate joke"),
-      ],
-    ),
-  );
-  print(response.tokens.length);
-}
+final response = await api.tokenizeCompletion(
+  TextGenerationRequest(
+    model: GModel.yandexGpt('folder_id'),
+    messages: const [
+      Message.system("Some joke"),
+      Message.user("Generate joke"),
+    ],
+  ),
+);
+print(response.tokens.length);
 ```
 
 ### Tokenize text
 
 ```dart
-void main() async {
-  final response = await api.tokenizeText(
-    TokenizeTextRequest(
-      model: GModel.yandexGpt('folder_id'),
-      text: 'some_response_text',
-    ),
-  );
-  print(response.tokens.length);
-}
+final response = await api.tokenizeText(
+  TokenizeTextRequest(
+    model: GModel.yandexGpt('folder_id'),
+    text: 'some_response_text',
+  ),
+);
+print(response.tokens.length);
 ```
 </details>
 
@@ -110,15 +104,13 @@ void main() async {
 ### Text embedding
 
 ```dart
-void main() async {
-  final response = await api.getTextEmbedding(
-    EmbeddingRequest(
-      model: VModel.documentation('folder_id'),
-      text: 'Some text',
-    ),
-  );
-  print(response.embedding);
-}
+final response = await api.getTextEmbedding(
+  EmbeddingRequest(
+    model: VModel.documentation('folder_id'),
+    text: 'Some text',
+  ),
+);
+print(response.embedding);
 ```
 </details>
 
