@@ -74,8 +74,8 @@ print(response.done);
 
 ### Fetch async generation status
 ```dart
-final async = await api.generateAsyncText(/*request*/);
-final response = await api.getOperationTextGenerate(async.id);
+final asyncText = await api.generateAsyncText(/*request*/);
+final response = await api.getOperationTextGenerate(asyncText.id);
 print(response.done);
 ```
 
