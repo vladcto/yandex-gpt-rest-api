@@ -1,7 +1,3 @@
-## 1.0.0
-
-- Stable version release.
-
 ## 0.5.2
 
 - Docs improvements.
