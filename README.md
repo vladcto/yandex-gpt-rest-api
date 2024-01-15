@@ -57,7 +57,7 @@ print(response.usage.totalTokens);
 
 The `generateAsyncText` returns the [Operation object](https://cloud.yandex.com/en/docs/api-design-guide/concepts/operation).
 
-For handling `Operation` you can use [getOperationTextGenerate](#fetch-async-generation-status)
+For handling `Operation` you can use [getOperationTextGenerate](#fetch-async-generation-status).
 
 ```dart
 final response = await api.generateAsyncText(
@@ -136,7 +136,7 @@ It is enough to catch an error of type `ApiError`.
 try {
   await api.generateText(/*request*/);
 } on ApiError catch (e) {
-  // handle ApiErrors
+  // Handle YandexGPT API errors
 } on DioException catch (e) {
   // Handle network errors
 }
@@ -148,9 +148,9 @@ If you need information about the error:
 try {
   await api.generateText(/*request*/);
 } on DetailedApiError catch (e) {
-  // Do some
+  // Handle DetailedApiError
 } on ShortApiError catch (e) {
-  // Do some
+  // Handle ShortApiError
 } on DioException catch (e) {
   // Handle network errors
 }
