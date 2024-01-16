@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Update license.
+
 ## 1.0.0
 
 - Stable version release.
