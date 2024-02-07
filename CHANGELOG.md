@@ -1,5 +1,6 @@
-## 1.0.1
+## 1.0.2
 
+- Update docs.
 - Update license.
 
 ## 1.0.0
