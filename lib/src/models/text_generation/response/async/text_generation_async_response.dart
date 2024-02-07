@@ -3,7 +3,7 @@ import 'package:yandex_gpt_rest_api/src/models/models.dart';
 /// Request for generating text completions in asynchronous mode.
 ///
 /// See also:
-/// - [YandexGptApi.generateAsyncText] - check status of operation with [id].
+/// - [YandexGptApi.getOperationTextGenerate] - check status of operation with [id].
 class TextGenerationAsyncResponse {
   /// ID of the operation in Yandex Operations API.
   final String id;
